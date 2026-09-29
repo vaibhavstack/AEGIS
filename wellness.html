@@ -1,0 +1,1491 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AEGIS — Daily Wellness Check-In</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================================
+           AEGIS WELLNESS PAGE
+           Page-specific structure and functionality styles
+           Global colors are controlled by theme.css
+           ========================================================= */
+
+        .wellness-page {
+            min-height: 100vh;
+            padding: 0 6vw 80px;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 32px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .page-top {
+            max-width: 1100px;
+            margin: 55px auto 30px;
+        }
+
+        .page-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .page-title {
+            margin: 0;
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(38px, 5vw, 68px);
+            line-height: 1;
+            letter-spacing: -0.045em;
+        }
+
+        .page-title span {
+            display: block;
+        }
+
+        .page-description {
+            max-width: 720px;
+            margin-top: 22px;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        /* =========================================================
+           MODULE NAVIGATION
+           ========================================================= */
+
+        .module-nav {
+            max-width: 1100px;
+            margin: 0 auto 34px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .module-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 15px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .module-nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           STATUS BAR
+           ========================================================= */
+
+        .wellness-status-bar {
+            max-width: 1100px;
+            margin: 0 auto 28px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .status-item {
+            padding: 17px 20px;
+            border-radius: 16px;
+            border: 1px solid;
+        }
+
+        .status-label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .status-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .status-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .status-live::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* =========================================================
+           MAIN GRID
+           ========================================================= */
+
+        .wellness-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.8fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .wellness-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid;
+            padding: 30px;
+        }
+
+        .wellness-card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            top: -100px;
+            right: -80px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .card-header {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-family: "Manrope", sans-serif;
+            font-size: 22px;
+            letter-spacing: -0.025em;
+        }
+
+        .card-code {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           QUESTIONS
+           ========================================================= */
+
+        .checkin-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .question {
+            margin-bottom: 28px;
+        }
+
+        .question-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .question-number {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .question-text {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .question-value {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 5px;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 999px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(40, 51, 44, 0.18);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(40, 51, 44, 0.18);
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 10px;
+        }
+
+        /* =========================================================
+           SELECT
+           ========================================================= */
+
+        .duty-select {
+            width: 100%;
+            padding: 13px 15px;
+            border-radius: 12px;
+            border: 1px solid;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           NOTES
+           ========================================================= */
+
+        .wellness-notes {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+            padding: 14px 15px;
+            border-radius: 12px;
+            border: 1px solid;
+            font-family: inherit;
+            font-size: 13px;
+            line-height: 1.6;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        /* =========================================================
+           SUBMIT
+           ========================================================= */
+
+        .submit-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .local-note {
+            max-width: 340px;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 14px 22px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           READINESS CARD
+           ========================================================= */
+
+        .readiness-card {
+            min-height: 500px;
+        }
+
+        .readiness-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .readiness-orbit {
+            position: relative;
+            width: 230px;
+            height: 230px;
+            margin: 25px auto 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .readiness-orbit::before,
+        .readiness-orbit::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .readiness-orbit::before {
+            inset: 0;
+            border: 1px solid;
+        }
+
+        .readiness-orbit::after {
+            inset: 16px;
+            border: 1px dashed;
+        }
+
+        .readiness-center {
+            position: relative;
+            z-index: 2;
+            width: 155px;
+            height: 155px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid;
+        }
+
+        .readiness-score {
+            font-family: "Manrope", sans-serif;
+            font-size: 48px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .readiness-unit {
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .readiness-label {
+            margin-top: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           RESULT LINES
+           ========================================================= */
+
+        .result-lines {
+            width: 100%;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid;
+            font-size: 12px;
+        }
+
+        .result-line:last-child {
+            border-bottom: none;
+        }
+
+        .result-line span:last-child {
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           PRIVACY BOX
+           ========================================================= */
+
+        .privacy-box {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid;
+        }
+
+        .privacy-title {
+            margin-bottom: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .privacy-text {
+            margin: 0;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+            .wellness-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .readiness-card {
+                min-height: auto;
+            }
+
+            .readiness-orbit {
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .wellness-page {
+                padding: 0 20px 60px;
+            }
+
+            .page-top {
+                margin-top: 40px;
+            }
+
+            .wellness-status-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .wellness-card {
+                padding: 22px;
+                border-radius: 20px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .submit-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .local-note {
+                max-width: none;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+
+            .module-nav {
+                gap: 6px;
+            }
+
+            .module-nav a {
+                padding: 0 12px;
+                font-size: 10px;
+            }
+        }
+    </style>
+
+    <!-- IMPORTANT:
+         theme.css comes AFTER the page-specific CSS
+         so the unified AEGIS palette overrides old colors. -->
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+
+    <!-- Background layers -->
+    <div class="noise"></div>
+    <div class="grid"></div>
+
+    <!-- =========================================================
+         NAVBAR
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+            <div class="brand-mark">A</div>
+
+            <div>
+                <div class="brand-name">AEGIS</div>
+                <div class="brand-subtitle">
+                    PERSONNEL WELFARE SYSTEM
+                </div>
+            </div>
+        </a>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            OFFLINE SECURE MODE
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN PAGE
+         ========================================================= -->
+
+    <main class="wellness-page">
+
+        <a href="index.html" class="back-home">
+            ← BACK TO AEGIS
+        </a>
+
+
+        <!-- PAGE INTRO -->
+
+        <section class="page-top">
+
+            <div class="page-eyebrow">
+                DAILY PERSONNEL CHECK-IN
+            </div>
+
+            <h1 class="page-title">
+                Know how you
+                <span>really feel.</span>
+            </h1>
+
+            <p class="page-description">
+                A short private check-in that helps AEGIS understand
+                your current recovery, energy, mood, fatigue and stress
+                state. Your responses remain stored locally on this device.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             MODULE NAVIGATION
+             ===================================================== -->
+
+        <nav class="module-nav" aria-label="AEGIS modules">
+
+            <a href="index.html">
+                HOME
+            </a>
+
+            <a href="wellness.html">
+                WELLNESS
+            </a>
+
+            <a href="stress.html">
+                STRESS
+            </a>
+
+            <a href="health.html">
+                HEALTH
+            </a>
+
+            <a href="family.html">
+                FAMILY
+            </a>
+
+            <a href="mental.html">
+                MENTAL
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+        </nav>
+
+
+        <!-- =====================================================
+             SYSTEM STATUS
+             ===================================================== -->
+
+        <section class="wellness-status-bar">
+
+            <div class="status-item">
+                <span class="status-label">
+                    DATA MODE
+                </span>
+
+                <span class="status-value">
+                    LOCAL ONLY
+                </span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-label">
+                    CHECK-IN
+                </span>
+
+                <span class="status-value status-live">
+                    READY
+                </span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-label">
+                    PRIVACY
+                </span>
+
+                <span class="status-value">
+                    DEVICE SECURED
+                </span>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MAIN CONTENT GRID
+             ===================================================== -->
+
+        <section class="wellness-grid">
+
+
+            <!-- =================================================
+                 CHECK-IN FORM
+                 ================================================= -->
+
+            <article class="wellness-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2 class="card-title">
+                            Daily Wellness Check
+                        </h2>
+                    </div>
+
+                    <div class="card-code">
+                        AEGIS / WELL-01
+                    </div>
+
+                </div>
+
+
+                <div class="checkin-body">
+
+
+                    <!-- SLEEP -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    01 / RECOVERY
+                                </div>
+
+                                <p class="question-text">
+                                    How well did you sleep?
+                                </p>
+                            </div>
+
+                            <div class="question-value">
+                                <span id="sleepValue">5</span>/10
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="sleep"
+                            min="0"
+                            max="10"
+                            value="5"
+                            oninput="updateValue('sleep')"
+                        >
+
+                        <div class="range-labels">
+                            <span>POOR</span>
+                            <span>RESTFUL</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ENERGY -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    02 / ENERGY
+                                </div>
+
+                                <p class="question-text">
+                                    How energetic do you feel right now?
+                                </p>
+                            </div>
+
+                            <div class="question-value">
+                                <span id="energyValue">5</span>/10
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="energy"
+                            min="0"
+                            max="10"
+                            value="5"
+                            oninput="updateValue('energy')"
+                        >
+
+                        <div class="range-labels">
+                            <span>EXHAUSTED</span>
+                            <span>ENERGETIC</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- FATIGUE -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    03 / FATIGUE
+                                </div>
+
+                                <p class="question-text">
+                                    How physically fatigued do you feel?
+                                </p>
+                            </div>
+
+                            <div class="question-value">
+                                <span id="fatigueValue">5</span>/10
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="fatigue"
+                            min="0"
+                            max="10"
+                            value="5"
+                            oninput="updateValue('fatigue')"
+                        >
+
+                        <div class="range-labels">
+                            <span>FRESH</span>
+                            <span>EXHAUSTED</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- MOOD -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    04 / MOOD
+                                </div>
+
+                                <p class="question-text">
+                                    How would you describe your mood?
+                                </p>
+                            </div>
+
+                            <div class="question-value">
+                                <span id="moodValue">5</span>/10
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="mood"
+                            min="0"
+                            max="10"
+                            value="5"
+                            oninput="updateValue('mood')"
+                        >
+
+                        <div class="range-labels">
+                            <span>LOW</span>
+                            <span>POSITIVE</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- STRESS -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    05 / STRESS
+                                </div>
+
+                                <p class="question-text">
+                                    How stressed do you feel?
+                                </p>
+                            </div>
+
+                            <div class="question-value">
+                                <span id="stressValue">5</span>/10
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="stress"
+                            min="0"
+                            max="10"
+                            value="5"
+                            oninput="updateValue('stress')"
+                        >
+
+                        <div class="range-labels">
+                            <span>CALM</span>
+                            <span>HIGH STRESS</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- DUTY STATUS -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    06 / DUTY
+                                </div>
+
+                                <p class="question-text">
+                                    What is your current duty status?
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <select id="dutyStatus" class="duty-select">
+
+                            <option value="normal">
+                                Normal Duty
+                            </option>
+
+                            <option value="field">
+                                Field Duty
+                            </option>
+
+                            <option value="night">
+                                Night Duty
+                            </option>
+
+                            <option value="high-alert">
+                                High Alert / Operational
+                            </option>
+
+                            <option value="leave">
+                                Leave / Rest
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div class="question">
+
+                        <div class="question-top">
+
+                            <div>
+                                <div class="question-number">
+                                    07 / CONTEXT
+                                </div>
+
+                                <p class="question-text">
+                                    Anything important you want AEGIS to know?
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <textarea
+                            id="wellnessNotes"
+                            class="wellness-notes"
+                            placeholder="Optional — describe anything affecting your current state..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <div class="submit-row">
+
+                        <div class="local-note">
+                            Your check-in is processed locally on this device.
+                            No cloud transmission is required.
+                        </div>
+
+                        <button
+                            type="button"
+                            class="submit-btn"
+                            onclick="calculateWellness()"
+                        >
+                            CALCULATE WELLNESS
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 READINESS
+                 ================================================= -->
+
+            <aside class="wellness-card readiness-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2 class="card-title">
+                            Readiness
+                        </h2>
+                    </div>
+
+                    <div class="card-code">
+                        LIVE RESULT
+                    </div>
+
+                </div>
+
+
+                <div class="readiness-content">
+
+
+                    <div class="readiness-orbit">
+
+                        <div class="readiness-center">
+
+                            <div
+                                class="readiness-score"
+                                id="readinessScore"
+                            >
+                                50
+                            </div>
+
+                            <div class="readiness-unit">
+                                / 100
+                            </div>
+
+                            <div
+                                class="readiness-label"
+                                id="readinessLabel"
+                            >
+                                INITIAL
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-lines">
+
+                        <div class="result-line">
+
+                            <span>
+                                Recovery
+                            </span>
+
+                            <span id="recoveryResult">
+                                Pending
+                            </span>
+
+                        </div>
+
+                        <div class="result-line">
+
+                            <span>
+                                Energy
+                            </span>
+
+                            <span id="energyResult">
+                                Pending
+                            </span>
+
+                        </div>
+
+                        <div class="result-line">
+
+                            <span>
+                                Fatigue
+                            </span>
+
+                            <span id="fatigueResult">
+                                Pending
+                            </span>
+
+                        </div>
+
+                        <div class="result-line">
+
+                            <span>
+                                Stress
+                            </span>
+
+                            <span id="stressResult">
+                                Pending
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRIVACY -->
+
+                    <div class="privacy-box">
+
+                        <div class="privacy-title">
+                            LOCAL PRIVACY
+                        </div>
+
+                        <p class="privacy-text">
+                            AEGIS stores your wellness check-in locally
+                            using browser storage. This prototype does not
+                            upload your personal wellness responses to a
+                            remote server.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         WELLNESS LOGIC
+         ========================================================= -->
+
+    <script>
+
+        function updateValue(id) {
+
+            const input = document.getElementById(id);
+            const output = document.getElementById(id + "Value");
+
+            if (input && output) {
+                output.textContent = input.value;
+            }
+        }
+
+
+        function calculateWellness() {
+
+            const sleep =
+                Number(document.getElementById("sleep").value);
+
+            const energy =
+                Number(document.getElementById("energy").value);
+
+            const fatigue =
+                Number(document.getElementById("fatigue").value);
+
+            const mood =
+                Number(document.getElementById("mood").value);
+
+            const stress =
+                Number(document.getElementById("stress").value);
+
+            const dutyStatus =
+                document.getElementById("dutyStatus").value;
+
+            const notes =
+                document.getElementById("wellnessNotes").value.trim();
+
+
+            /*
+             * Prototype wellness score.
+             *
+             * Positive factors:
+             * - Sleep
+             * - Energy
+             * - Mood
+             *
+             * Negative factors:
+             * - Fatigue
+             * - Stress
+             */
+
+            const wellnessScore = Math.round(
+                (
+                    sleep +
+                    energy +
+                    (10 - fatigue) +
+                    mood +
+                    (10 - stress)
+                ) * 2
+            );
+
+
+            let readinessLabel = "";
+            let recoveryLabel = "";
+            let energyLabel = "";
+            let fatigueLabel = "";
+            let stressLabel = "";
+
+
+            /* Readiness */
+
+            if (wellnessScore >= 80) {
+
+                readinessLabel = "STABLE / READY";
+
+            } else if (wellnessScore >= 60) {
+
+                readinessLabel = "MONITOR / MODERATE";
+
+            } else {
+
+                readinessLabel = "ATTENTION REQUIRED";
+
+            }
+
+
+            /* Recovery */
+
+            if (sleep >= 7) {
+
+                recoveryLabel = "GOOD";
+
+            } else if (sleep >= 5) {
+
+                recoveryLabel = "MODERATE";
+
+            } else {
+
+                recoveryLabel = "LOW";
+
+            }
+
+
+            /* Energy */
+
+            if (energy >= 7) {
+
+                energyLabel = "HIGH";
+
+            } else if (energy >= 5) {
+
+                energyLabel = "MODERATE";
+
+            } else {
+
+                energyLabel = "LOW";
+
+            }
+
+
+            /* Fatigue */
+
+            if (fatigue <= 3) {
+
+                fatigueLabel = "LOW";
+
+            } else if (fatigue <= 6) {
+
+                fatigueLabel = "MODERATE";
+
+            } else {
+
+                fatigueLabel = "HIGH";
+
+            }
+
+
+            /* Stress */
+
+            if (stress <= 3) {
+
+                stressLabel = "LOW";
+
+            } else if (stress <= 6) {
+
+                stressLabel = "MODERATE";
+
+            } else {
+
+                stressLabel = "HIGH";
+
+            }
+
+
+            /* Update UI */
+
+            document.getElementById("readinessScore").textContent =
+                wellnessScore;
+
+            document.getElementById("readinessLabel").textContent =
+                readinessLabel;
+
+            document.getElementById("recoveryResult").textContent =
+                recoveryLabel;
+
+            document.getElementById("energyResult").textContent =
+                energyLabel;
+
+            document.getElementById("fatigueResult").textContent =
+                fatigueLabel;
+
+            document.getElementById("stressResult").textContent =
+                stressLabel;
+
+
+            /* Data object */
+
+            const wellnessData = {
+
+                timestamp: new Date().toISOString(),
+
+                sleep,
+                energy,
+                fatigue,
+                mood,
+                stress,
+
+                dutyStatus,
+                notes,
+
+                wellnessScore,
+                readinessLabel
+
+            };
+
+
+            /* Latest result */
+
+            localStorage.setItem(
+                "aegisLatestWellness",
+                JSON.stringify(wellnessData)
+            );
+
+
+            /* History */
+
+            let history = [];
+
+            try {
+
+                history = JSON.parse(
+                    localStorage.getItem("aegisWellnessHistory")
+                ) || [];
+
+            } catch (error) {
+
+                history = [];
+
+            }
+
+
+            history.unshift(wellnessData);
+
+
+            /* Keep maximum 30 records */
+
+            history = history.slice(0, 30);
+
+
+            localStorage.setItem(
+                "aegisWellnessHistory",
+                JSON.stringify(history)
+            );
+
+
+            alert(
+                "Wellness check completed.\n\n" +
+                "Readiness Score: " +
+                wellnessScore +
+                "/100\n\n" +
+                "Your result has been saved locally on this device."
+            );
+
+        }
+
+
+        /*
+         * Initialize displayed values.
+         */
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            [
+                "sleep",
+                "energy",
+                "fatigue",
+                "mood",
+                "stress"
+            ].forEach(function (id) {
+
+                updateValue(id);
+
+            });
+
+
+            /*
+             * If previous wellness data exists,
+             * restore the latest values.
+             */
+
+            try {
+
+                const saved =
+                    JSON.parse(
+                        localStorage.getItem("aegisLatestWellness")
+                    );
+
+                if (saved) {
+
+                    if (saved.sleep !== undefined) {
+                        document.getElementById("sleep").value =
+                            saved.sleep;
+                    }
+
+                    if (saved.energy !== undefined) {
+                        document.getElementById("energy").value =
+                            saved.energy;
+                    }
+
+                    if (saved.fatigue !== undefined) {
+                        document.getElementById("fatigue").value =
+                            saved.fatigue;
+                    }
+
+                    if (saved.mood !== undefined) {
+                        document.getElementById("mood").value =
+                            saved.mood;
+                    }
+
+                    if (saved.stress !== undefined) {
+                        document.getElementById("stress").value =
+                            saved.stress;
+                    }
+
+                    if (saved.dutyStatus) {
+                        document.getElementById("dutyStatus").value =
+                            saved.dutyStatus;
+                    }
+
+                    if (saved.notes) {
+                        document.getElementById("wellnessNotes").value =
+                            saved.notes;
+                    }
+
+
+                    [
+                        "sleep",
+                        "energy",
+                        "fatigue",
+                        "mood",
+                        "stress"
+                    ].forEach(function (id) {
+
+                        updateValue(id);
+
+                    });
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "No previous wellness data available."
+                );
+
+            }
+
+        });
+
+    </script>
+
+    <script src="auth-guard.js"></script>
+
+</body>
+</html>
+```

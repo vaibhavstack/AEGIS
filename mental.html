@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AEGIS — Mental Wellness</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- AEGIS Theme -->
+    <link rel="stylesheet" href="theme.css">
+
+    <style>
+        :root {
+            --bg: #F5F7F2;
+            --panel: #FFFFFF;
+            --panel-2: #F8FAF7;
+
+            --border: rgba(79, 104, 85, 0.16);
+            --border-strong: rgba(79, 104, 85, 0.34);
+
+            --accent: #78927A;
+            --accent-soft: rgba(120, 146, 122, 0.10);
+
+            --text: #28332C;
+            --muted: #718078;
+            --soft: #59665E;
+
+            --sage-light: #DCE7DC;
+            --blue-soft: #EEF5F4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 72% 12%,
+                    rgba(120, 146, 122, 0.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 12% 75%,
+                    rgba(120, 146, 122, 0.045),
+                    transparent 25%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family: "Inter", sans-serif;
+
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            opacity: 0.18;
+
+            background-image:
+                linear-gradient(
+                    rgba(79, 104, 85, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(79, 104, 85, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 42px 42px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+        }
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 82px;
+
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+
+            border-bottom: 1px solid var(--border);
+
+            position: relative;
+            z-index: 10;
+
+            background: rgba(255, 255, 255, 0.90);
+
+            backdrop-filter: blur(14px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 50%;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .brand-mark::before {
+            content: "";
+
+            width: 12px;
+            height: 12px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-family: "DM Mono", monospace;
+
+            font-size: 15px;
+
+            letter-spacing: 0.18em;
+
+            color: var(--text);
+        }
+
+        .brand-sub {
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.12em;
+
+            margin-top: 3px;
+        }
+
+        .module-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 4px;
+
+            flex-wrap: wrap;
+        }
+
+        .module-nav a {
+            color: var(--muted);
+
+            text-decoration: none;
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.08em;
+
+            padding: 8px 9px;
+
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .module-nav a:hover {
+            color: var(--accent);
+
+            background: var(--accent-soft);
+        }
+
+        .module-nav a[href="mental.html"] {
+            color: var(--accent);
+
+            background: var(--accent-soft);
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 0.12em;
+
+            white-space: nowrap;
+
+            flex-shrink: 0;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--accent);
+
+            box-shadow:
+                0 0 12px rgba(120, 146, 122, 0.55);
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+            width: min(1400px, 88%);
+
+            margin: 0 auto;
+
+            padding: 90px 0 100px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 11px;
+
+            letter-spacing: 0.18em;
+
+            margin-bottom: 22px;
+        }
+
+        .hero {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(58px, 8vw, 110px);
+
+            line-height: 0.88;
+
+            font-weight: 500;
+
+            letter-spacing: -0.045em;
+
+            margin-bottom: 34px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            max-width: 670px;
+
+            color: var(--muted);
+
+            line-height: 1.8;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           SYSTEM BAR
+        ===================================================== */
+
+        .system-bar {
+            margin-top: 60px;
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            border-top: 1px solid var(--border);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .system-item {
+            padding: 19px 20px;
+
+            border-right: 1px solid var(--border);
+        }
+
+        .system-item:last-child {
+            border-right: none;
+        }
+
+        .system-label {
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.1em;
+
+            margin-bottom: 8px;
+        }
+
+        .system-value {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           SECTION
+        ===================================================== */
+
+        .section {
+            margin-top: 80px;
+        }
+
+        .section-heading {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 12px;
+
+            letter-spacing: 0.14em;
+        }
+
+        .section-description {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            text-align: right;
+        }
+
+
+        /* =====================================================
+           MOOD CHECK
+        ===================================================== */
+
+        .mood-panel {
+            border: 1px solid var(--border);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(120, 146, 122, 0.05),
+                    transparent 60%
+                ),
+                var(--panel);
+
+            padding: 38px;
+
+            border-radius: 20px;
+        }
+
+        .mood-question {
+            font-family: "Playfair Display", serif;
+
+            font-size: 30px;
+
+            font-weight: 500;
+
+            margin-bottom: 10px;
+        }
+
+        .mood-subtitle {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .mood-options {
+            margin-top: 35px;
+
+            display: grid;
+
+            grid-template-columns: repeat(5, 1fr);
+
+            gap: 10px;
+        }
+
+        .mood-option {
+            min-height: 125px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: transparent;
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            transition: 0.25s ease;
+        }
+
+        .mood-option:hover,
+        .mood-option.selected {
+            border-color: var(--accent);
+
+            background: var(--accent-soft);
+
+            transform: translateY(-2px);
+        }
+
+        .mood-icon {
+            font-size: 29px;
+        }
+
+        .mood-name {
+            font-family: "DM Mono", monospace;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            letter-spacing: 0.08em;
+        }
+
+        .mood-option.selected .mood-name {
+            color: var(--accent);
+        }
+
+        .mood-result {
+            margin-top: 25px;
+
+            padding: 16px;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 0.06em;
+        }
+
+        .mood-result span {
+            color: var(--accent);
+        }
+
+
+        /* =====================================================
+           BREATHING + JOURNAL
+        ===================================================== */
+
+        .wellness-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 14px;
+        }
+
+        .breathing-panel,
+        .journal-panel {
+            border: 1px solid var(--border);
+
+            background: var(--panel);
+
+            padding: 35px;
+
+            border-radius: 20px;
+        }
+
+        .panel-label {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 0.12em;
+
+            margin-bottom: 12px;
+        }
+
+        .panel-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: 28px;
+
+            font-weight: 500;
+
+            margin-bottom: 10px;
+        }
+
+        .panel-description {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           BREATHING CIRCLE
+        ===================================================== */
+
+        .breathing-stage {
+            min-height: 320px;
+
+            display: grid;
+
+            place-items: center;
+
+            position: relative;
+        }
+
+        .breathing-circle {
+            width: 155px;
+            height: 155px;
+
+            border-radius: 50%;
+
+            border: 1px solid var(--accent);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(120, 146, 122, 0.10),
+                    transparent 65%
+                );
+
+            box-shadow:
+                0 0 60px rgba(120, 146, 122, 0.07);
+
+            display: grid;
+
+            place-items: center;
+
+            transition:
+                transform 4s ease-in-out,
+                box-shadow 4s ease-in-out;
+        }
+
+        .breathing-circle.active {
+            transform: scale(1.28);
+
+            box-shadow:
+                0 0 100px rgba(120, 146, 122, 0.14);
+        }
+
+        .breathing-inner {
+            text-align: center;
+        }
+
+        .breathing-count {
+            font-family: "Playfair Display", serif;
+
+            color: var(--accent);
+
+            font-size: 38px;
+        }
+
+        .breathing-label {
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 8px;
+
+            letter-spacing: 0.12em;
+
+            margin-top: 3px;
+        }
+
+        .breathing-instruction {
+            text-align: center;
+
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.1em;
+        }
+
+        .breathing-btn {
+            display: block;
+
+            margin: 18px auto 0;
+
+            padding: 13px 20px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 9px;
+
+            background: var(--accent);
+
+            color: #ffffff;
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .breathing-btn:hover {
+            transform: translateY(-1px);
+
+            opacity: 0.92;
+        }
+
+        .breathing-btn:disabled {
+            cursor: not-allowed;
+
+            opacity: 0.65;
+        }
+
+
+        /* =====================================================
+           JOURNAL
+        ===================================================== */
+
+        .journal-textarea {
+            width: 100%;
+
+            min-height: 180px;
+
+            margin-top: 28px;
+
+            resize: vertical;
+
+            outline: none;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: var(--panel-2);
+
+            color: var(--text);
+
+            padding: 17px;
+
+            font-family: "Inter", sans-serif;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .journal-textarea::placeholder {
+            color: var(--muted);
+        }
+
+        .journal-textarea:focus {
+            border-color: var(--border-strong);
+        }
+
+        .journal-footer {
+            margin-top: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .journal-note {
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 8px;
+        }
+
+        .save-journal {
+            padding: 12px 18px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .save-journal:hover {
+            background: var(--accent-soft);
+        }
+
+        .journal-status {
+            margin-top: 12px;
+
+            display: none;
+
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           WELLNESS SIGNALS
+        ===================================================== */
+
+        .signal-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+        .signal-card {
+            padding: 28px;
+
+            border: 1px solid var(--border);
+
+            background: var(--panel);
+
+            border-radius: 18px;
+        }
+
+        .signal-number {
+            color: var(--accent);
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 48px;
+
+            margin-bottom: 5px;
+        }
+
+        .signal-label {
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.09em;
+        }
+
+        .signal-description {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+
+            margin-top: 17px;
+        }
+
+
+        /* =====================================================
+           SUPPORT
+        ===================================================== */
+
+        .support-panel {
+            border: 1px solid var(--border);
+
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(120, 146, 122, 0.05),
+                    transparent 60%
+                ),
+                var(--panel);
+
+            padding: 38px;
+
+            display: grid;
+
+            grid-template-columns: 1fr auto;
+
+            gap: 30px;
+
+            align-items: center;
+
+            border-radius: 20px;
+        }
+
+        .support-label {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 0.13em;
+
+            margin-bottom: 12px;
+        }
+
+        .support-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: 32px;
+
+            font-weight: 500;
+
+            margin-bottom: 10px;
+        }
+
+        .support-description {
+            max-width: 700px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .support-btn {
+            padding: 15px 22px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: 0.2s ease;
+        }
+
+        .support-btn:hover {
+            background: var(--accent-soft);
+        }
+
+
+        /* =====================================================
+           PRIVACY
+        ===================================================== */
+
+        .privacy-panel {
+            margin-top: 14px;
+
+            padding: 27px 30px;
+
+            border: 1px solid var(--border);
+
+            background: rgba(120, 146, 122, 0.025);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 25px;
+
+            border-radius: 18px;
+        }
+
+        .privacy-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .privacy-icon {
+            width: 37px;
+            height: 37px;
+
+            border: 1px solid var(--accent);
+
+            border-radius: 10px;
+
+            display: grid;
+
+            place-items: center;
+
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+        }
+
+        .privacy-title {
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 0.1em;
+
+            margin-bottom: 6px;
+        }
+
+        .privacy-description {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .privacy-tag {
+            color: var(--accent);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            width: min(1400px, 88%);
+
+            margin: 0 auto;
+
+            padding: 35px 0;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            color: var(--muted);
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 0.08em;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                flex-wrap: wrap;
+
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+
+            .module-nav {
+                order: 3;
+
+                width: 100%;
+            }
+
+            .nav-status {
+                margin-left: auto;
+            }
+
+        }
+
+
+        @media (max-width: 950px) {
+
+            .wellness-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mood-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .system-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .system-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .system-item:nth-child(-n+2) {
+                border-bottom: 1px solid var(--border);
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-status {
+                display: none;
+            }
+
+            .module-nav {
+                justify-content: flex-start;
+
+                overflow-x: auto;
+
+                flex-wrap: nowrap;
+
+                width: 100%;
+
+                padding-bottom: 3px;
+            }
+
+            .module-nav a {
+                flex-shrink: 0;
+            }
+
+            .page {
+                width: 90%;
+
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+            }
+
+            .system-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .system-item {
+                border-right: none;
+
+                border-bottom: 1px solid var(--border);
+            }
+
+            .system-item:last-child {
+                border-bottom: none;
+            }
+
+            .mood-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mood-panel,
+            .breathing-panel,
+            .journal-panel {
+                padding: 25px;
+            }
+
+            .section-heading {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .section-description {
+                text-align: left;
+            }
+
+            .support-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .privacy-panel {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .privacy-tag {
+                white-space: normal;
+            }
+
+            .journal-footer {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 10px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-mark"></div>
+
+            <div>
+                <div class="brand-name">AEGIS</div>
+
+                <div class="brand-sub">
+                    PERSONNEL WELFARE INTELLIGENCE
+                </div>
+            </div>
+
+        </div>
+
+
+        <nav class="module-nav" aria-label="AEGIS modules">
+
+            <a href="index.html">HOME</a>
+
+            <a href="wellness.html">WELLNESS</a>
+
+            <a href="stress.html">STRESS</a>
+
+            <a href="health.html">HEALTH</a>
+
+            <a href="family.html">FAMILY</a>
+
+            <a href="mental.html">MENTAL</a>
+
+            <a href="dashboard.html">DASHBOARD</a>
+
+        </nav>
+
+
+        <div class="nav-status">
+
+            <span class="status-dot"></span>
+
+            PRIVATE WELLNESS NODE
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN PAGE
+    ===================================================== -->
+
+    <main class="page">
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="eyebrow">
+                MODULE 006 / PRIVATE WELLNESS
+            </div>
+
+            <h1>
+                MENTAL<br>
+                <span>WELLNESS.</span>
+            </h1>
+
+            <p class="hero-description">
+                A private space for personnel to pause, reflect and
+                understand their emotional state. Designed to support
+                wellbeing without turning personal feelings into a
+                public operational metric.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM BAR
+        ================================================== -->
+
+        <div class="system-bar">
+
+            <div class="system-item">
+
+                <div class="system-label">
+                    WELLNESS SPACE
+                </div>
+
+                <div class="system-value">
+                    PRIVATE
+                </div>
+
+            </div>
+
+
+            <div class="system-item">
+
+                <div class="system-label">
+                    PROCESSING
+                </div>
+
+                <div class="system-value">
+                    LOCAL
+                </div>
+
+            </div>
+
+
+            <div class="system-item">
+
+                <div class="system-label">
+                    JOURNAL STORAGE
+                </div>
+
+                <div class="system-value">
+                    DEVICE ONLY
+                </div>
+
+            </div>
+
+
+            <div class="system-item">
+
+                <div class="system-label">
+                    EXTERNAL SHARING
+                </div>
+
+                <div class="system-value">
+                    DISABLED
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MOOD CHECK
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    01 / EMOTIONAL CHECK-IN
+                </div>
+
+                <div class="section-description">
+                    How are you feeling right now?
+                </div>
+
+            </div>
+
+
+            <div class="mood-panel">
+
+                <div class="mood-question">
+                    How are you feeling today?
+                </div>
+
+                <div class="mood-subtitle">
+                    Choose the option that feels closest to your
+                    current state. There is no right or wrong answer.
+                </div>
+
+
+                <div class="mood-options">
+
+
+                    <button
+                        type="button"
+                        class="mood-option"
+                        data-mood="Very Low"
+                        onclick="selectMood(this, 1)"
+                    >
+
+                        <div class="mood-icon">
+                            😔
+                        </div>
+
+                        <div class="mood-name">
+                            VERY LOW
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="mood-option"
+                        data-mood="Low"
+                        onclick="selectMood(this, 2)"
+                    >
+
+                        <div class="mood-icon">
+                            😕
+                        </div>
+
+                        <div class="mood-name">
+                            LOW
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="mood-option"
+                        data-mood="Neutral"
+                        onclick="selectMood(this, 3)"
+                    >
+
+                        <div class="mood-icon">
+                            😐
+                        </div>
+
+                        <div class="mood-name">
+                            NEUTRAL
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="mood-option"
+                        data-mood="Good"
+                        onclick="selectMood(this, 4)"
+                    >
+
+                        <div class="mood-icon">
+                            🙂
+                        </div>
+
+                        <div class="mood-name">
+                            GOOD
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="mood-option"
+                        data-mood="Very Good"
+                        onclick="selectMood(this, 5)"
+                    >
+
+                        <div class="mood-icon">
+                            😊
+                        </div>
+
+                        <div class="mood-name">
+                            VERY GOOD
+                        </div>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="mood-result"
+                    id="moodResult"
+                >
+                    CURRENT STATE:
+                    <span>NOT SELECTED</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BREATHING + JOURNAL
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    02 / PRIVATE WELLNESS TOOLS
+                </div>
+
+                <div class="section-description">
+                    Personal tools — locally available
+                </div>
+
+            </div>
+
+
+            <div class="wellness-grid">
+
+
+                <!-- BREATHING -->
+
+                <div class="breathing-panel">
+
+                    <div class="panel-label">
+                        GUIDED BREATHING
+                    </div>
+
+                    <div class="panel-title">
+                        Take a moment.
+                    </div>
+
+                    <div class="panel-description">
+                        A short breathing exercise designed to
+                        encourage a brief pause during a demanding day.
+                    </div>
+
+
+                    <div class="breathing-stage">
+
+                        <div
+                            class="breathing-circle"
+                            id="breathingCircle"
+                        >
+
+                            <div class="breathing-inner">
+
+                                <div
+                                    class="breathing-count"
+                                    id="breathingCount"
+                                >
+                                    —
+                                </div>
+
+                                <div
+                                    class="breathing-label"
+                                    id="breathingLabel"
+                                >
+                                    READY
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="breathing-instruction"
+                        id="breathingInstruction"
+                    >
+                        PRESS START TO BEGIN
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="breathing-btn"
+                        id="breathingButton"
+                        onclick="startBreathing()"
+                    >
+                        START EXERCISE
+                    </button>
+
+                </div>
+
+
+
+                <!-- JOURNAL -->
+
+                <div class="journal-panel">
+
+                    <div class="panel-label">
+                        PRIVATE JOURNAL
+                    </div>
+
+                    <div class="panel-title">
+                        Clear your thoughts.
+                    </div>
+
+                    <div class="panel-description">
+                        Write anything you want to remember,
+                        process or simply get out of your head.
+                    </div>
+
+
+                    <textarea
+                        class="journal-textarea"
+                        id="journalText"
+                        placeholder="Write privately here..."
+                    ></textarea>
+
+
+                    <div class="journal-footer">
+
+                        <div class="journal-note">
+                            STORED LOCALLY ON THIS DEVICE
+                        </div>
+
+                        <button
+                            type="button"
+                            class="save-journal"
+                            onclick="saveJournal()"
+                        >
+                            SAVE ENTRY
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="journal-status"
+                        id="journalStatus"
+                    >
+                        ● JOURNAL ENTRY SAVED LOCALLY
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WELLNESS SIGNALS
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    03 / PERSONAL WELLNESS SIGNAL
+                </div>
+
+                <div class="section-description">
+                    Private local summary
+                </div>
+
+            </div>
+
+
+            <div class="signal-grid">
+
+
+                <div class="signal-card">
+
+                    <div
+                        class="signal-number"
+                        id="moodScore"
+                    >
+                        —
+                    </div>
+
+                    <div class="signal-label">
+                        MOOD SCORE
+                    </div>
+
+                    <div class="signal-description">
+                        Your latest self-selected emotional
+                        state represented as a simple private signal.
+                    </div>
+
+                </div>
+
+
+                <div class="signal-card">
+
+                    <div
+                        class="signal-number"
+                        id="journalCount"
+                    >
+                        00
+                    </div>
+
+                    <div class="signal-label">
+                        JOURNAL ENTRIES
+                    </div>
+
+                    <div class="signal-description">
+                        Number of personal journal entries
+                        stored locally on this device.
+                    </div>
+
+                </div>
+
+
+                <div class="signal-card">
+
+                    <div
+                        class="signal-number"
+                        id="breathingSessions"
+                    >
+                        00
+                    </div>
+
+                    <div class="signal-label">
+                        BREATHING SESSIONS
+                    </div>
+
+                    <div class="signal-description">
+                        Number of completed breathing sessions
+                        recorded locally during this prototype.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUPPORT
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    04 / SUPPORT PATH
+                </div>
+
+                <div class="section-description">
+                    Human support remains important
+                </div>
+
+            </div>
+
+
+            <div class="support-panel">
+
+                <div>
+
+                    <div class="support-label">
+                        PERSONNEL SUPPORT
+                    </div>
+
+                    <div class="support-title">
+                        You don't have to handle everything alone.
+                    </div>
+
+                    <div class="support-description">
+                        AEGIS is designed to support wellbeing,
+                        not replace trusted people or qualified
+                        professional care. In a real deployment,
+                        this area could connect personnel with an
+                        authorized welfare officer, counselor or
+                        other appropriate support channel.
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="support-btn"
+                    onclick="showSupportMessage()"
+                >
+                    VIEW SUPPORT OPTIONS
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PRIVACY
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="privacy-panel">
+
+                <div class="privacy-left">
+
+                    <div class="privacy-icon">
+                        SEC
+                    </div>
+
+                    <div>
+
+                        <div class="privacy-title">
+                            PRIVATE WELLNESS ENVIRONMENT
+                        </div>
+
+                        <div class="privacy-description">
+                            Mood selections and journal entries
+                            remain on this device in this prototype.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="privacy-tag">
+                    PRIVATE / LOCAL / PERSONNEL CENTRIC
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <div>
+            AEGIS / PERSONNEL WELFARE INTELLIGENCE
+        </div>
+
+        <div>
+            MODULE 006 / MENTAL WELLNESS
+        </div>
+
+        <div>
+            LOCAL PROTOTYPE
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* ==========================================
+           STATE
+        ========================================== */
+
+        let selectedMood = null;
+        let selectedMoodScore = null;
+
+        let breathingRunning = false;
+        let breathingTimer = null;
+
+        let breathingSessions =
+            Number(
+                localStorage.getItem(
+                    "aegisBreathingSessions"
+                )
+            ) || 0;
+
+
+
+        /* ==========================================
+           MOOD SELECTION
+        ========================================== */
+
+        function selectMood(button, score) {
+
+            document
+                .querySelectorAll(".mood-option")
+                .forEach(option => {
+                    option.classList.remove("selected");
+                });
+
+
+            button.classList.add("selected");
+
+
+            selectedMood =
+                button.getAttribute("data-mood");
+
+
+            selectedMoodScore = score;
+
+
+            document.getElementById(
+                "moodResult"
+            ).innerHTML = `
+                CURRENT STATE:
+                <span>${selectedMood.toUpperCase()}</span>
+            `;
+
+
+            document.getElementById(
+                "moodScore"
+            ).textContent =
+                score + "/5";
+
+
+            localStorage.setItem(
+                "aegisLatestMood",
+                JSON.stringify({
+                    mood: selectedMood,
+                    score: score,
+                    timestamp: new Date().toISOString()
+                })
+            );
+
+        }
+
+
+
+        /* ==========================================
+           BREATHING EXERCISE
+        ========================================== */
+
+        function startBreathing() {
+
+            if (breathingRunning) {
+                return;
+            }
+
+
+            breathingRunning = true;
+
+
+            const circle =
+                document.getElementById(
+                    "breathingCircle"
+                );
+
+
+            const count =
+                document.getElementById(
+                    "breathingCount"
+                );
+
+
+            const label =
+                document.getElementById(
+                    "breathingLabel"
+                );
+
+
+            const instruction =
+                document.getElementById(
+                    "breathingInstruction"
+                );
+
+
+            const button =
+                document.getElementById(
+                    "breathingButton"
+                );
+
+
+            button.textContent =
+                "EXERCISE RUNNING";
+
+
+            button.disabled = true;
+
+
+            let cycle = 0;
+
+
+            const phases = [
+
+                {
+                    name: "BREATHE IN",
+                    seconds: 4,
+                    scale: true
+                },
+
+                {
+                    name: "HOLD",
+                    seconds: 4,
+                    scale: true
+                },
+
+                {
+                    name: "BREATHE OUT",
+                    seconds: 6,
+                    scale: false
+                }
+
+            ];
+
+
+
+            function runPhase() {
+
+                if (cycle >= phases.length) {
+
+                    finishBreathing();
+
+                    return;
+                }
+
+
+                const phase =
+                    phases[cycle];
+
+
+                label.textContent =
+                    phase.name;
+
+
+                instruction.textContent =
+                    phase.name +
+                    " — FOLLOW THE CIRCLE";
+
+
+                if (phase.scale) {
+
+                    circle.classList.add("active");
+
+                } else {
+
+                    circle.classList.remove("active");
+
+                }
+
+
+                let remaining =
+                    phase.seconds;
+
+
+                count.textContent =
+                    remaining;
+
+
+
+                breathingTimer =
+                    setInterval(() => {
+
+                        remaining--;
+
+                        count.textContent =
+                            remaining;
+
+
+                        if (remaining <= 0) {
+
+                            clearInterval(
+                                breathingTimer
+                            );
+
+                            breathingTimer = null;
+
+                            cycle++;
+
+                            runPhase();
+                        }
+
+                    }, 1000);
+
+            }
+
+
+            runPhase();
+
+        }
+
+
+
+        /* ==========================================
+           FINISH BREATHING
+        ========================================== */
+
+        function finishBreathing() {
+
+            breathingRunning = false;
+
+
+            const circle =
+                document.getElementById(
+                    "breathingCircle"
+                );
+
+
+            const count =
+                document.getElementById(
+                    "breathingCount"
+                );
+
+
+            const label =
+                document.getElementById(
+                    "breathingLabel"
+                );
+
+
+            const instruction =
+                document.getElementById(
+                    "breathingInstruction"
+                );
+
+
+            const button =
+                document.getElementById(
+                    "breathingButton"
+                );
+
+
+            circle.classList.remove("active");
+
+
+            count.textContent = "✓";
+
+
+            label.textContent =
+                "COMPLETE";
+
+
+            instruction.textContent =
+                "GOOD. TAKE A MOMENT BEFORE CONTINUING.";
+
+
+            button.textContent =
+                "START AGAIN";
+
+
+            button.disabled = false;
+
+
+            breathingSessions++;
+
+
+            localStorage.setItem(
+                "aegisBreathingSessions",
+                breathingSessions
+            );
+
+
+            document.getElementById(
+                "breathingSessions"
+            ).textContent =
+                String(
+                    breathingSessions
+                ).padStart(2, "0");
+
+        }
+
+
+
+        /* ==========================================
+           JOURNAL
+        ========================================== */
+
+        function saveJournal() {
+
+            const textarea =
+                document.getElementById(
+                    "journalText"
+                );
+
+
+            const text =
+                textarea.value.trim();
+
+
+            if (!text) {
+
+                alert(
+                    "Write something before saving the entry."
+                );
+
+                return;
+            }
+
+
+            let entries =
+                JSON.parse(
+                    localStorage.getItem(
+                        "aegisMentalJournal"
+                    )
+                ) || [];
+
+
+            entries.push({
+
+                text: text,
+
+                timestamp:
+                    new Date().toISOString()
+
+            });
+
+
+            if (entries.length > 50) {
+
+                entries =
+                    entries.slice(-50);
+
+            }
+
+
+            localStorage.setItem(
+                "aegisMentalJournal",
+                JSON.stringify(entries)
+            );
+
+
+            textarea.value = "";
+
+
+            document.getElementById(
+                "journalStatus"
+            ).style.display = "block";
+
+
+            updateJournalCount();
+
+        }
+
+
+
+        /* ==========================================
+           JOURNAL COUNT
+        ========================================== */
+
+        function updateJournalCount() {
+
+            const entries =
+                JSON.parse(
+                    localStorage.getItem(
+                        "aegisMentalJournal"
+                    )
+                ) || [];
+
+
+            document.getElementById(
+                "journalCount"
+            ).textContent =
+                String(
+                    entries.length
+                ).padStart(2, "0");
+
+        }
+
+
+
+        /* ==========================================
+           SUPPORT
+        ========================================== */
+
+        function showSupportMessage() {
+
+            alert(
+                "SUPPORT PATH\n\n" +
+                "In the full AEGIS deployment, this area could provide access to authorized welfare officers, counselors or other approved support resources.\n\n" +
+                "This prototype does not make emergency or clinical decisions."
+            );
+
+        }
+
+
+
+        /* ==========================================
+           LOAD SAVED DATA
+        ========================================== */
+
+        window.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                updateJournalCount();
+
+
+                document.getElementById(
+                    "breathingSessions"
+                ).textContent =
+                    String(
+                        breathingSessions
+                    ).padStart(2, "0");
+
+
+
+                const savedMood =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "aegisLatestMood"
+                        )
+                    );
+
+
+
+                if (savedMood) {
+
+                    selectedMood =
+                        savedMood.mood;
+
+
+                    selectedMoodScore =
+                        savedMood.score;
+
+
+
+                    document.getElementById(
+                        "moodScore"
+                    ).textContent =
+                        savedMood.score + "/5";
+
+
+
+                    document.getElementById(
+                        "moodResult"
+                    ).innerHTML = `
+                        CURRENT STATE:
+                        <span>
+                            ${savedMood.mood.toUpperCase()}
+                        </span>
+                    `;
+
+
+
+                    document
+                        .querySelectorAll(".mood-option")
+                        .forEach(option => {
+
+                            if (
+                                option.getAttribute(
+                                    "data-mood"
+                                ) === savedMood.mood
+                            ) {
+
+                                option.classList.add(
+                                    "selected"
+                                );
+
+                            }
+
+                        });
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+    <!-- Authentication -->
+    <script src="auth-guard.js"></script>
+
+</body>
+
+</html>

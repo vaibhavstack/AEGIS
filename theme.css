@@ -1,0 +1,1114 @@
+/* ============================================================
+   AEGIS — GLOBAL VISUAL THEME
+   Relaxing / Premium / Wellness
+   Warm Ivory + Sage + Mist Blue
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   MASTER COLORS
+   ------------------------------------------------------------ */
+
+:root {
+
+    /* Main surfaces */
+    --aegis-bg: #F5F7F2;
+    --aegis-bg-soft: #EDF2EC;
+    --aegis-surface: #FFFFFF;
+    --aegis-surface-soft: #F8FAF7;
+
+    /* Sage */
+    --aegis-sage: #78927A;
+    --aegis-sage-dark: #4F6855;
+    --aegis-sage-light: #DCE7DC;
+    --aegis-sage-pale: #EAF0E8;
+
+    /* Mist blue */
+    --aegis-blue: #AFC4C4;
+    --aegis-blue-dark: #657F80;
+    --aegis-blue-light: #DDE9E8;
+    --aegis-blue-pale: #EEF5F4;
+
+    /* Text */
+    --aegis-text: #28332C;
+    --aegis-text-soft: #59665E;
+    --aegis-text-muted: #87928B;
+
+    /* Borders */
+    --aegis-border: #D8E0D8;
+    --aegis-border-soft: #E5EBE5;
+
+    /* Status */
+    --aegis-success: #6F9075;
+    --aegis-warning: #B69A68;
+    --aegis-attention: #B98273;
+
+    /* Shadows */
+    --aegis-shadow:
+        0 12px 35px rgba(56, 72, 61, 0.07);
+
+    --aegis-shadow-large:
+        0 25px 70px rgba(56, 72, 61, 0.10);
+}
+
+
+/* ------------------------------------------------------------
+   GLOBAL BODY
+   ------------------------------------------------------------ */
+
+html {
+    background: var(--aegis-bg) !important;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(220, 231, 220, 0.65),
+            transparent 32%
+        ) !important;
+
+    background-color:
+        var(--aegis-bg) !important;
+
+    color:
+        var(--aegis-text) !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE HARSH DARK BACKGROUNDS
+   ------------------------------------------------------------ */
+
+main,
+section,
+article {
+    color: var(--aegis-text);
+}
+
+
+/* ------------------------------------------------------------
+   NAVIGATION / HEADER
+   ------------------------------------------------------------ */
+
+.navbar,
+header {
+    background:
+        rgba(255, 255, 255, 0.86) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+
+    box-shadow:
+        0 4px 20px rgba(56, 72, 61, 0.035);
+}
+
+
+/* ------------------------------------------------------------
+   BRAND
+   ------------------------------------------------------------ */
+
+.brand-name,
+.brand-title,
+.logo-title {
+    color:
+        var(--aegis-text) !important;
+}
+
+.brand-subtitle,
+.logo-subtitle {
+    color:
+        var(--aegis-text-muted) !important;
+}
+
+.brand-mark,
+.logo-mark {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-sage-pale) !important;
+
+    border-color:
+        var(--aegis-sage) !important;
+
+    box-shadow:
+        0 0 0 6px rgba(120, 146, 122, 0.08) !important;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS
+   ------------------------------------------------------------ */
+
+.system-status,
+.status-text,
+.status-label {
+    color:
+        var(--aegis-text-muted) !important;
+}
+
+.status-dot {
+    background:
+        var(--aegis-success) !important;
+
+    box-shadow:
+        0 0 0 5px rgba(111, 144, 117, 0.12) !important;
+}
+
+
+/* ------------------------------------------------------------
+   EYEBROWS / LABELS
+   ------------------------------------------------------------ */
+
+.eyebrow,
+.kicker,
+.section-label,
+.module-label {
+    color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   MAIN HEADINGS
+   ------------------------------------------------------------ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color:
+        var(--aegis-text) !important;
+}
+
+h1 span,
+h2 span,
+.hero h1 span,
+.section-heading h2 span {
+    color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   NORMAL TEXT
+   ------------------------------------------------------------ */
+
+p,
+.description,
+.hero-description {
+    color:
+        var(--aegis-text-soft) !important;
+}
+
+
+/* ------------------------------------------------------------
+   BUTTONS
+   ------------------------------------------------------------ */
+
+.primary-btn,
+.primary-button,
+.btn-primary {
+    color: #FFFFFF !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--aegis-sage-dark),
+            var(--aegis-sage)
+        ) !important;
+
+    border-color:
+        var(--aegis-sage-dark) !important;
+
+    box-shadow:
+        0 10px 25px rgba(79, 104, 85, 0.16) !important;
+}
+
+.primary-btn:hover,
+.primary-button:hover,
+.btn-primary:hover {
+    background:
+        var(--aegis-sage-dark) !important;
+}
+
+
+.secondary-btn,
+.secondary-button,
+.btn-secondary {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-surface) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+.secondary-btn:hover,
+.secondary-button:hover,
+.btn-secondary:hover {
+    background:
+        var(--aegis-sage-pale) !important;
+
+    border-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   SECURITY / INFO STRIPS
+   ------------------------------------------------------------ */
+
+.security-line,
+.system-bar,
+.status-bar,
+.info-bar {
+    color:
+        var(--aegis-text-muted) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+
+/* ------------------------------------------------------------
+   CARDS
+   ------------------------------------------------------------ */
+
+.card,
+.panel,
+.module-card,
+.metric-card,
+.stat-card,
+.result-card,
+.info-card,
+.wellness-card,
+.health-card,
+.family-card,
+.mental-card,
+.support-card,
+.screening-card {
+    color:
+        var(--aegis-text) !important;
+
+    background:
+        rgba(255, 255, 255, 0.90) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+
+    box-shadow:
+        var(--aegis-shadow) !important;
+}
+
+
+/* ------------------------------------------------------------
+   CARD HOVER
+   ------------------------------------------------------------ */
+
+.card:hover,
+.panel:hover,
+.module-card:hover,
+.metric-card:hover,
+.stat-card:hover,
+.info-card:hover {
+    border-color:
+        rgba(120, 146, 122, 0.45) !important;
+
+    box-shadow:
+        var(--aegis-shadow-large) !important;
+}
+
+
+/* ------------------------------------------------------------
+   MODULE NUMBERS
+   ------------------------------------------------------------ */
+
+.module-number,
+.number,
+.card-number {
+    color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   ICON BOXES
+   ------------------------------------------------------------ */
+
+.module-icon,
+.icon-box,
+.icon,
+.feature-icon {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-sage-pale) !important;
+
+    border-color:
+        rgba(120, 146, 122, 0.25) !important;
+}
+
+
+/* ------------------------------------------------------------
+   ARROWS / ACCENT ICONS
+   ------------------------------------------------------------ */
+
+.module-arrow,
+.arrow,
+.accent,
+.gold,
+.highlight {
+    color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   FORMS
+   ------------------------------------------------------------ */
+
+input,
+textarea,
+select {
+    color:
+        var(--aegis-text) !important;
+
+    background:
+        #FFFFFF !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color:
+        var(--aegis-text-muted) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color:
+        var(--aegis-sage) !important;
+
+    outline:
+        3px solid
+        rgba(120, 146, 122, 0.12) !important;
+}
+
+
+/* ------------------------------------------------------------
+   RANGE SLIDERS
+   ------------------------------------------------------------ */
+
+input[type="range"] {
+    accent-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   CHECKBOX / RADIO
+   ------------------------------------------------------------ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   TABS / FILTERS
+   ------------------------------------------------------------ */
+
+.tab,
+.filter,
+.option,
+.choice {
+    color:
+        var(--aegis-text-soft) !important;
+
+    background:
+        var(--aegis-surface) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+.tab.active,
+.filter.active,
+.option.active,
+.choice.active,
+.selected {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-sage-pale) !important;
+
+    border-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS COLORS
+   ------------------------------------------------------------ */
+
+.status-good,
+.good,
+.stable,
+.ready,
+.low {
+    color:
+        var(--aegis-success) !important;
+}
+
+.status-warning,
+.warning,
+.moderate,
+.monitor {
+    color:
+        var(--aegis-warning) !important;
+}
+
+.status-danger,
+.danger,
+.elevated,
+.attention {
+    color:
+        var(--aegis-attention) !important;
+}
+
+
+/* ------------------------------------------------------------
+   PROGRESS / METERS
+   ------------------------------------------------------------ */
+
+.progress,
+.progress-bar,
+.meter {
+    background:
+        var(--aegis-sage-light) !important;
+}
+
+.progress-fill,
+.meter-fill {
+    background:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   HEALTH / WELLNESS HIGHLIGHTS
+   ------------------------------------------------------------ */
+
+.health-highlight,
+.wellness-highlight,
+.recovery-highlight {
+    background:
+        var(--aegis-blue-pale) !important;
+
+    border-color:
+        rgba(111, 144, 145, 0.20) !important;
+}
+
+.health-highlight strong,
+.wellness-highlight strong,
+.recovery-highlight strong {
+    color:
+        var(--aegis-blue-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   MODALS
+   ------------------------------------------------------------ */
+
+.modal-overlay {
+    background:
+        rgba(39, 50, 43, 0.26) !important;
+}
+
+.modal {
+    color:
+        var(--aegis-text) !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #FFFFFF,
+            #F5F8F4
+        ) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+
+    box-shadow:
+        var(--aegis-shadow-large) !important;
+}
+
+.close-btn {
+    color:
+        var(--aegis-text-soft) !important;
+
+    background:
+        #FFFFFF !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+.close-btn:hover {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-sage-pale) !important;
+
+    border-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   BRIEF / INFORMATION BOXES
+   ------------------------------------------------------------ */
+
+.brief-grid > div,
+.info-box,
+.privacy-box,
+.notice-box {
+    background:
+        var(--aegis-surface-soft) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+.brief-grid strong {
+    color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   TABLES
+   ------------------------------------------------------------ */
+
+table {
+    color:
+        var(--aegis-text) !important;
+}
+
+th {
+    color:
+        var(--aegis-sage-dark) !important;
+
+    background:
+        var(--aegis-sage-pale) !important;
+}
+
+td {
+    border-color:
+        var(--aegis-border) !important;
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER
+   ------------------------------------------------------------ */
+
+footer {
+    color:
+        var(--aegis-text-muted) !important;
+
+    background:
+        rgba(255, 255, 255, 0.80) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+footer div:first-child {
+    color:
+        var(--aegis-text) !important;
+}
+
+
+/* ------------------------------------------------------------
+   RADAR / DECORATIVE ELEMENTS
+   ------------------------------------------------------------ */
+
+.radar-ring {
+    border-color:
+        rgba(120, 146, 122, 0.25) !important;
+}
+
+.radar-cross {
+    background:
+        rgba(120, 146, 122, 0.16) !important;
+}
+
+.radar-center {
+    background:
+        rgba(255, 255, 255, 0.85) !important;
+
+    border-color:
+        rgba(120, 146, 122, 0.35) !important;
+}
+
+.center-dot,
+.radar-point {
+    background:
+        var(--aegis-sage-dark) !important;
+}
+
+.visual-label {
+    color:
+        var(--aegis-text-muted) !important;
+}
+
+
+/* ------------------------------------------------------------
+   BACKGROUND GRID
+   ------------------------------------------------------------ */
+
+.grid {
+    opacity: 0.20 !important;
+
+    background-image:
+        linear-gradient(
+            rgba(120, 146, 122, 0.055) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(120, 146, 122, 0.055) 1px,
+            transparent 1px
+        ) !important;
+}
+
+.noise {
+    opacity: 0.08 !important;
+}
+
+
+/* ------------------------------------------------------------
+   FAMILY PAGE — UI ONLY
+   Do NOT recolor SVG avatar artwork.
+   ------------------------------------------------------------ */
+
+.family-profile,
+.family-selector,
+.family-chat,
+.chat-container,
+.family-panel,
+.avatar-panel {
+    background:
+        rgba(255, 255, 255, 0.92) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+
+    box-shadow:
+        var(--aegis-shadow) !important;
+}
+
+.family-name,
+.profile-name {
+    color:
+        var(--aegis-text) !important;
+}
+
+.family-role,
+.profile-role {
+    color:
+        var(--aegis-text-muted) !important;
+}
+
+
+/* ------------------------------------------------------------
+   CHAT
+   ------------------------------------------------------------ */
+
+.chat-message,
+.message {
+    color:
+        var(--aegis-text-soft) !important;
+
+    background:
+        var(--aegis-surface-soft) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+.chat-message.user,
+.message.user {
+    color:
+        #FFFFFF !important;
+
+    background:
+        var(--aegis-sage-dark) !important;
+
+    border-color:
+        var(--aegis-sage-dark) !important;
+}
+
+
+/* ------------------------------------------------------------
+   JOURNAL
+   ------------------------------------------------------------ */
+
+.journal,
+.journal-card,
+.journal-entry {
+    background:
+        #FFFFFF !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+
+/* ------------------------------------------------------------
+   WELLNESS / MENTAL WELLNESS
+   ------------------------------------------------------------ */
+
+.breathing-card,
+.journal-card,
+.mood-card,
+.support-card {
+    background:
+        rgba(255, 255, 255, 0.92) !important;
+
+    border-color:
+        var(--aegis-border) !important;
+}
+
+
+/* ------------------------------------------------------------
+   BREATHING CIRCLE
+   ------------------------------------------------------------ */
+
+.breath-circle,
+.breathing-circle {
+    background:
+        radial-gradient(
+            circle,
+            var(--aegis-blue-light),
+            var(--aegis-sage-pale)
+        ) !important;
+
+    border-color:
+        var(--aegis-sage) !important;
+}
+
+
+/* ------------------------------------------------------------
+   SELECTION / FOCUS
+   ------------------------------------------------------------ */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline:
+        2px solid
+        var(--aegis-sage) !important;
+
+    outline-offset:
+        3px;
+}
+
+
+/* ------------------------------------------------------------
+   SCROLLBAR
+   ------------------------------------------------------------ */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background:
+        var(--aegis-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        #C7D2C7;
+
+    border-radius:
+        20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        var(--aegis-sage);
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+    body {
+        background:
+            var(--aegis-bg) !important;
+    }
+
+}
+
+
+/* ------------------------------------------------------------
+   PAGE-LOCAL TOKEN BRIDGE
+   ------------------------------------------------------------ */
+
+:root {
+    --bg: var(--aegis-bg);
+    --bg-soft: var(--aegis-bg-soft);
+    --white: var(--aegis-surface);
+    --panel: var(--aegis-surface);
+    --panel-2: var(--aegis-surface-soft);
+    --panel2: var(--aegis-surface-soft);
+    --line: var(--aegis-border);
+    --line2: var(--aegis-border-soft);
+    --border: var(--aegis-border);
+    --border-strong: var(--aegis-sage);
+    --accent: var(--aegis-sage);
+    --accent2: var(--aegis-sage-dark);
+    --accent-soft: var(--aegis-sage-pale);
+    --gold: var(--aegis-sage);
+    --danger: var(--aegis-attention);
+    --warning: var(--aegis-warning);
+    --good: var(--aegis-success);
+    --text: var(--aegis-text);
+    --text-soft: var(--aegis-text-soft);
+    --muted: var(--aegis-text-muted);
+    --soft: var(--aegis-text-soft);
+}
+
+body,
+.page,
+.main,
+.monitor-page,
+.wellness-page {
+    background-color: var(--aegis-bg) !important;
+    color: var(--aegis-text) !important;
+}
+
+.navbar,
+.header {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: var(--aegis-border) !important;
+}
+
+.module-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.module-nav a {
+    color: var(--aegis-text-muted) !important;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.module-nav a:hover,
+.module-nav a:focus-visible {
+    color: var(--aegis-sage-dark) !important;
+}
+
+.navbar a,
+.header a,
+.brand-name,
+.brand-sub,
+.header-status,
+.nav-status,
+.status-value,
+.question-text,
+.factor-name,
+.message,
+.card-title,
+.page-title,
+.hero h1,
+.title,
+.section-title {
+    color: var(--aegis-text) !important;
+}
+
+.brand-subtitle,
+.brand-sub,
+.header-status,
+.nav-status,
+.page-description,
+.hero-description,
+.section-description,
+.status-label,
+.monitor-note,
+.private-tag,
+.person-role,
+.privacy-description,
+.alert-text span,
+.factor-name {
+    color: var(--aegis-text-muted) !important;
+}
+
+.panel,
+.card,
+.wellness-card,
+.screening-card,
+.metric-card,
+.signal-card,
+.mood-panel,
+.conversation,
+.expression-panel,
+.security-panel,
+.wearable,
+.monitor-status,
+.wellness-status-bar,
+.system-bar,
+.member-selector,
+.custom-panel {
+    background: var(--aegis-surface) !important;
+    border-color: var(--aegis-border) !important;
+    color: var(--aegis-text) !important;
+}
+
+.member,
+.message.them,
+.chat-input,
+.duty-select,
+.wellness-notes,
+input,
+textarea,
+select {
+    background: var(--aegis-surface-soft) !important;
+    color: var(--aegis-text) !important;
+    border-color: var(--aegis-border) !important;
+}
+
+.message.user,
+.chat-message.user {
+    background: var(--aegis-sage-dark) !important;
+    color: #FFFFFF !important;
+}
+
+.primary-btn,
+.primary-button,
+.btn-primary,
+.submit-btn,
+.connect-btn,
+.save-avatar {
+    background: var(--aegis-sage) !important;
+    border-color: var(--aegis-sage-dark) !important;
+    color: #FFFFFF !important;
+}
+
+.secondary-btn,
+.secondary-button,
+.btn-secondary,
+.expression,
+.option {
+    background: var(--aegis-surface) !important;
+    border-color: var(--aegis-border) !important;
+    color: var(--aegis-sage-dark) !important;
+}
+
+.active,
+.selected,
+.expression.active,
+.option.active,
+.member.active {
+    background: var(--aegis-sage-pale) !important;
+    border-color: var(--aegis-sage) !important;
+    color: var(--aegis-sage-dark) !important;
+}
+
+.factor-bar,
+.progress,
+.meter {
+    background: var(--aegis-sage-light) !important;
+}
+
+.factor-fill,
+.progress-fill,
+.meter-fill,
+input[type="range"]::-webkit-slider-thumb,
+input[type="range"]::-moz-range-thumb {
+    background: var(--aegis-sage) !important;
+}
+
+.alert-icon,
+.status-dot,
+.live::before {
+    background: var(--aegis-success) !important;
+}
+
+.warning,
+.moderate,
+.monitor {
+    color: var(--aegis-warning) !important;
+}
+
+.danger,
+.elevated,
+.attention,
+.concerned {
+    color: var(--aegis-attention) !important;
+}
+
+.privacy-box,
+.notice-box,
+.monitor-note,
+.security-panel {
+    background: var(--aegis-blue-pale) !important;
+    border-color: var(--aegis-blue-light) !important;
+}
+
+.back-home,
+.page-eyebrow,
+.eyebrow,
+.question-number,
+.question-value,
+.card-code,
+.section-label,
+.system-value,
+.security-tag,
+.privacy-tag {
+    color: var(--aegis-sage-dark) !important;
+}
+
+.page-title span,
+.hero h1 span,
+.title span {
+    color: var(--aegis-sage-dark) !important;
+    -webkit-text-stroke: 0 !important;
+}
+
+.readiness-center,
+.readiness-orbit,
+.breath-circle,
+.breathing-circle {
+    background: var(--aegis-blue-pale) !important;
+    border-color: var(--aegis-sage) !important;
+}

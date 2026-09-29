@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AEGIS — Secure Access</title>
+
+<link rel="stylesheet" href="auth.css">
+
+</head>
+
+<body>
+
+<div class="auth-shell">
+
+    <!-- LEFT / BRAND PANEL -->
+    <section class="brand-panel">
+
+        <div class="brand-top">
+            <div class="aegis-mark">
+                <span class="mark-ring"></span>
+                <span class="mark-core">A</span>
+            </div>
+
+            <div>
+                <div class="brand-name">AEGIS</div>
+                <div class="brand-subtitle">
+                    Personnel Welfare Intelligence
+                </div>
+            </div>
+        </div>
+
+        <div class="brand-content">
+
+            <div class="eyebrow">
+                SECURE PERSONNEL ENVIRONMENT
+            </div>
+
+            <h1>
+                Your wellbeing.
+                <br>
+                <span>Your space.</span>
+            </h1>
+
+            <p>
+                A private welfare environment designed to help
+                uniformed personnel understand, monitor and support
+                their wellbeing.
+            </p>
+
+            <div class="system-flow">
+
+                <div class="flow-item">
+                    <div class="flow-icon">01</div>
+                    <div>
+                        <strong>UNDERSTAND</strong>
+                        <small>Know your baseline</small>
+                    </div>
+                </div>
+
+                <div class="flow-line"></div>
+
+                <div class="flow-item">
+                    <div class="flow-icon">02</div>
+                    <div>
+                        <strong>MONITOR</strong>
+                        <small>Track your wellbeing</small>
+                    </div>
+                </div>
+
+                <div class="flow-line"></div>
+
+                <div class="flow-item">
+                    <div class="flow-icon">03</div>
+                    <div>
+                        <strong>SUPPORT</strong>
+                        <small>Access meaningful help</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="brand-footer">
+            <span>AEGIS SYSTEM</span>
+            <span>•</span>
+            <span>PRIVATE &amp; SECURE</span>
+            <span>•</span>
+            <span>OFFLINE-FIRST</span>
+        </div>
+
+    </section>
+
+
+    <!-- AUTH PANEL -->
+    <section class="auth-panel">
+
+        <div class="auth-container">
+
+            <!-- MOBILE BRAND -->
+            <div class="mobile-brand">
+                <div class="mobile-mark">A</div>
+                <div>
+                    <strong>AEGIS</strong>
+                    <span>Personnel Welfare Intelligence</span>
+                </div>
+            </div>
+
+
+            <!-- LOGIN -->
+            <div id="loginView" class="auth-view active">
+
+                <div class="auth-heading">
+                    <div class="status-pill">
+                        <span></span>
+                        SECURE ACCESS
+                    </div>
+
+                    <h2>Welcome back</h2>
+
+                    <p>
+                        Sign in to continue to your private AEGIS
+                        welfare environment.
+                    </p>
+                </div>
+
+
+                <form id="loginForm" autocomplete="on">
+
+                    <div class="field">
+                        <label for="loginIdentifier">
+                            Personnel ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="loginIdentifier"
+                            name="username"
+                            placeholder="Enter your Personnel ID"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label-row">
+                            <label for="loginPassword">
+                                Password
+                            </label>
+
+                            <button
+                                type="button"
+                                class="text-button"
+                                id="showForgot"
+                            >
+                                Forgot password?
+                            </button>
+                        </div>
+
+                        <div class="password-wrap">
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="loginPassword"
+                                aria-label="Show password"
+                            >
+                                SHOW
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pin-login-option">
+
+                        <button
+                            type="button"
+                            class="secondary-action"
+                            id="showPinLogin"
+                        >
+                            <span class="action-icon">⌁</span>
+                            Use security PIN instead
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>ENTER AEGIS</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <div id="loginMessage" class="form-message"></div>
+
+                </form>
+
+
+                <div class="switch-auth">
+
+                    <span>New to AEGIS?</span>
+
+                    <button
+                        type="button"
+                        class="link-button"
+                        id="showSignup"
+                    >
+                        Create your profile
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIGN UP -->
+            <div id="signupView" class="auth-view">
+
+                <div class="auth-heading">
+
+                    <div class="status-pill">
+                        <span></span>
+                        NEW PERSONNEL PROFILE
+                    </div>
+
+                    <h2>Create your profile</h2>
+
+                    <p>
+                        Set up your private AEGIS environment.
+                    </p>
+
+                </div>
+
+
+                <form id="signupForm" autocomplete="off">
+
+                    <div class="form-grid">
+
+                        <div class="field full">
+
+                            <label for="fullName">
+                                Full name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="personnelId">
+                                Personnel ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="personnelId"
+                                placeholder="e.g. AEGIS-001"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="rank">
+                                Rank
+                            </label>
+
+                            <input
+                                type="text"
+                                id="rank"
+                                placeholder="e.g. Lieutenant"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="force">
+                                Force / Organization
+                            </label>
+
+                            <input
+                                type="text"
+                                id="force"
+                                placeholder="e.g. Indian Army"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="unit">
+                                Unit / Department
+                            </label>
+
+                            <input
+                                type="text"
+                                id="unit"
+                                placeholder="Enter your unit"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label for="signupPassword">
+                                Create password
+                            </label>
+
+                            <div class="password-wrap">
+
+                                <input
+                                    type="password"
+                                    id="signupPassword"
+                                    placeholder="Create a secure password"
+                                    autocomplete="new-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="signupPassword"
+                                >
+                                    SHOW
+                                </button>
+
+                            </div>
+
+                            <div class="password-strength">
+                                <div
+                                    class="strength-bar"
+                                    id="strengthBar"
+                                ></div>
+                            </div>
+
+                            <small
+                                class="field-hint"
+                                id="passwordHint"
+                            >
+                                Use at least 8 characters.
+                            </small>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label for="confirmPassword">
+                                Confirm password
+                            </label>
+
+                            <div class="password-wrap">
+
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    placeholder="Re-enter your password"
+                                    autocomplete="new-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-target="confirmPassword"
+                                >
+                                    SHOW
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label for="securityPin">
+                                Security PIN
+                            </label>
+
+                            <input
+                                type="password"
+                                id="securityPin"
+                                inputmode="numeric"
+                                maxlength="6"
+                                placeholder="Create a 4–6 digit PIN"
+                                autocomplete="off"
+                                required
+                            >
+
+                            <small class="field-hint">
+                                Your PIN can be used for quick local
+                                account recovery.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="consent-row">
+
+                        <input
+                            type="checkbox"
+                            id="privacyConsent"
+                            required
+                        >
+
+                        <span>
+                            I understand that this prototype stores
+                            my account information locally on this
+                            device.
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>CREATE AEGIS PROFILE</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <div
+                        id="signupMessage"
+                        class="form-message"
+                    ></div>
+
+                </form>
+
+
+                <div class="switch-auth">
+
+                    <span>Already have an account?</span>
+
+                    <button
+                        type="button"
+                        class="link-button"
+                        id="showLogin"
+                    >
+                        Sign in
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PIN LOGIN -->
+            <div id="pinView" class="auth-view">
+
+                <div class="auth-heading">
+
+                    <div class="status-pill">
+                        <span></span>
+                        PIN ACCESS
+                    </div>
+
+                    <h2>Quick unlock</h2>
+
+                    <p>
+                        Enter your AEGIS security PIN to access
+                        your local account.
+                    </p>
+
+                </div>
+
+
+                <form id="pinForm">
+
+                    <div class="field">
+
+                        <label for="pinIdentifier">
+                            Personnel ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pinIdentifier"
+                            placeholder="Enter your Personnel ID"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="pin-display">
+
+                        <input
+                            type="password"
+                            id="loginPin"
+                            inputmode="numeric"
+                            maxlength="6"
+                            placeholder="••••••"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>UNLOCK AEGIS</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <div
+                        id="pinMessage"
+                        class="form-message"
+                    ></div>
+
+                </form>
+
+
+                <div class="switch-auth">
+
+                    <button
+                        type="button"
+                        class="link-button"
+                        id="backToLogin"
+                    >
+                        ← Back to password login
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORGOT PASSWORD -->
+            <div id="forgotView" class="auth-view">
+
+                <div class="auth-heading">
+
+                    <div class="status-pill">
+                        <span></span>
+                        LOCAL RECOVERY
+                    </div>
+
+                    <h2>Reset access</h2>
+
+                    <p>
+                        This offline prototype uses your security PIN
+                        to create a new password.
+                    </p>
+
+                </div>
+
+
+                <form id="forgotForm">
+
+                    <div class="field">
+
+                        <label for="forgotIdentifier">
+                            Personnel ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="forgotIdentifier"
+                            placeholder="Enter your Personnel ID"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="recoveryPin">
+                            Security PIN
+                        </label>
+
+                        <input
+                            type="password"
+                            id="recoveryPin"
+                            inputmode="numeric"
+                            maxlength="6"
+                            placeholder="Enter your security PIN"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="newPassword">
+                            New password
+                        </label>
+
+                        <div class="password-wrap">
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                placeholder="Create a new password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="newPassword"
+                            >
+                                SHOW
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>RESET PASSWORD</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <div
+                        id="forgotMessage"
+                        class="form-message"
+                    ></div>
+
+                </form>
+
+
+                <div class="switch-auth">
+
+                    <button
+                        type="button"
+                        class="link-button"
+                        id="forgotBack"
+                    >
+                        ← Back to login
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY FOOTER -->
+            <div class="security-footer">
+
+                <div class="security-item">
+                    <span class="security-dot"></span>
+                    Local authentication
+                </div>
+
+                <div class="security-item">
+                    <span class="security-dot"></span>
+                    Password protected
+                </div>
+
+                <div class="security-item">
+                    <span class="security-dot"></span>
+                    Offline-first
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- SUCCESS OVERLAY -->
+<div
+    id="successOverlay"
+    class="success-overlay"
+    aria-hidden="true"
+>
+
+    <div class="success-card">
+
+        <div class="success-check">
+            ✓
+        </div>
+
+        <div class="success-eyebrow">
+            AEGIS PROFILE CREATED
+        </div>
+
+        <h2>You're ready.</h2>
+
+        <p>
+            Your local personnel profile has been created.
+            Redirecting you to secure access...
+        </p>
+
+        <div class="success-loader">
+            <span></span>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   AEGIS AUTHENTICATION SYSTEM
+   Frontend / Offline Prototype
+   ========================================================= */
+
+const ACCOUNT_KEY = "aegisLocalAccount";
+const SESSION_KEY = "aegisSession";
+const PROFILE_KEY = "aegisUserProfile";
+
+
+/* ---------------------------------------------------------
+   HELPERS
+   --------------------------------------------------------- */
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function normalizeIdentifier(value) {
+    return value.trim().toLowerCase();
+}
+
+
+function showMessage(elementId, message, type = "error") {
+
+    const element = $(elementId);
+
+    if (!element) return;
+
+    element.textContent = message;
+    element.className = "form-message " + type;
+
+}
+
+
+function clearMessages() {
+
+    document
+        .querySelectorAll(".form-message")
+        .forEach(element => {
+            element.textContent = "";
+            element.className = "form-message";
+        });
+
+}
+
+
+function switchView(viewId) {
+
+    document
+        .querySelectorAll(".auth-view")
+        .forEach(view => {
+            view.classList.remove("active");
+        });
+
+    $(viewId).classList.add("active");
+
+    clearMessages();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ---------------------------------------------------------
+   PASSWORD HASHING
+   PBKDF2 + SHA-256
+   --------------------------------------------------------- */
+
+function arrayBufferToBase64(buffer) {
+
+    const bytes = new Uint8Array(buffer);
+
+    let binary = "";
+
+    bytes.forEach(byte => {
+        binary += String.fromCharCode(byte);
+    });
+
+    return btoa(binary);
+}
+
+
+function base64ToArrayBuffer(base64) {
+
+    const binary = atob(base64);
+
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    return bytes.buffer;
+}
+
+
+function generateSalt() {
+
+    const salt = new Uint8Array(16);
+
+    crypto.getRandomValues(salt);
+
+    return arrayBufferToBase64(salt);
+}
+
+
+async function hashPassword(password, saltBase64) {
+
+    const encoder = new TextEncoder();
+
+    const passwordBuffer = encoder.encode(password);
+
+    const saltBuffer = base64ToArrayBuffer(saltBase64);
+
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        passwordBuffer,
+        "PBKDF2",
+        false,
+        ["deriveBits"]
+    );
+
+    const derivedBits = await crypto.subtle.deriveBits(
+        {
+            name: "PBKDF2",
+            salt: saltBuffer,
+            iterations: 150000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        256
+    );
+
+    return arrayBufferToBase64(derivedBits);
+}
+
+
+/* ---------------------------------------------------------
+   ACCOUNT STORAGE
+   --------------------------------------------------------- */
+
+function getAccount() {
+
+    const raw = localStorage.getItem(ACCOUNT_KEY);
+
+    if (!raw) return null;
+
+    try {
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+
+}
+
+
+function saveAccount(account) {
+
+    localStorage.setItem(
+        ACCOUNT_KEY,
+        JSON.stringify(account)
+    );
+
+}
+
+
+function createSession(profile) {
+
+    const session = {
+
+        authenticated: true,
+
+        personnelId: profile.personnelId,
+
+        createdAt: Date.now(),
+
+        lastActivity: Date.now()
+
+    };
+
+    sessionStorage.setItem(
+        SESSION_KEY,
+        JSON.stringify(session)
+    );
+
+}
+
+
+function isAuthenticated() {
+
+    const raw = sessionStorage.getItem(SESSION_KEY);
+
+    if (!raw) return false;
+
+    try {
+
+        const session = JSON.parse(raw);
+
+        return session.authenticated === true;
+
+    } catch {
+
+        return false;
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   PASSWORD VALIDATION
+   --------------------------------------------------------- */
+
+function passwordIsStrong(password) {
+
+    if (password.length < 8) return false;
+
+    const hasLetter = /[A-Za-z]/.test(password);
+
+    const hasNumber = /\d/.test(password);
+
+    return hasLetter && hasNumber;
+
+}
+
+
+function updatePasswordStrength(password) {
+
+    const bar = $("strengthBar");
+    const hint = $("passwordHint");
+
+    if (!password) {
+
+        bar.style.width = "0%";
+        hint.textContent = "Use at least 8 characters.";
+        return;
+
+    }
+
+    let score = 0;
+
+    if (password.length >= 8) score++;
+    if (password.length >= 12) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    const percentage = Math.min(
+        100,
+        Math.round((score / 6) * 100)
+    );
+
+    bar.style.width = percentage + "%";
+
+    if (score <= 2) {
+
+        hint.textContent = "Password strength: weak";
+
+    } else if (score <= 4) {
+
+        hint.textContent = "Password strength: moderate";
+
+    } else {
+
+        hint.textContent = "Password strength: strong";
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN
+   --------------------------------------------------------- */
+
+$("loginForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    clearMessages();
+
+    const identifier = normalizeIdentifier(
+        $("loginIdentifier").value
+    );
+
+    const password = $("loginPassword").value;
+
+    const account = getAccount();
+
+    if (!account) {
+
+        showMessage(
+            "loginMessage",
+            "No AEGIS profile exists on this device. Create your profile first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (identifier !== account.personnelId) {
+
+        showMessage(
+            "loginMessage",
+            "Personnel ID or password is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const passwordHash = await hashPassword(
+        password,
+        account.passwordSalt
+    );
+
+
+    if (passwordHash !== account.passwordHash) {
+
+        showMessage(
+            "loginMessage",
+            "Personnel ID or password is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    createSession(account.profile);
+
+    showMessage(
+        "loginMessage",
+        "Access verified. Entering AEGIS...",
+        "success"
+    );
+
+
+    setTimeout(() => {
+
+        window.location.href = "index.html";
+
+    }, 700);
+
+});
+
+
+/* ---------------------------------------------------------
+   SIGN UP
+   --------------------------------------------------------- */
+
+$("signupForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    clearMessages();
+
+    const existingAccount = getAccount();
+
+    if (existingAccount) {
+
+        showMessage(
+            "signupMessage",
+            "An AEGIS account already exists on this device. Please log in instead.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const fullName = $("fullName").value.trim();
+
+    const personnelId = normalizeIdentifier(
+        $("personnelId").value
+    );
+
+    const rank = $("rank").value.trim();
+
+    const force = $("force").value.trim();
+
+    const unit = $("unit").value.trim();
+
+    const password = $("signupPassword").value;
+
+    const confirmPassword = $("confirmPassword").value;
+
+    const pin = $("securityPin").value.trim();
+
+    const consent = $("privacyConsent").checked;
+
+
+    if (!fullName || !personnelId || !rank || !force || !unit) {
+
+        showMessage(
+            "signupMessage",
+            "Please complete all personnel information.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!passwordIsStrong(password)) {
+
+        showMessage(
+            "signupMessage",
+            "Password must contain at least 8 characters, including a letter and a number.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (password !== confirmPassword) {
+
+        showMessage(
+            "signupMessage",
+            "Passwords do not match.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!/^\d{4,6}$/.test(pin)) {
+
+        showMessage(
+            "signupMessage",
+            "Security PIN must contain 4–6 digits.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!consent) {
+
+        showMessage(
+            "signupMessage",
+            "Please confirm the local-storage privacy notice.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const salt = generateSalt();
+
+    const passwordHash = await hashPassword(
+        password,
+        salt
+    );
+
+
+    const pinSalt = generateSalt();
+
+    const pinHash = await hashPassword(
+        pin,
+        pinSalt
+    );
+
+
+    const profile = {
+
+        fullName,
+
+        personnelId,
+
+        rank,
+
+        force,
+
+        unit,
+
+        createdAt: new Date().toISOString(),
+
+        wellnessPreferences: {
+
+            dailyCheckIn: true,
+
+            reminders: true,
+
+            recoveryTracking: true
+
+        },
+
+        healthPreferences: {
+
+            wearableConnected: false
+
+        },
+
+        privacyPreferences: {
+
+            localStorage: true,
+
+            appLock: true
+
+        },
+
+        aiPreferences: {
+
+            voiceInteraction: true,
+
+            digitalHuman: true
+
+        }
+
+    };
+
+
+    const account = {
+
+        version: 1,
+
+        personnelId,
+
+        passwordHash,
+
+        passwordSalt: salt,
+
+        pinHash,
+
+        pinSalt,
+
+        profile
+
+    };
+
+
+    saveAccount(account);
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(profile)
+    );
+
+
+    $("successOverlay").classList.add("visible");
+
+    $("successOverlay").setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    setTimeout(() => {
+
+        switchView("loginView");
+
+        $("loginIdentifier").value = personnelId;
+
+        $("successOverlay").classList.remove("visible");
+
+        $("successOverlay").setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        showMessage(
+            "loginMessage",
+            "Profile created successfully. You can now sign in.",
+            "success"
+        );
+
+    }, 2200);
+
+});
+
+
+/* ---------------------------------------------------------
+   PIN LOGIN
+   --------------------------------------------------------- */
+
+$("pinForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    clearMessages();
+
+    const identifier = normalizeIdentifier(
+        $("pinIdentifier").value
+    );
+
+    const pin = $("loginPin").value.trim();
+
+    const account = getAccount();
+
+    if (!account) {
+
+        showMessage(
+            "pinMessage",
+            "No AEGIS profile exists on this device.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (identifier !== account.personnelId) {
+
+        showMessage(
+            "pinMessage",
+            "Personnel ID or PIN is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const pinHash = await hashPassword(
+        pin,
+        account.pinSalt
+    );
+
+
+    if (pinHash !== account.pinHash) {
+
+        showMessage(
+            "pinMessage",
+            "Personnel ID or PIN is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    createSession(account.profile);
+
+
+    showMessage(
+        "pinMessage",
+        "Identity verified. Entering AEGIS...",
+        "success"
+    );
+
+
+    setTimeout(() => {
+
+        window.location.href = "index.html";
+
+    }, 700);
+
+});
+
+
+/* ---------------------------------------------------------
+   PASSWORD RECOVERY
+   --------------------------------------------------------- */
+
+$("forgotForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    clearMessages();
+
+    const identifier = normalizeIdentifier(
+        $("forgotIdentifier").value
+    );
+
+    const pin = $("recoveryPin").value.trim();
+
+    const newPassword = $("newPassword").value;
+
+    const account = getAccount();
+
+
+    if (!account) {
+
+        showMessage(
+            "forgotMessage",
+            "No local AEGIS account was found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (identifier !== account.personnelId) {
+
+        showMessage(
+            "forgotMessage",
+            "Personnel ID or PIN is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const pinHash = await hashPassword(
+        pin,
+        account.pinSalt
+    );
+
+
+    if (pinHash !== account.pinHash) {
+
+        showMessage(
+            "forgotMessage",
+            "Personnel ID or PIN is incorrect.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!passwordIsStrong(newPassword)) {
+
+        showMessage(
+            "forgotMessage",
+            "New password must contain at least 8 characters, including a letter and a number.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const newSalt = generateSalt();
+
+    const newHash = await hashPassword(
+        newPassword,
+        newSalt
+    );
+
+
+    account.passwordSalt = newSalt;
+
+    account.passwordHash = newHash;
+
+
+    saveAccount(account);
+
+
+    showMessage(
+        "forgotMessage",
+        "Password reset successfully. You can now log in.",
+        "success"
+    );
+
+
+    setTimeout(() => {
+
+        switchView("loginView");
+
+        $("loginIdentifier").value = identifier;
+
+    }, 1000);
+
+});
+
+
+/* ---------------------------------------------------------
+   NAVIGATION BETWEEN AUTH VIEWS
+   --------------------------------------------------------- */
+
+$("showSignup").addEventListener(
+    "click",
+    () => switchView("signupView")
+);
+
+
+$("showLogin").addEventListener(
+    "click",
+    () => switchView("loginView")
+);
+
+
+$("showPinLogin").addEventListener(
+    "click",
+    () => switchView("pinView")
+);
+
+
+$("backToLogin").addEventListener(
+    "click",
+    () => switchView("loginView")
+);
+
+
+$("showForgot").addEventListener(
+    "click",
+    () => switchView("forgotView")
+);
+
+
+$("forgotBack").addEventListener(
+    "click",
+    () => switchView("loginView")
+);
+
+
+/* ---------------------------------------------------------
+   PASSWORD VISIBILITY
+   --------------------------------------------------------- */
+
+document
+    .querySelectorAll(".password-toggle")
+    .forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            const target = $(this.dataset.target);
+
+            if (target.type === "password") {
+
+                target.type = "text";
+
+                this.textContent = "HIDE";
+
+            } else {
+
+                target.type = "password";
+
+                this.textContent = "SHOW";
+
+            }
+
+        });
+
+    });
+
+
+/* ---------------------------------------------------------
+   PASSWORD STRENGTH
+   --------------------------------------------------------- */
+
+$("signupPassword").addEventListener(
+    "input",
+    function() {
+        updatePasswordStrength(this.value);
+    }
+);
+
+
+/* ---------------------------------------------------------
+   PIN INPUT RESTRICTION
+   --------------------------------------------------------- */
+
+[
+    "securityPin",
+    "loginPin",
+    "recoveryPin"
+].forEach(id => {
+
+    $(id).addEventListener("input", function() {
+
+        this.value = this.value
+            .replace(/\D/g, "")
+            .slice(0, 6);
+
+    });
+
+});
+
+
+/* ---------------------------------------------------------
+   IF SESSION ALREADY EXISTS
+   --------------------------------------------------------- */
+
+if (isAuthenticated()) {
+
+    const existingAccount = getAccount();
+
+    if (existingAccount) {
+
+        /*
+         * We intentionally do not automatically redirect here.
+         * This lets the user see the authentication screen again
+         * during development if needed.
+         */
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

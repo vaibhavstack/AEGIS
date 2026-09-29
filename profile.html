@@ -1,0 +1,3237 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile & Settings | AEGIS</title>
+
+    <link rel="stylesheet" href="theme.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: #F5F7F2;
+            color: #28332C;
+        }
+
+        .profile-page {
+            min-height: 100vh;
+            padding: 30px 5%;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .profile-topbar {
+            max-width: 1400px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-mark {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            background: #78927A;
+            color: white;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(79, 104, 85, 0.16);
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: #87928B;
+            margin-top: 3px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-button,
+        .logout-button {
+            border: 1px solid #D8E0D8;
+            background: #FFFFFF;
+            color: #4F6855;
+            padding: 11px 17px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .back-button:hover,
+        .logout-button:hover {
+            background: #EAF0E8;
+            transform: translateY(-1px);
+        }
+
+        .logout-button {
+            color: #9A6256;
+        }
+
+        .logout-button:hover {
+            background: #F4E8E5;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .profile-hero {
+            max-width: 1400px;
+            margin: 0 auto 26px;
+
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(175,196,196,0.35),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #FFFFFF,
+                    #EDF2EC
+                );
+
+            border: 1px solid #D8E0D8;
+            border-radius: 28px;
+            padding: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+
+            box-shadow:
+                0 18px 50px rgba(58, 76, 63, 0.07);
+        }
+
+        .hero-left {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .avatar {
+            width: 86px;
+            height: 86px;
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #78927A,
+                    #AFC4C4
+                );
+
+            display: grid;
+            place-items: center;
+
+            color: white;
+            font-size: 28px;
+            font-weight: 800;
+
+            box-shadow:
+                0 12px 28px rgba(79, 104, 85, 0.18);
+        }
+
+        .hero-info h2 {
+            font-size: clamp(24px, 3vw, 36px);
+            margin-bottom: 7px;
+        }
+
+        .hero-info p {
+            color: #65736A;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-top: 13px;
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            background: #EAF0E8;
+            color: #4F6855;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #6F9075;
+        }
+
+        .hero-security {
+            text-align: right;
+        }
+
+        .security-label {
+            font-size: 11px;
+            color: #87928B;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .security-value {
+            margin-top: 7px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #4F6855;
+        }
+
+        /* =========================
+           EDIT PROFILE BUTTON
+        ========================= */
+
+        .edit-profile-button {
+            margin-top: 18px;
+
+            border: 0;
+            background: #4F6855;
+            color: white;
+
+            padding: 12px 19px;
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .edit-profile-button:hover {
+            background: #3F5745;
+            transform: translateY(-1px);
+        }
+
+        .save-button {
+            border: 0;
+            background: #6F9075;
+            color: white;
+
+            padding: 11px 18px;
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .save-button:hover {
+            background: #58775E;
+        }
+
+        .cancel-button {
+            border: 1px solid #D8E0D8;
+            background: white;
+            color: #59665E;
+
+            padding: 11px 18px;
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .cancel-button:hover {
+            background: #F5F7F2;
+        }
+
+        .edit-actions {
+            display: none;
+            align-items: center;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .edit-actions.active {
+            display: flex;
+        }
+
+        /* =========================
+           LAYOUT
+        ========================= */
+
+        .settings-layout {
+            max-width: 1400px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+        }
+
+        .settings-nav {
+            background: #FFFFFF;
+            border: 1px solid #D8E0D8;
+            border-radius: 22px;
+            padding: 12px;
+
+            height: fit-content;
+
+            position: sticky;
+            top: 25px;
+        }
+
+        .settings-nav button {
+            width: 100%;
+
+            border: 0;
+            background: transparent;
+
+            text-align: left;
+
+            padding: 13px 14px;
+            border-radius: 12px;
+
+            color: #59665E;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .settings-nav button:hover {
+            background: #F5F7F2;
+            color: #4F6855;
+        }
+
+        .settings-nav button.active {
+            background: #EAF0E8;
+            color: #4F6855;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .settings-content {
+            min-width: 0;
+        }
+
+        .settings-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-heading {
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: 25px;
+        }
+
+        .section-heading p {
+            margin-top: 6px;
+            color: #87928B;
+            font-size: 13px;
+        }
+
+        .settings-card {
+            background: #FFFFFF;
+            border: 1px solid #D8E0D8;
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            margin-bottom: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(58, 76, 63, 0.045);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-title h3 {
+            font-size: 16px;
+        }
+
+        .card-title p {
+            color: #87928B;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* =========================
+           EDITABLE PROFILE
+        ========================= */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .info-field {
+            padding: 15px;
+
+            background: #F8FAF7;
+            border: 1px solid #E5EBE5;
+
+            border-radius: 15px;
+        }
+
+        .info-field label {
+            display: block;
+
+            font-size: 10px;
+            color: #87928B;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            margin-bottom: 7px;
+        }
+
+        .info-field span {
+            display: block;
+
+            font-size: 14px;
+            font-weight: 650;
+
+            color: #28332C;
+
+            word-break: break-word;
+        }
+
+        .profile-input {
+            width: 100%;
+
+            border: 1px solid #D8E0D8;
+            background: white;
+
+            color: #28332C;
+
+            border-radius: 10px;
+
+            padding: 10px 11px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        .profile-input:focus {
+            border-color: #78927A;
+
+            box-shadow:
+                0 0 0 3px rgba(120, 146, 122, 0.12);
+        }
+
+        .profile-input:disabled {
+            background: #EDF2EC;
+            color: #87928B;
+            cursor: not-allowed;
+        }
+
+        .edit-mode {
+            display: none;
+        }
+
+        .edit-mode.active {
+            display: block;
+        }
+
+        .view-mode.hidden {
+            display: none;
+        }
+
+        .field-note {
+            display: block;
+            margin-top: 6px;
+
+            color: #9AA39D;
+            font-size: 10px;
+        }
+
+        /* =========================
+           SETTING ROWS
+        ========================= */
+
+        .setting-row {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 17px 0;
+
+            border-bottom: 1px solid #E5EBE5;
+        }
+
+        .setting-row:first-of-type {
+            padding-top: 0;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .setting-info span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #87928B;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           TOGGLE
+        ========================= */
+
+        .toggle {
+            position: relative;
+
+            width: 45px;
+            height: 25px;
+
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+
+            background: #D8E0D8;
+
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .toggle-slider::before {
+            content: "";
+
+            position: absolute;
+
+            width: 19px;
+            height: 19px;
+
+            left: 3px;
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            transition: 0.2s ease;
+
+            box-shadow:
+                0 2px 5px rgba(0,0,0,0.12);
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background: #78927A;
+        }
+
+        .toggle input:checked + .toggle-slider::before {
+            transform: translateX(20px);
+        }
+
+        /* =========================
+           SELECT
+        ========================= */
+
+        select {
+            border: 1px solid #D8E0D8;
+
+            background: #F8FAF7;
+
+            color: #28332C;
+
+            border-radius: 10px;
+
+            padding: 9px 12px;
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           DEVICE CARD
+        ========================= */
+
+        .device-card {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px;
+
+            border-radius: 17px;
+
+            background: #EEF5F4;
+            border: 1px solid #DDE9E8;
+        }
+
+        .device-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .device-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 14px;
+
+            background: #DDE9E8;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 21px;
+        }
+
+        .device-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .device-info span {
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 11px;
+
+            color: #657F80;
+        }
+
+        .device-status {
+            padding: 7px 10px;
+
+            border-radius: 999px;
+
+            background: #EAF0E8;
+            color: #4F6855;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           SECURITY
+        ========================= */
+
+        .security-box {
+            background: #F8FAF7;
+
+            border: 1px solid #E5EBE5;
+
+            border-radius: 17px;
+
+            padding: 17px;
+        }
+
+        .security-box strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .security-box p {
+            margin-top: 6px;
+
+            color: #87928B;
+
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           DANGER
+        ========================= */
+
+        .danger-zone {
+            border-color: #E8D7D2;
+            background: #FCF8F7;
+        }
+
+        .danger-button {
+            border: 1px solid #D8B9B1;
+
+            background: #FFFFFF;
+
+            color: #9A6256;
+
+            padding: 10px 14px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-weight: 650;
+        }
+
+        .danger-button:hover {
+            background: #F4E8E5;
+        }
+
+        /* =========================
+           TOAST
+        ========================= */
+
+        .toast {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            background: #4F6855;
+            color: white;
+
+            padding: 13px 17px;
+
+            border-radius: 12px;
+
+            font-size: 12px;
+            font-weight: 650;
+
+            box-shadow:
+                0 12px 30px rgba(40, 51, 44, 0.16);
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: translateY(12px);
+
+            transition: 0.25s ease;
+
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-nav {
+                position: static;
+
+                display: flex;
+
+                overflow-x: auto;
+
+                gap: 5px;
+            }
+
+            .settings-nav button {
+                min-width: max-content;
+            }
+
+            .profile-hero {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .hero-security {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .profile-page {
+                padding: 20px 15px;
+            }
+
+            .profile-topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .top-actions {
+                width: 100%;
+            }
+
+            .top-actions button {
+                flex: 1;
+            }
+
+            .profile-hero {
+                padding: 24px;
+            }
+
+            .hero-left {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-card {
+                padding: 19px;
+            }
+
+            .setting-row {
+                align-items: flex-start;
+            }
+
+            .device-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <header class="profile-topbar">
+
+        <div class="brand-area">
+
+            <div class="brand-mark">
+                A
+            </div>
+
+            <div class="brand-text">
+
+                <h1>AEGIS</h1>
+
+                <p>
+                    Personnel Welfare Intelligence
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                type="button"
+                class="back-button"
+                onclick="window.location.href='index.html'">
+
+                ← Back to Home
+
+            </button>
+
+            <a href="dashboard.html" class="back-button">
+                Dashboard
+            </a>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                onclick="AEGIS_AUTH.logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         PROFILE HERO
+    ========================== -->
+
+    <section class="profile-hero">
+
+        <div class="hero-left">
+
+            <div
+                class="avatar"
+                id="profileAvatar">
+
+                A
+
+            </div>
+
+
+            <div class="hero-info">
+
+                <h2 id="heroName">
+                    Personnel
+                </h2>
+
+                <p id="heroRole">
+                    AEGIS Personnel
+                </p>
+
+
+                <div class="status-badge">
+
+                    <span class="status-dot"></span>
+
+                    ACCOUNT ACTIVE
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="edit-profile-button"
+                    id="editProfileButton"
+                    onclick="enableEditMode()">
+
+                    ✎ Edit Profile
+
+                </button>
+
+
+                <div
+                    class="edit-actions"
+                    id="editActions">
+
+                    <button
+                        type="button"
+                        class="save-button"
+                        onclick="saveProfile()">
+
+                        Save Changes
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="cancelEdit()">
+
+                        Cancel
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-security">
+
+            <div class="security-label">
+                Local Security
+            </div>
+
+            <div class="security-value">
+                ● Protected
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN SETTINGS
+    ========================== -->
+
+    <div class="settings-layout">
+
+
+        <!-- =========================
+             SIDE NAVIGATION
+        ========================== -->
+
+        <aside class="settings-nav">
+
+            <button
+                class="active"
+                data-section="personnel">
+
+                👤 Personnel
+
+            </button>
+
+
+            <button
+                data-section="security">
+
+                🔐 Security
+
+            </button>
+
+
+            <button
+                data-section="wellness">
+
+                🌿 Wellness
+
+            </button>
+
+
+            <button
+                data-section="health">
+
+                ⌚ Health & Wearable
+
+            </button>
+
+
+            <button
+                data-section="ai">
+
+                🤖 AI & Digital Human
+
+            </button>
+
+
+            <button
+                data-section="notifications">
+
+                🔔 Notifications
+
+            </button>
+
+
+            <button
+                data-section="preferences">
+
+                ⚙ Preferences
+
+            </button>
+
+        </aside>
+
+
+        <!-- =========================
+             CONTENT
+        ========================== -->
+
+        <main class="settings-content">
+
+
+            <!-- =========================
+                 PERSONNEL PROFILE
+            ========================== -->
+
+            <section
+                id="personnel"
+                class="settings-section active">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Personnel Profile
+                    </h2>
+
+                    <p>
+                        Manage your AEGIS personnel information.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Service Identity
+                            </h3>
+
+                            <p>
+                                Update your personal service information.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Full Name
+                            </label>
+
+
+                            <div
+                                class="view-mode"
+                                id="fullNameView">
+
+                                <span id="fullName">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="edit-mode"
+                                id="fullNameEdit">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="fullNameInput"
+                                    placeholder="Enter full name">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PERSONNEL ID -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Personnel ID
+                            </label>
+
+
+                            <div class="view-mode">
+
+                                <span id="personnelId">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div class="edit-mode active">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="personnelIdInput"
+                                    disabled>
+
+                                <span class="field-note">
+                                    Personnel ID cannot be changed here.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RANK -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Rank
+                            </label>
+
+
+                            <div
+                                class="view-mode"
+                                id="rankView">
+
+                                <span id="rank">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="edit-mode"
+                                id="rankEdit">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="rankInput"
+                                    placeholder="Enter rank">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FORCE -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Force / Organization
+                            </label>
+
+
+                            <div
+                                class="view-mode"
+                                id="forceView">
+
+                                <span id="force">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="edit-mode"
+                                id="forceEdit">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="forceInput"
+                                    placeholder="Enter force or organization">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- UNIT -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Unit / Department
+                            </label>
+
+
+                            <div
+                                class="view-mode"
+                                id="unitView">
+
+                                <span id="unit">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="edit-mode"
+                                id="unitEdit">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="unitInput"
+                                    placeholder="Enter unit or department">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CREATED -->
+
+                        <div class="info-field">
+
+                            <label>
+                                Account Created
+                            </label>
+
+
+                            <div class="view-mode">
+
+                                <span id="createdAt">
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div class="edit-mode active">
+
+                                <input
+                                    type="text"
+                                    class="profile-input"
+                                    id="createdAtInput"
+                                    disabled>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Profile Status
+                            </h3>
+
+                            <p>
+                                Current AEGIS account state.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-box">
+
+                        <strong>
+                            ✓ Local Personnel Profile Active
+                        </strong>
+
+                        <p>
+                            Your profile information is stored locally on
+                            this device for this prototype. Changes made
+                            here are saved to your AEGIS local account.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SECURITY
+            ========================== -->
+
+            <section
+                id="security"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Security & Privacy
+                    </h2>
+
+                    <p>
+                        Manage how AEGIS protects locally stored information.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Account Protection
+                            </h3>
+
+                            <p>
+                                Local security controls.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Application Lock
+                            </strong>
+
+                            <span>
+                                Require authentication when starting
+                                a new session.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="appLockToggle"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Local Data Storage
+                            </strong>
+
+                            <span>
+                                Keep AEGIS prototype data on this device.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="localStorageToggle"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Automatic Session Timeout
+                            </strong>
+
+                            <span>
+                                End inactive sessions after the
+                                configured period.
+                            </span>
+
+                        </div>
+
+
+                        <select id="timeoutSelect">
+
+                            <option value="15">
+                                15 minutes
+                            </option>
+
+                            <option
+                                value="30"
+                                selected>
+
+                                30 minutes
+
+                            </option>
+
+                            <option value="60">
+                                60 minutes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Security Status
+                            </h3>
+
+                            <p>
+                                Current local protection state.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-box">
+
+                        <strong>
+                            🔒 Offline-first protection enabled
+                        </strong>
+
+                        <p>
+                            AEGIS is currently operating with local browser
+                            storage for this prototype. Production deployment
+                            should use institutional authentication,
+                            encrypted storage and a properly secured backend.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 WELLNESS
+            ========================== -->
+
+            <section
+                id="wellness"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Wellness Preferences
+                    </h2>
+
+                    <p>
+                        Customize how AEGIS monitors your daily wellbeing.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Daily Wellness
+                            </h3>
+
+                            <p>
+                                Personal monitoring preferences.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Daily Check-In
+                            </strong>
+
+                            <span>
+                                Enable your daily wellness assessment.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="dailyCheckIn"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Wellness Reminders
+                            </strong>
+
+                            <span>
+                                Receive reminders to complete your check-in.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="wellnessReminder"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Recovery Tracking
+                            </strong>
+
+                            <span>
+                                Track changes in recovery and fatigue
+                                over time.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="recoveryTracking"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 HEALTH
+            ========================== -->
+
+            <section
+                id="health"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Health & Wearable
+                    </h2>
+
+                    <p>
+                        Health monitoring remains optional and separate
+                        from the rest of AEGIS.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Connected Device
+                            </h3>
+
+                            <p>
+                                Only health-related information can use
+                                the wearable connection.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="device-card">
+
+                        <div class="device-left">
+
+                            <div class="device-icon">
+                                ⌚
+                            </div>
+
+
+                            <div class="device-info">
+
+                                <strong id="wearableName">
+                                    No wearable connected
+                                </strong>
+
+                                <span id="wearableStatus">
+                                    Optional health connection
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="device-status"
+                            id="wearableBadge">
+
+                            NOT CONNECTED
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="height:14px;"></div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Allow Health Wearable
+                            </strong>
+
+                            <span>
+                                Permit optional health metrics such as
+                                heart rate, SpO₂, sleep and activity data.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="wearableToggle">
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 AI
+            ========================== -->
+
+            <section
+                id="ai"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        AI & Digital Human
+                    </h2>
+
+                    <p>
+                        Configure your AEGIS support experience.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                AI Interaction
+                            </h3>
+
+                            <p>
+                                Personalize how AEGIS communicates with you.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Voice Interaction
+                            </strong>
+
+                            <span>
+                                Allow voice-based interaction with
+                                supported AI features.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="voiceInteraction"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Digital Human
+                            </strong>
+
+                            <span>
+                                Enable the conversational digital-human
+                                experience.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="digitalHuman"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                AI Response Style
+                            </strong>
+
+                            <span>
+                                Choose how responses should be presented.
+                            </span>
+
+                        </div>
+
+
+                        <select id="aiStyle">
+
+                            <option value="calm">
+                                Calm & Supportive
+                            </option>
+
+                            <option value="direct">
+                                Clear & Direct
+                            </option>
+
+                            <option value="brief">
+                                Brief & Minimal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 NOTIFICATIONS
+            ========================== -->
+
+            <section
+                id="notifications"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Notifications
+                    </h2>
+
+                    <p>
+                        Choose which AEGIS reminders you want to receive.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Wellness Check-In
+                            </strong>
+
+                            <span>
+                                Reminder for your daily wellbeing assessment.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="notificationWellness"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Stress & Fatigue
+                            </strong>
+
+                            <span>
+                                Notify when monitoring requires attention.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="notificationStress"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Health Screening
+                            </strong>
+
+                            <span>
+                                Reminders for health screening activities.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="notificationHealth"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Security Alerts
+                            </strong>
+
+                            <span>
+                                Important account and security notifications.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="notificationSecurity"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PREFERENCES
+            ========================== -->
+
+            <section
+                id="preferences"
+                class="settings-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Application Preferences
+                    </h2>
+
+                    <p>
+                        Customize your AEGIS experience.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Appearance
+                            </strong>
+
+                            <span>
+                                Choose the visual appearance of AEGIS.
+                            </span>
+
+                        </div>
+
+
+                        <select id="appearance">
+
+                            <option value="light">
+                                Light
+                            </option>
+
+                            <option value="dark">
+                                Dark
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Language
+                            </strong>
+
+                            <span>
+                                Preferred interface language.
+                            </span>
+
+                        </div>
+
+
+                        <select id="language">
+
+                            <option value="en">
+                                English
+                            </option>
+
+                            <option value="hi">
+                                Hindi
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Sound Effects
+                            </strong>
+
+                            <span>
+                                Enable interface sounds where supported.
+                            </span>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="soundEffects"
+                                checked>
+
+                            <span class="toggle-slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-card danger-zone">
+
+                    <div class="card-title">
+
+                        <div>
+
+                            <h3>
+                                Account Actions
+                            </h3>
+
+                            <p>
+                                Actions that affect locally stored
+                                account data.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Clear Local Wellness History
+                            </strong>
+
+                            <span>
+                                Remove stored wellness history from
+                                this browser.
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="danger-button"
+                            onclick="clearWellnessHistory()">
+
+                            Clear History
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Logout
+                            </strong>
+
+                            <span>
+                                End your current AEGIS session.
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="danger-button"
+                            onclick="AEGIS_AUTH.logout()">
+
+                            Logout
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================== -->
+
+<div
+    class="toast"
+    id="toast">
+
+    Profile updated successfully.
+
+</div>
+
+
+<!-- =========================
+     AUTH GUARD
+========================== -->
+
+<script src="auth-guard.js"></script>
+
+
+<script>
+
+    /* =========================================
+       STORAGE
+    ========================================= */
+
+    const ACCOUNT_KEY = "aegisLocalAccount";
+
+
+    /* =========================================
+       GET ACCOUNT
+    ========================================= */
+
+    function getAccount() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(ACCOUNT_KEY)
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read AEGIS account.",
+                error
+            );
+
+            return null;
+        }
+    }
+
+
+    /* =========================================
+       PROFILE STATE
+    ========================================= */
+
+    let originalProfile = null;
+
+
+    /* =========================================
+       LOAD PROFILE
+    ========================================= */
+
+    function loadProfile() {
+
+        const account = getAccount();
+
+        if (
+            !account ||
+            !account.profile
+        ) {
+
+            return;
+        }
+
+
+        const profile = account.profile;
+
+
+        originalProfile = {
+            ...profile
+        };
+
+
+        /* -------------------------
+           DISPLAY
+        ------------------------- */
+
+        document.getElementById(
+            "fullName"
+        ).textContent =
+            profile.fullName || "—";
+
+
+        document.getElementById(
+            "personnelId"
+        ).textContent =
+            profile.personnelId || "—";
+
+
+        document.getElementById(
+            "rank"
+        ).textContent =
+            profile.rank || "—";
+
+
+        document.getElementById(
+            "force"
+        ).textContent =
+            profile.force || "—";
+
+
+        document.getElementById(
+            "unit"
+        ).textContent =
+            profile.unit || "—";
+
+
+        document.getElementById(
+            "heroName"
+        ).textContent =
+            profile.fullName || "Personnel";
+
+
+        document.getElementById(
+            "heroRole"
+        ).textContent =
+            `${profile.rank || "Personnel"} • ${profile.force || "AEGIS"}`;
+
+
+        document.getElementById(
+            "createdAt"
+        ).textContent =
+            profile.createdAt
+                ? new Date(
+                    profile.createdAt
+                ).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                )
+                : "—";
+
+
+        /* -------------------------
+           EDIT INPUTS
+        ------------------------- */
+
+        document.getElementById(
+            "fullNameInput"
+        ).value =
+            profile.fullName || "";
+
+
+        document.getElementById(
+            "personnelIdInput"
+        ).value =
+            profile.personnelId || "";
+
+
+        document.getElementById(
+            "rankInput"
+        ).value =
+            profile.rank || "";
+
+
+        document.getElementById(
+            "forceInput"
+        ).value =
+            profile.force || "";
+
+
+        document.getElementById(
+            "unitInput"
+        ).value =
+            profile.unit || "";
+
+
+        document.getElementById(
+            "createdAtInput"
+        ).value =
+            profile.createdAt
+                ? new Date(
+                    profile.createdAt
+                ).toLocaleDateString(
+                    "en-IN"
+                )
+                : "";
+
+
+        /* -------------------------
+           AVATAR
+        ------------------------- */
+
+        const initials =
+            (profile.fullName || "A")
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map(
+                    name => name[0]
+                )
+                .join("")
+                .toUpperCase();
+
+
+        document.getElementById(
+            "profileAvatar"
+        ).textContent =
+            initials || "A";
+
+
+        /* -------------------------
+           PREFERENCES
+        ------------------------- */
+
+        loadPreferences(profile);
+
+    }
+
+
+    /* =========================================
+       ENABLE EDIT MODE
+    ========================================= */
+
+    function enableEditMode() {
+
+        document
+            .querySelectorAll(".view-mode")
+            .forEach(element => {
+
+                element.classList.add("hidden");
+
+            });
+
+
+        document
+            .querySelectorAll(".edit-mode")
+            .forEach(element => {
+
+                element.classList.add("active");
+
+            });
+
+
+        document.getElementById(
+            "editProfileButton"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "editActions"
+        ).classList.add("active");
+
+
+        document.getElementById(
+            "fullNameInput"
+        ).focus();
+
+    }
+
+
+    /* =========================================
+       CANCEL EDIT
+    ========================================= */
+
+    function cancelEdit() {
+
+        if (originalProfile) {
+
+            document.getElementById(
+                "fullNameInput"
+            ).value =
+                originalProfile.fullName || "";
+
+
+            document.getElementById(
+                "rankInput"
+            ).value =
+                originalProfile.rank || "";
+
+
+            document.getElementById(
+                "forceInput"
+            ).value =
+                originalProfile.force || "";
+
+
+            document.getElementById(
+                "unitInput"
+            ).value =
+                originalProfile.unit || "";
+
+        }
+
+
+        exitEditMode();
+
+    }
+
+
+    /* =========================================
+       SAVE PROFILE
+    ========================================= */
+
+    function saveProfile() {
+
+        const account = getAccount();
+
+        if (
+            !account ||
+            !account.profile
+        ) {
+
+            showToast(
+                "Account could not be loaded."
+            );
+
+            return;
+        }
+
+
+        /* -------------------------
+           READ INPUTS
+        ------------------------- */
+
+        const fullName =
+            document.getElementById(
+                "fullNameInput"
+            ).value.trim();
+
+
+        const rank =
+            document.getElementById(
+                "rankInput"
+            ).value.trim();
+
+
+        const force =
+            document.getElementById(
+                "forceInput"
+            ).value.trim();
+
+
+        const unit =
+            document.getElementById(
+                "unitInput"
+            ).value.trim();
+
+
+        /* -------------------------
+           VALIDATION
+        ------------------------- */
+
+        if (!fullName) {
+
+            showToast(
+                "Please enter your full name."
+            );
+
+            document.getElementById(
+                "fullNameInput"
+            ).focus();
+
+            return;
+        }
+
+
+        if (!rank) {
+
+            showToast(
+                "Please enter your rank."
+            );
+
+            document.getElementById(
+                "rankInput"
+            ).focus();
+
+            return;
+        }
+
+
+        if (!force) {
+
+            showToast(
+                "Please enter your force or organization."
+            );
+
+            document.getElementById(
+                "forceInput"
+            ).focus();
+
+            return;
+        }
+
+
+        if (!unit) {
+
+            showToast(
+                "Please enter your unit or department."
+            );
+
+            document.getElementById(
+                "unitInput"
+            ).focus();
+
+            return;
+        }
+
+
+        /* -------------------------
+           UPDATE ACCOUNT
+        ------------------------- */
+
+        account.profile.fullName =
+            fullName;
+
+        account.profile.rank =
+            rank;
+
+        account.profile.force =
+            force;
+
+        account.profile.unit =
+            unit;
+
+
+        localStorage.setItem(
+            ACCOUNT_KEY,
+            JSON.stringify(account)
+        );
+
+
+        /* -------------------------
+           UPDATE SESSION
+        ------------------------- */
+
+        if (
+            window.AEGIS_AUTH &&
+            typeof AEGIS_AUTH.updateActivity ===
+            "function"
+        ) {
+
+            AEGIS_AUTH.updateActivity();
+
+        }
+
+
+        /* -------------------------
+           RELOAD PROFILE
+        ------------------------- */
+
+        originalProfile = {
+            ...account.profile
+        };
+
+
+        loadProfile();
+
+        exitEditMode();
+
+
+        showToast(
+            "Profile updated successfully."
+        );
+
+    }
+
+
+    /* =========================================
+       EXIT EDIT MODE
+    ========================================= */
+
+    function exitEditMode() {
+
+        document
+            .querySelectorAll(".view-mode")
+            .forEach(element => {
+
+                element.classList.remove("hidden");
+
+            });
+
+
+        document
+            .querySelectorAll(".edit-mode")
+            .forEach(element => {
+
+                if (
+                    element.id !==
+                    "personnelIdInput"
+                ) {
+
+                    element.classList.remove("active");
+
+                }
+
+            });
+
+
+        document.getElementById(
+            "editProfileButton"
+        ).style.display = "inline-block";
+
+
+        document.getElementById(
+            "editActions"
+        ).classList.remove("active");
+
+    }
+
+
+    /* =========================================
+       LOAD PREFERENCES
+    ========================================= */
+
+    function loadPreferences(profile) {
+
+        const wellness =
+            profile.wellnessPreferences || {};
+
+
+        const health =
+            profile.healthPreferences || {};
+
+
+        const privacy =
+            profile.privacyPreferences || {};
+
+
+        const ai =
+            profile.aiPreferences || {};
+
+
+        /* WELLNESS */
+
+        document.getElementById(
+            "dailyCheckIn"
+        ).checked =
+            wellness.dailyCheckIn !== false;
+
+
+        document.getElementById(
+            "wellnessReminder"
+        ).checked =
+            wellness.reminders !== false;
+
+
+        document.getElementById(
+            "recoveryTracking"
+        ).checked =
+            wellness.recoveryTracking !== false;
+
+
+        /* HEALTH */
+
+        document.getElementById(
+            "wearableToggle"
+        ).checked =
+            health.wearableConnected === true;
+
+
+        updateWearableDisplay(
+            health.wearableConnected === true
+        );
+
+
+        /* SECURITY */
+
+        document.getElementById(
+            "appLockToggle"
+        ).checked =
+            privacy.appLock !== false;
+
+
+        document.getElementById(
+            "localStorageToggle"
+        ).checked =
+            privacy.localStorage !== false;
+
+
+        /* AI */
+
+        document.getElementById(
+            "voiceInteraction"
+        ).checked =
+            ai.voiceInteraction !== false;
+
+
+        document.getElementById(
+            "digitalHuman"
+        ).checked =
+            ai.digitalHuman !== false;
+
+    }
+
+
+    /* =========================================
+       SAVE SETTINGS
+    ========================================= */
+
+    function saveSettings() {
+
+        const account = getAccount();
+
+        if (
+            !account ||
+            !account.profile
+        ) {
+
+            return;
+        }
+
+
+        const profile =
+            account.profile;
+
+
+        profile.wellnessPreferences = {
+
+            dailyCheckIn:
+                document.getElementById(
+                    "dailyCheckIn"
+                ).checked,
+
+            reminders:
+                document.getElementById(
+                    "wellnessReminder"
+                ).checked,
+
+            recoveryTracking:
+                document.getElementById(
+                    "recoveryTracking"
+                ).checked
+
+        };
+
+
+        profile.healthPreferences = {
+
+            wearableConnected:
+                document.getElementById(
+                    "wearableToggle"
+                ).checked
+
+        };
+
+
+        profile.privacyPreferences = {
+
+            localStorage:
+                document.getElementById(
+                    "localStorageToggle"
+                ).checked,
+
+            appLock:
+                document.getElementById(
+                    "appLockToggle"
+                ).checked
+
+        };
+
+
+        profile.aiPreferences = {
+
+            voiceInteraction:
+                document.getElementById(
+                    "voiceInteraction"
+                ).checked,
+
+            digitalHuman:
+                document.getElementById(
+                    "digitalHuman"
+                ).checked
+
+        };
+
+
+        localStorage.setItem(
+            ACCOUNT_KEY,
+            JSON.stringify(account)
+        );
+
+
+        updateWearableDisplay(
+            profile.healthPreferences
+                .wearableConnected
+        );
+
+    }
+
+
+    /* =========================================
+       WEARABLE
+    ========================================= */
+
+    function updateWearableDisplay(
+        connected
+    ) {
+
+        const name =
+            document.getElementById(
+                "wearableName"
+            );
+
+
+        const status =
+            document.getElementById(
+                "wearableStatus"
+            );
+
+
+        const badge =
+            document.getElementById(
+                "wearableBadge"
+            );
+
+
+        if (connected) {
+
+            name.textContent =
+                "Health wearable enabled";
+
+
+            status.textContent =
+                "Health-only data connection enabled";
+
+
+            badge.textContent =
+                "ENABLED";
+
+        } else {
+
+            name.textContent =
+                "No wearable connected";
+
+
+            status.textContent =
+                "Optional health connection";
+
+
+            badge.textContent =
+                "NOT CONNECTED";
+
+        }
+
+    }
+
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+
+    const navButtons =
+        document.querySelectorAll(
+            ".settings-nav button"
+        );
+
+
+    const sections =
+        document.querySelectorAll(
+            ".settings-section"
+        );
+
+
+    navButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const target =
+                    button.dataset.section;
+
+
+                navButtons.forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                sections.forEach(
+                    section =>
+                        section.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                document
+                    .getElementById(target)
+                    .classList.add("active");
+
+            }
+        );
+
+    });
+
+
+    /* =========================================
+       AUTO SAVE SETTINGS
+    ========================================= */
+
+    document
+        .querySelectorAll(
+            'input[type="checkbox"], select'
+        )
+        .forEach(control => {
+
+            control.addEventListener(
+                "change",
+                () => {
+
+                    saveSettings();
+
+                }
+            );
+
+        });
+
+
+    /* =========================================
+       CLEAR WELLNESS HISTORY
+    ========================================= */
+
+    function clearWellnessHistory() {
+
+        const confirmed =
+            window.confirm(
+                "Clear all locally stored wellness history?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        localStorage.removeItem(
+            "aegisWellnessHistory"
+        );
+
+
+        localStorage.removeItem(
+            "aegisLatestWellness"
+        );
+
+
+        showToast(
+            "Wellness history cleared."
+        );
+
+    }
+
+
+    /* =========================================
+       TOAST
+    ========================================= */
+
+    let toastTimer;
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            toastTimer
+        );
+
+
+        toastTimer =
+            setTimeout(
+                () => {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2500
+            );
+
+    }
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+
+    loadProfile();
+
+</script>
+
+</body>
+</html>
+```

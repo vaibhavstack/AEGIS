@@ -1,0 +1,3014 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AEGIS — Family Connection</title>
+
+    <link rel="stylesheet" href="theme.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--aegis-bg, #F5F7F2);
+            color: var(--aegis-text, #28332C);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5vw;
+
+            background: rgba(245, 247, 242, 0.88);
+            border-bottom: 1px solid var(--aegis-border, #D8E0D8);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            background: var(--aegis-sage-dark, #4F6855);
+            color: white;
+
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .brand-name {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color: var(--aegis-text-muted, #87928B);
+
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--aegis-text-soft, #59665E);
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--aegis-success, #6F9075);
+
+            box-shadow:
+                0 0 0 5px rgba(111, 144, 117, 0.12);
+        }
+
+        /* =====================================================
+           MODULE NAV
+        ===================================================== */
+
+        .module-nav {
+            width: min(1380px, 90vw);
+
+            margin: 24px auto 0;
+
+            display: flex;
+            gap: 8px;
+
+            overflow-x: auto;
+
+            padding-bottom: 4px;
+        }
+
+        .module-nav a {
+            flex: 0 0 auto;
+
+            padding: 9px 14px;
+
+            border: 1px solid var(--aegis-border-soft, #E5EBE5);
+            border-radius: 999px;
+
+            color: var(--aegis-text-soft, #59665E);
+            background: rgba(255, 255, 255, 0.72);
+
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+
+            transition: 0.2s ease;
+        }
+
+        .module-nav a:hover {
+            border-color: var(--aegis-sage-light, #DCE7DC);
+            color: var(--aegis-sage-dark, #4F6855);
+            transform: translateY(-1px);
+        }
+
+        .module-nav a.active {
+            background: var(--aegis-sage-pale, #EAF0E8);
+            border-color: var(--aegis-sage-light, #DCE7DC);
+            color: var(--aegis-sage-dark, #4F6855);
+        }
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+            width: min(1380px, 90vw);
+
+            margin: 0 auto;
+
+            padding: 56px 0 90px;
+        }
+
+        .eyebrow {
+            margin-bottom: 12px;
+
+            color: var(--aegis-sage-dark, #4F6855);
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            max-width: 850px;
+
+            margin: 0;
+
+            font-size: clamp(42px, 6vw, 78px);
+            line-height: 0.98;
+            letter-spacing: -0.055em;
+            font-weight: 800;
+        }
+
+        .page-description {
+            max-width: 720px;
+
+            margin: 24px 0 0;
+
+            color: var(--aegis-text-soft, #59665E);
+
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        /* =====================================================
+           MAIN GRID
+        ===================================================== */
+
+        .family-layout {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.45fr)
+                minmax(310px, 0.55fr);
+
+            gap: 24px;
+
+            margin-top: 46px;
+        }
+
+        .digital-column {
+            min-width: 0;
+        }
+
+        /* =====================================================
+           D-ID AREA
+
+           IMPORTANT:
+           Nothing from AEGIS is positioned over this area.
+           D-ID completely owns this panel.
+        ===================================================== */
+
+        .digital-stage {
+            min-width: 0;
+
+            border: 1px solid var(--aegis-border, #D8E0D8);
+            border-radius: 32px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(175, 196, 196, 0.25),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    145deg,
+                    #F9FBF8,
+                    #EAF0E8
+                );
+
+            box-shadow:
+                0 30px 70px rgba(57, 76, 62, 0.08);
+
+            padding: 18px;
+        }
+
+        /*
+           THIS IS THE ONLY REGION WHERE D-ID EXISTS.
+        */
+
+        .did-stage {
+            position: relative;
+
+            width: 100%;
+            height: 680px;
+
+            overflow: hidden;
+
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #DDE9E8 0%,
+                    #EEF5F4 48%,
+                    #EAF0E8 100%
+                );
+
+            border: 1px solid rgba(255, 255, 255, 0.95);
+
+            box-shadow:
+                0 25px 65px rgba(68, 87, 73, 0.10);
+        }
+
+        /*
+           D-ID gets the complete stage.
+           No AEGIS overlay.
+        */
+
+        #did-agent-container {
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            min-width: 0;
+            min-height: 0;
+
+            overflow: hidden;
+
+            isolation: isolate;
+        }
+
+        /*
+           Do NOT force every D-ID child to 100% height.
+           D-ID controls its own internal layout.
+        */
+
+        #did-agent-container iframe,
+        #did-agent-container video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* =====================================================
+           AEGIS STATUS AREA
+           COMPLETELY OUTSIDE D-ID
+        ===================================================== */
+
+        .agent-status-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 16px;
+
+            margin-top: 16px;
+
+            padding: 14px 16px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            box-shadow:
+                0 12px 35px rgba(57, 76, 62, 0.05);
+        }
+
+        .avatar-state {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            min-width: 0;
+
+            color: var(--aegis-text-soft);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .state-indicator {
+            width: 8px;
+            height: 8px;
+
+            flex: 0 0 auto;
+
+            border-radius: 50%;
+
+            background: var(--aegis-text-muted, #87928B);
+
+            transition: 0.2s ease;
+        }
+
+        .avatar-state.connected .state-indicator {
+            background: var(--aegis-success, #6F9075);
+
+            box-shadow:
+                0 0 0 6px rgba(111, 144, 117, 0.12);
+        }
+
+        .avatar-state.thinking .state-indicator {
+            background: var(--aegis-warning, #B69A68);
+
+            animation: pulseState 1s infinite;
+        }
+
+        .avatar-state.speaking .state-indicator {
+            background: var(--aegis-success, #6F9075);
+
+            animation: pulseState 0.8s infinite;
+        }
+
+        .avatar-state.error .state-indicator {
+            background: var(--aegis-attention, #B98273);
+        }
+
+        @keyframes pulseState {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.6;
+            }
+        }
+
+        .stage-live {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--aegis-text-muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .stage-live.active {
+            color: var(--aegis-success);
+        }
+
+        .stage-live-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--aegis-text-muted);
+        }
+
+        .stage-live.active .stage-live-dot {
+            background: var(--aegis-success);
+
+            box-shadow:
+                0 0 0 5px rgba(111, 144, 117, 0.12);
+        }
+
+        /* =====================================================
+           AEGIS CONTROLS
+           COMPLETELY OUTSIDE D-ID
+        ===================================================== */
+
+        .aegis-agent-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 16px;
+
+            margin-top: 12px;
+
+            padding: 14px 16px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .agent-control-info {
+            min-width: 0;
+        }
+
+        .agent-control-info strong {
+            display: block;
+
+            font-size: 11px;
+        }
+
+        .agent-control-info span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--aegis-text-muted);
+
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .agent-control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            flex: 0 0 auto;
+        }
+
+        .agent-control-button {
+            min-height: 42px;
+
+            padding: 0 15px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 999px;
+
+            background: white;
+
+            color: var(--aegis-text-soft);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+
+            transition: 0.2s ease;
+        }
+
+        .agent-control-button:hover {
+            border-color: var(--aegis-sage-light);
+            color: var(--aegis-sage-dark);
+
+            transform: translateY(-1px);
+        }
+
+        .agent-control-button.primary {
+            border-color: var(--aegis-sage-dark);
+            background: var(--aegis-sage-dark);
+            color: white;
+        }
+
+        .agent-control-button.active {
+            background: var(--aegis-sage-pale);
+            border-color: var(--aegis-sage-light);
+            color: var(--aegis-sage-dark);
+        }
+
+        /* =====================================================
+           API NOTICE
+        ===================================================== */
+
+        .api-notice {
+            margin-top: 18px;
+
+            padding: 16px 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .api-notice-text strong {
+            display: block;
+
+            margin-bottom: 4px;
+
+            font-size: 11px;
+        }
+
+        .api-notice-text span {
+            color: var(--aegis-text-muted);
+
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .api-status {
+            flex: 0 0 auto;
+
+            padding: 8px 11px;
+
+            border-radius: 999px;
+
+            background: var(--aegis-surface-soft);
+
+            color: var(--aegis-text-muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .api-status.connected {
+            background: var(--aegis-sage-pale);
+            color: var(--aegis-sage-dark);
+        }
+
+        /* =====================================================
+           SIDE COLUMN
+        ===================================================== */
+
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+
+            min-width: 0;
+        }
+
+        .panel {
+            padding: 24px;
+
+            border: 1px solid var(--aegis-border, #D8E0D8);
+            border-radius: 24px;
+
+            background: var(--aegis-surface, #FFFFFF);
+
+            box-shadow:
+                0 18px 45px rgba(57, 76, 62, 0.05);
+        }
+
+        .panel-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+        .panel-heading h3 {
+            margin: 0;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            letter-spacing: 0.04em;
+        }
+
+        .panel-label {
+            color: var(--aegis-text-muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        /* =====================================================
+           FAMILY MEMBERS
+        ===================================================== */
+
+        .member-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .member-button {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 12px;
+
+            border: 1px solid transparent;
+            border-radius: 15px;
+
+            background: var(--aegis-surface-soft);
+
+            color: var(--aegis-text);
+
+            text-align: left;
+
+            transition: 0.2s ease;
+        }
+
+        .member-button:hover {
+            border-color: var(--aegis-border);
+            transform: translateY(-1px);
+        }
+
+        .member-button.active {
+            border-color: var(--aegis-sage-light);
+            background: var(--aegis-sage-pale);
+        }
+
+        .member-avatar {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            flex: 0 0 auto;
+
+            border-radius: 50%;
+
+            background: var(--aegis-blue-pale);
+            color: var(--aegis-blue-dark);
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .member-info strong {
+            display: block;
+
+            font-size: 12px;
+        }
+
+        .member-info span {
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--aegis-text-muted);
+
+            font-size: 9px;
+            font-weight: 700;
+
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* =====================================================
+           PROFILE
+        ===================================================== */
+
+        .field {
+            margin-top: 16px;
+        }
+
+        .field:first-of-type {
+            margin-top: 0;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--aegis-text-soft);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 12px;
+
+            outline: none;
+
+            background: var(--aegis-surface-soft);
+            color: var(--aegis-text);
+
+            transition: 0.2s ease;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--aegis-sage);
+
+            box-shadow:
+                0 0 0 4px rgba(120, 146, 122, 0.08);
+        }
+
+        .save-profile {
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 12px 16px;
+
+            border: 0;
+            border-radius: 12px;
+
+            background: var(--aegis-sage-dark);
+            color: white;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 0.05em;
+        }
+
+        /* =====================================================
+           TRANSCRIPT
+        ===================================================== */
+
+        .conversation-panel {
+            margin-top: 24px;
+        }
+
+        .conversation-box {
+            min-height: 250px;
+            max-height: 390px;
+
+            overflow-y: auto;
+
+            padding: 16px;
+
+            border-radius: 18px;
+
+            background: var(--aegis-surface-soft);
+            border: 1px solid var(--aegis-border-soft);
+        }
+
+        .message {
+            max-width: 84%;
+
+            margin-bottom: 12px;
+
+            padding: 11px 13px;
+
+            border-radius: 14px;
+
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .message.user {
+            margin-left: auto;
+
+            background: var(--aegis-sage-pale);
+            color: var(--aegis-sage-dark);
+        }
+
+        .message.ai {
+            margin-right: auto;
+
+            background: white;
+
+            border: 1px solid var(--aegis-border-soft);
+        }
+
+        .message-meta {
+            margin-bottom: 4px;
+
+            color: var(--aegis-text-muted);
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .text-fallback {
+            display: flex;
+            gap: 8px;
+
+            margin-top: 10px;
+        }
+
+        .text-fallback input {
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 12px 14px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 13px;
+
+            background: white;
+
+            outline: none;
+        }
+
+        .text-fallback button {
+            padding: 0 16px;
+
+            border: 0;
+            border-radius: 13px;
+
+            background: var(--aegis-blue-dark);
+            color: white;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        .quick-actions {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 8px;
+        }
+
+        .quick-action {
+            padding: 12px;
+
+            border: 1px solid var(--aegis-border-soft);
+            border-radius: 13px;
+
+            background: var(--aegis-surface-soft);
+
+            color: var(--aegis-text-soft);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            transition: 0.2s ease;
+        }
+
+        .quick-action:hover {
+            border-color: var(--aegis-sage-light);
+            color: var(--aegis-sage-dark);
+        }
+
+        /* =====================================================
+           PRIVACY
+        ===================================================== */
+
+        .privacy-card {
+            padding: 22px;
+
+            border: 1px solid var(--aegis-blue-light);
+            border-radius: 22px;
+
+            background: var(--aegis-blue-pale);
+        }
+
+        .privacy-card h3 {
+            margin: 0 0 10px;
+
+            font-size: 12px;
+        }
+
+        .privacy-card p {
+            margin: 0;
+
+            color: var(--aegis-text-soft);
+
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .privacy-list {
+            display: grid;
+            gap: 9px;
+
+            margin-top: 15px;
+        }
+
+        .privacy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+
+            color: var(--aegis-text-soft);
+
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .privacy-item::before {
+            content: "✓";
+
+            color: var(--aegis-success);
+
+            font-weight: 900;
+        }
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast {
+            position: fixed;
+
+            right: 24px;
+            bottom: 24px;
+
+            z-index: 999;
+
+            max-width: 340px;
+
+            padding: 13px 16px;
+
+            border: 1px solid var(--aegis-border);
+            border-radius: 14px;
+
+            background: white;
+
+            box-shadow:
+                0 20px 50px rgba(40, 51, 44, 0.12);
+
+            color: var(--aegis-text-soft);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: translateY(10px);
+
+            transition: 0.25s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1050px) {
+
+            .family-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-column {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                align-items: start;
+            }
+
+            .conversation-panel {
+                grid-column: 1 / -1;
+            }
+
+            .privacy-card {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 720px) {
+
+            .site-header {
+                padding: 0 20px;
+            }
+
+            .header-status {
+                display: none;
+            }
+
+            .page,
+            .module-nav {
+                width: min(92vw, 1380px);
+            }
+
+            .page {
+                padding-top: 40px;
+            }
+
+            .digital-stage {
+                padding: 12px;
+                border-radius: 24px;
+            }
+
+            .did-stage {
+                height: 600px;
+                border-radius: 20px;
+            }
+
+            .agent-status-area {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .aegis-agent-controls {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .agent-control-buttons {
+                width: 100%;
+            }
+
+            .agent-control-button {
+                flex: 1;
+            }
+
+            .side-column {
+                display: flex;
+            }
+
+            .api-notice {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .digital-stage {
+                padding: 10px;
+            }
+
+            .did-stage {
+                height: 540px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .text-fallback {
+                flex-direction: column;
+            }
+
+            .text-fallback button {
+                min-height: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                A
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    AEGIS
+                </div>
+
+                <div class="brand-subtitle">
+                    Personnel Welfare Intelligence
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="header-status">
+
+            <span class="status-dot"></span>
+
+            PRIVATE SESSION
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MODULE NAV
+    ====================================================== -->
+
+    <nav class="module-nav">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="wellness.html">
+            Wellness
+        </a>
+
+        <a href="stress.html">
+            Stress & Fatigue
+        </a>
+
+        <a href="health.html">
+            Health
+        </a>
+
+        <a href="family.html" class="active">
+            Family
+        </a>
+
+        <a href="mental.html">
+            Mental Wellness
+        </a>
+
+        <a href="profile.html">
+            Profile
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="page">
+
+        <div class="eyebrow">
+            AEGIS / FAMILY CONNECTION
+        </div>
+
+        <h1 class="page-title">
+            Stay close,<br>
+            even from far away.
+        </h1>
+
+        <p class="page-description">
+            A private voice-first connection between personnel
+            and the people who matter most. Speak naturally and
+            receive a spoken response through a realistic digital human.
+        </p>
+
+
+        <!-- =================================================
+             MAIN FAMILY LAYOUT
+        ================================================== -->
+
+        <section class="family-layout">
+
+
+            <!-- =============================================
+                 DIGITAL HUMAN COLUMN
+            ============================================== -->
+
+            <div class="digital-column">
+
+                <div class="digital-stage">
+
+
+                    <!-- =================================================
+                         D-ID ONLY
+                         
+                         Nothing else is placed inside this stage.
+                    ================================================== -->
+
+                    <div class="did-stage">
+
+                        <div id="did-agent-container"></div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         AEGIS STATUS
+                         OUTSIDE D-ID
+                    ================================================== -->
+
+                    <div class="agent-status-area">
+
+                        <div
+                            class="avatar-state"
+                            id="avatarState"
+                        >
+
+                            <span
+                                class="state-indicator"
+                                id="stateIndicator"
+                            ></span>
+
+                            <span id="avatarStateText">
+                                READY TO CONNECT
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="stage-live"
+                            id="stageLive"
+                        >
+
+                            <span class="stage-live-dot"></span>
+
+                            <span id="stageLiveText">
+                                OFFLINE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         AEGIS CONTROLS
+                         OUTSIDE D-ID
+                    ================================================== -->
+
+                    <div class="aegis-agent-controls">
+
+                        <div class="agent-control-info">
+
+                            <strong>
+                                AEGIS voice controls
+                            </strong>
+
+                            <span id="agentControlDescription">
+                                These controls manage the voice state
+                                without covering the digital human.
+                            </span>
+
+                        </div>
+
+
+                        <div class="agent-control-buttons">
+
+                            <button
+                                class="agent-control-button primary"
+                                id="connectButton"
+                                type="button"
+                            >
+                                START
+                            </button>
+
+                            <button
+                                class="agent-control-button"
+                                id="voiceButton"
+                                type="button"
+                            >
+                                MIC
+                            </button>
+
+                            <button
+                                class="agent-control-button"
+                                id="endButton"
+                                type="button"
+                            >
+                                PAUSE
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         API STATUS
+                         OUTSIDE D-ID
+                    ================================================== -->
+
+                    <div class="api-notice">
+
+                        <div class="api-notice-text">
+
+                            <strong>
+                                Voice AI connection
+                            </strong>
+
+                            <span id="apiNoticeText">
+                                D-ID realtime digital human is ready
+                                to be connected.
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="api-status"
+                            id="apiStatus"
+                        >
+                            D-ID READY
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================================
+                     LOCAL TRANSCRIPT
+                ====================================================== -->
+
+                <div class="panel conversation-panel">
+
+                    <div class="panel-heading">
+
+                        <h3>
+                            Voice Conversation
+                        </h3>
+
+                        <span class="panel-label">
+                            LOCAL TRANSCRIPT
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="conversation-box"
+                        id="conversationBox"
+                    >
+
+                        <div class="message ai">
+
+                            <div class="message-meta">
+                                AEGIS
+                            </div>
+
+                            Your private family connection is ready.
+                            Start the digital human and speak naturally.
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-fallback">
+
+                        <input
+                            type="text"
+                            id="textInput"
+                            placeholder="Optional text fallback..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            id="sendTextButton"
+                            type="button"
+                        >
+                            SEND
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SIDE COLUMN
+            ================================================== -->
+
+            <aside class="side-column">
+
+
+                <!-- =================================================
+                     FAMILY MEMBERS
+                ================================================== -->
+
+                <section class="panel">
+
+                    <div class="panel-heading">
+
+                        <h3>
+                            Your People
+                        </h3>
+
+                        <span class="panel-label">
+                            PRIVATE
+                        </span>
+
+                    </div>
+
+
+                    <div class="member-list">
+
+                        <button
+                            class="member-button active"
+                            data-member="mother"
+                            type="button"
+                        >
+
+                            <div class="member-avatar">
+                                M
+                            </div>
+
+                            <div class="member-info">
+
+                                <strong>
+                                    Mother
+                                </strong>
+
+                                <span>
+                                    Family connection
+                                </span>
+
+                            </div>
+
+                        </button>
+
+
+                        <button
+                            class="member-button"
+                            data-member="father"
+                            type="button"
+                        >
+
+                            <div class="member-avatar">
+                                F
+                            </div>
+
+                            <div class="member-info">
+
+                                <strong>
+                                    Father
+                                </strong>
+
+                                <span>
+                                    Family connection
+                                </span>
+
+                            </div>
+
+                        </button>
+
+
+                        <button
+                            class="member-button"
+                            data-member="sibling"
+                            type="button"
+                        >
+
+                            <div class="member-avatar">
+                                S
+                            </div>
+
+                            <div class="member-info">
+
+                                <strong>
+                                    Sibling
+                                </strong>
+
+                                <span>
+                                    Family connection
+                                </span>
+
+                            </div>
+
+                        </button>
+
+
+                        <button
+                            class="member-button"
+                            data-member="partner"
+                            type="button"
+                        >
+
+                            <div class="member-avatar">
+                                C
+                            </div>
+
+                            <div class="member-info">
+
+                                <strong>
+                                    Close Person
+                                </strong>
+
+                                <span>
+                                    Family connection
+                                </span>
+
+                            </div>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     PROFILE
+                ================================================== -->
+
+                <section class="panel">
+
+                    <div class="panel-heading">
+
+                        <h3>
+                            Connection Profile
+                        </h3>
+
+                        <span class="panel-label">
+                            LOCAL
+                        </span>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="displayName">
+                            Display name
+                        </label>
+
+                        <input
+                            id="displayName"
+                            type="text"
+                            placeholder="Mother"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="relationship">
+                            Relationship
+                        </label>
+
+                        <input
+                            id="relationship"
+                            type="text"
+                            placeholder="Family"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="voiceStyle">
+                            Voice / personality mode
+                        </label>
+
+                        <select id="voiceStyle">
+
+                            <option value="warm">
+                                Warm
+                            </option>
+
+                            <option value="calm">
+                                Calm
+                            </option>
+
+                            <option value="supportive">
+                                Supportive
+                            </option>
+
+                            <option value="focused">
+                                Focused
+                            </option>
+
+                            <option value="concerned">
+                                Concerned
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="greeting">
+                            Preferred greeting
+                        </label>
+
+                        <input
+                            id="greeting"
+                            type="text"
+                            placeholder="How are you feeling today?"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="save-profile"
+                        id="saveProfile"
+                        type="button"
+                    >
+                        SAVE PROFILE
+                    </button>
+
+                </section>
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                ================================================== -->
+
+                <section class="panel">
+
+                    <div class="panel-heading">
+
+                        <h3>
+                            Quick Voice Prompts
+                        </h3>
+
+                        <span class="panel-label">
+                            VOICE
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button
+                            class="quick-action"
+                            data-prompt="Tell me something comforting."
+                            type="button"
+                        >
+                            Comfort me
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-prompt="Ask me how my day went."
+                            type="button"
+                        >
+                            Ask about my day
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-prompt="Remind me to take some rest."
+                            type="button"
+                        >
+                            Remind me to rest
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-prompt="Tell me something positive."
+                            type="button"
+                        >
+                            Something positive
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     PRIVACY
+                ================================================== -->
+
+                <section class="privacy-card">
+
+                    <h3>
+                        Privacy by design
+                    </h3>
+
+                    <p>
+                        AEGIS keeps the family connection separate
+                        from personnel health monitoring.
+                    </p>
+
+
+                    <div class="privacy-list">
+
+                        <div class="privacy-item">
+                            Family profile is stored locally.
+                        </div>
+
+                        <div class="privacy-item">
+                            Health and wearable data is not sent to
+                            the avatar service by default.
+                        </div>
+
+                        <div class="privacy-item">
+                            D-ID client credentials are restricted
+                            to allowed web origins.
+                        </div>
+
+                        <div class="privacy-item">
+                            Voice interaction is explicitly started
+                            by the user.
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+    <!-- =====================================================
+         D-ID AGENT
+         
+         This is intentionally the ONLY external component
+         inside .did-stage.
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="https://agent.d-id.com/v2/index.js"
+        data-mode="full"
+        data-target-id="did-agent-container"
+        data-client-key="ck_QL332MXbIM81EqfRgnYDY"
+        data-agent-id="v2_agt_FlKvFPPv"
+        data-name="did-agent"
+        data-monitor="true"
+        data-light-mode="true"
+        data-orientation="horizontal"
+        data-open-mode="expanded"
+        data-auto-connect="false"
+        data-show-agent-name="false"
+        data-show-restart-button="false"
+    ></script>
+
+
+    <!-- =====================================================
+         AUTH GUARD
+    ====================================================== -->
+
+    <script src="auth-guard.js"></script>
+
+
+    <!-- =====================================================
+         AEGIS JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        const members = {
+
+            mother: {
+                name: "Mother",
+                relationship: "Family",
+                greeting: "How are you feeling today?"
+            },
+
+            father: {
+                name: "Father",
+                relationship: "Family",
+                greeting: "How was your day?"
+            },
+
+            sibling: {
+                name: "Sibling",
+                relationship: "Family",
+                greeting: "How is everything going?"
+            },
+
+            partner: {
+                name: "Close Person",
+                relationship: "Close Person",
+                greeting: "How are you doing?"
+            }
+
+        };
+
+
+        let currentMember = "mother";
+
+
+        /* =====================================================
+           DOM
+        ===================================================== */
+
+        const avatarState =
+            document.getElementById("avatarState");
+
+        const avatarStateText =
+            document.getElementById("avatarStateText");
+
+        const stageLive =
+            document.getElementById("stageLive");
+
+        const stageLiveText =
+            document.getElementById("stageLiveText");
+
+        const apiStatus =
+            document.getElementById("apiStatus");
+
+        const apiNoticeText =
+            document.getElementById("apiNoticeText");
+
+        const conversationBox =
+            document.getElementById("conversationBox");
+
+        const voiceButton =
+            document.getElementById("voiceButton");
+
+        const connectButton =
+            document.getElementById("connectButton");
+
+        const endButton =
+            document.getElementById("endButton");
+
+        const displayName =
+            document.getElementById("displayName");
+
+        const relationship =
+            document.getElementById("relationship");
+
+        const voiceStyle =
+            document.getElementById("voiceStyle");
+
+        const greeting =
+            document.getElementById("greeting");
+
+        const textInput =
+            document.getElementById("textInput");
+
+        const toast =
+            document.getElementById("toast");
+
+
+        /* =====================================================
+           LOCAL STORAGE
+        ===================================================== */
+
+        function profileKey(member) {
+            return `aegisFamilyProfile_${member}`;
+        }
+
+
+        function conversationKey(member) {
+            return `aegisFamilyConversation_${member}`;
+        }
+
+
+        function loadProfile(member) {
+
+            const stored =
+                localStorage.getItem(
+                    profileKey(member)
+                );
+
+            if (!stored) {
+                return {
+                    ...members[member]
+                };
+            }
+
+            try {
+
+                return {
+                    ...members[member],
+                    ...JSON.parse(stored)
+                };
+
+            } catch {
+
+                return {
+                    ...members[member]
+                };
+
+            }
+
+        }
+
+
+        function saveProfileData() {
+
+            const profile = {
+
+                name:
+                    displayName.value.trim() ||
+                    members[currentMember].name,
+
+                relationship:
+                    relationship.value.trim() ||
+                    members[currentMember].relationship,
+
+                voiceStyle:
+                    voiceStyle.value,
+
+                greeting:
+                    greeting.value.trim() ||
+                    members[currentMember].greeting
+
+            };
+
+
+            localStorage.setItem(
+                profileKey(currentMember),
+                JSON.stringify(profile)
+            );
+
+
+            members[currentMember] = {
+                ...members[currentMember],
+                ...profile
+            };
+
+
+            showToast(
+                "Family connection profile saved locally."
+            );
+
+        }
+
+
+        function loadCurrentProfile() {
+
+            const profile =
+                loadProfile(currentMember);
+
+
+            displayName.value =
+                profile.name;
+
+            relationship.value =
+                profile.relationship;
+
+            voiceStyle.value =
+                profile.voiceStyle ||
+                "warm";
+
+            greeting.value =
+                profile.greeting;
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION
+        ===================================================== */
+
+        function getConversation() {
+
+            const stored =
+                localStorage.getItem(
+                    conversationKey(
+                        currentMember
+                    )
+                );
+
+            if (!stored) {
+                return [];
+            }
+
+            try {
+                return JSON.parse(stored);
+            } catch {
+                return [];
+            }
+
+        }
+
+
+        function saveConversation(messages) {
+
+            localStorage.setItem(
+                conversationKey(
+                    currentMember
+                ),
+                JSON.stringify(
+                    messages.slice(-40)
+                )
+            );
+
+        }
+
+
+        function addMessage(role, text) {
+
+            const messages =
+                getConversation();
+
+            messages.push({
+                role,
+                text,
+                timestamp: Date.now()
+            });
+
+            saveConversation(messages);
+
+            renderMessage(
+                role,
+                text
+            );
+
+        }
+
+
+        function renderMessage(role, text) {
+
+            const message =
+                document.createElement("div");
+
+            message.className =
+                `message ${
+                    role === "user"
+                        ? "user"
+                        : "ai"
+                }`;
+
+
+            const meta =
+                document.createElement("div");
+
+            meta.className =
+                "message-meta";
+
+
+            meta.textContent =
+                role === "user"
+                    ? "YOU"
+                    : loadProfile(
+                        currentMember
+                    ).name;
+
+
+            const body =
+                document.createElement("div");
+
+            body.textContent =
+                text;
+
+
+            message.appendChild(meta);
+            message.appendChild(body);
+
+            conversationBox.appendChild(
+                message
+            );
+
+
+            conversationBox.scrollTop =
+                conversationBox.scrollHeight;
+
+        }
+
+
+        function loadConversation() {
+
+            conversationBox.innerHTML = "";
+
+            const messages =
+                getConversation();
+
+
+            if (!messages.length) {
+
+                const profile =
+                    loadProfile(
+                        currentMember
+                    );
+
+                renderMessage(
+                    "ai",
+                    profile.greeting ||
+                    `Your connection with ${
+                        profile.name
+                    } is ready.`
+                );
+
+                return;
+
+            }
+
+
+            messages.forEach(
+                message => {
+
+                    renderMessage(
+                        message.role,
+                        message.text
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        function showToast(message) {
+
+            toast.textContent =
+                message;
+
+            toast.classList.add("show");
+
+
+            setTimeout(() => {
+
+                toast.classList.remove("show");
+
+            }, 2800);
+
+        }
+
+
+        /* =====================================================
+           STATE
+        ===================================================== */
+
+        function setAvatarState(
+            state,
+            text
+        ) {
+
+            avatarState.className =
+                "avatar-state";
+
+
+            if (state) {
+
+                avatarState.classList.add(
+                    state
+                );
+
+            }
+
+
+            avatarStateText.textContent =
+                text;
+
+        }
+
+
+        function setLiveStatus(
+            active,
+            text
+        ) {
+
+            stageLive.classList.toggle(
+                "active",
+                active
+            );
+
+            stageLiveText.textContent =
+                text;
+
+        }
+
+
+        /* =====================================================
+           WAIT FOR D-ID
+        ===================================================== */
+
+        function waitForDIDApi() {
+
+            return new Promise(
+                resolve => {
+
+                    if (
+                        window.DID_AGENTS_API
+                    ) {
+
+                        resolve(
+                            window.DID_AGENTS_API
+                        );
+
+                        return;
+
+                    }
+
+
+                    const interval =
+                        setInterval(
+                            () => {
+
+                                if (
+                                    window.DID_AGENTS_API
+                                ) {
+
+                                    clearInterval(
+                                        interval
+                                    );
+
+                                    resolve(
+                                        window.DID_AGENTS_API
+                                    );
+
+                                }
+
+                            },
+                            100
+                        );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           D-ID EVENTS
+        ===================================================== */
+
+        async function setupDID() {
+
+            const api =
+                await waitForDIDApi();
+
+
+            if (!api) {
+
+                setAvatarState(
+                    "error",
+                    "D-ID NOT AVAILABLE"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                api.events &&
+                api.events.on
+            ) {
+
+                api.events.on(
+                    "connection",
+                    ({ state }) => {
+
+                        console.log(
+                            "D-ID connection:",
+                            state
+                        );
+
+
+                        switch (state) {
+
+                            case "new":
+
+                                setAvatarState(
+                                    "",
+                                    "READY TO CONNECT"
+                                );
+
+                                setLiveStatus(
+                                    false,
+                                    "OFFLINE"
+                                );
+
+                                break;
+
+
+                            case "connecting":
+
+                                setAvatarState(
+                                    "thinking",
+                                    "CONNECTING..."
+                                );
+
+                                setLiveStatus(
+                                    false,
+                                    "CONNECTING"
+                                );
+
+                                apiStatus.classList.remove(
+                                    "connected"
+                                );
+
+                                apiStatus.textContent =
+                                    "CONNECTING";
+
+                                apiNoticeText.textContent =
+                                    "Connecting to your D-ID digital human.";
+
+                                break;
+
+
+                            case "connected":
+
+                                setAvatarState(
+                                    "connected",
+                                    "READY — SPEAK"
+                                );
+
+                                setLiveStatus(
+                                    true,
+                                    "LIVE"
+                                );
+
+                                apiStatus.classList.add(
+                                    "connected"
+                                );
+
+                                apiStatus.textContent =
+                                    "D-ID CONNECTED";
+
+                                apiNoticeText.textContent =
+                                    "Realtime voice and digital human connection is active.";
+
+                                break;
+
+
+                            case "disconnected":
+
+                                setAvatarState(
+                                    "",
+                                    "DISCONNECTED"
+                                );
+
+                                setLiveStatus(
+                                    false,
+                                    "DISCONNECTED"
+                                );
+
+                                break;
+
+
+                            case "closed":
+
+                                setAvatarState(
+                                    "",
+                                    "READY TO CONNECT"
+                                );
+
+                                setLiveStatus(
+                                    false,
+                                    "OFFLINE"
+                                );
+
+                                apiStatus.classList.remove(
+                                    "connected"
+                                );
+
+                                apiStatus.textContent =
+                                    "D-ID READY";
+
+                                break;
+
+
+                            case "fail":
+
+                                setAvatarState(
+                                    "error",
+                                    "CONNECTION FAILED"
+                                );
+
+                                setLiveStatus(
+                                    false,
+                                    "ERROR"
+                                );
+
+                                apiStatus.classList.remove(
+                                    "connected"
+                                );
+
+                                apiStatus.textContent =
+                                    "CONNECTION ERROR";
+
+                                apiNoticeText.textContent =
+                                    "D-ID could not establish the realtime session.";
+
+                                showToast(
+                                    "D-ID connection failed."
+                                );
+
+                                break;
+
+                        }
+
+                    }
+                );
+
+
+                api.events.on(
+                    "agentActivity",
+                    ({ state }) => {
+
+                        console.log(
+                            "D-ID activity:",
+                            state
+                        );
+
+
+                        switch (state) {
+
+                            case "IDLE":
+
+                                setAvatarState(
+                                    "connected",
+                                    "READY — SPEAK"
+                                );
+
+                                voiceButton.classList.remove(
+                                    "active"
+                                );
+
+                                break;
+
+
+                            case "LOADING":
+
+                                setAvatarState(
+                                    "thinking",
+                                    "THINKING..."
+                                );
+
+                                break;
+
+
+                            case "TALKING":
+
+                                setAvatarState(
+                                    "speaking",
+                                    "SPEAKING..."
+                                );
+
+                                break;
+
+
+                            case "BUFFERING":
+
+                                setAvatarState(
+                                    "thinking",
+                                    "BUFFERING..."
+                                );
+
+                                break;
+
+                        }
+
+                    }
+                );
+
+
+                api.events.on(
+                    "error",
+                    ({ error }) => {
+
+                        console.error(
+                            "D-ID error:",
+                            error
+                        );
+
+                        setAvatarState(
+                            "error",
+                            "D-ID ERROR"
+                        );
+
+                        showToast(
+                            "D-ID reported an error."
+                        );
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           START
+        ===================================================== */
+
+        async function startDID() {
+
+            const api =
+                await waitForDIDApi();
+
+
+            if (!api) {
+
+                showToast(
+                    "D-ID is still loading."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                if (
+                    api.functions &&
+                    api.functions.toggleMicState
+                ) {
+
+                    await api.functions.toggleMicState(
+                        false
+                    );
+
+                }
+
+
+                if (
+                    api.functions &&
+                    api.functions.toggleSpeakerState
+                ) {
+
+                    await api.functions.toggleSpeakerState(
+                        false
+                    );
+
+                }
+
+
+                setAvatarState(
+                    "connected",
+                    "READY — SPEAK"
+                );
+
+                setLiveStatus(
+                    true,
+                    "LIVE"
+                );
+
+                apiStatus.classList.add(
+                    "connected"
+                );
+
+                apiStatus.textContent =
+                    "D-ID ACTIVE";
+
+                apiNoticeText.textContent =
+                    "Your digital human is ready for voice conversation.";
+
+            } catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    "Start the D-ID agent from its embedded panel."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PAUSE
+        ===================================================== */
+
+        async function endDID() {
+
+            const api =
+                window.DID_AGENTS_API;
+
+
+            if (!api) {
+                return;
+            }
+
+
+            try {
+
+                if (
+                    api.functions &&
+                    api.functions.toggleMicState
+                ) {
+
+                    await api.functions.toggleMicState(
+                        true
+                    );
+
+                }
+
+
+                if (
+                    api.functions &&
+                    api.functions.interrupt
+                ) {
+
+                    await api.functions.interrupt();
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "D-ID control error:",
+                    error
+                );
+
+            }
+
+
+            voiceButton.classList.remove(
+                "active"
+            );
+
+
+            setAvatarState(
+                "",
+                "SESSION PAUSED"
+            );
+
+            setLiveStatus(
+                false,
+                "PAUSED"
+            );
+
+        }
+
+
+        /* =====================================================
+           MICROPHONE
+        ===================================================== */
+
+        voiceButton.addEventListener(
+            "click",
+            async () => {
+
+                const api =
+                    window.DID_AGENTS_API;
+
+
+                if (!api) {
+
+                    showToast(
+                        "D-ID is still loading."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    if (
+                        api.functions &&
+                        api.functions.toggleMicState
+                    ) {
+
+                        await api.functions.toggleMicState();
+
+                    }
+
+
+                    voiceButton.classList.toggle(
+                        "active"
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        error
+                    );
+
+                    showToast(
+                        "Unable to change microphone state."
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           START / PAUSE
+        ===================================================== */
+
+        connectButton.addEventListener(
+            "click",
+            startDID
+        );
+
+
+        endButton.addEventListener(
+            "click",
+            endDID
+        );
+
+
+        /* =====================================================
+           FAMILY SWITCHING
+        ===================================================== */
+
+        document
+            .querySelectorAll(".member-button")
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            currentMember =
+                                button.dataset.member;
+
+
+                            document
+                                .querySelectorAll(
+                                    ".member-button"
+                                )
+                                .forEach(
+                                    item => {
+
+                                        item.classList.remove(
+                                            "active"
+                                        );
+
+                                    }
+                                );
+
+
+                            button.classList.add(
+                                "active"
+                            );
+
+
+                            loadCurrentProfile();
+                            loadConversation();
+
+
+                            showToast(
+                                `${
+                                    loadProfile(
+                                        currentMember
+                                    ).name
+                                } selected.`
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =====================================================
+           PROFILE SAVE
+        ===================================================== */
+
+        document
+            .getElementById("saveProfile")
+            .addEventListener(
+                "click",
+                saveProfileData
+            );
+
+
+        /* =====================================================
+           TEXT FALLBACK
+        ===================================================== */
+
+        async function sendTextToDID(text) {
+
+            if (!text.trim()) {
+                return;
+            }
+
+
+            const api =
+                window.DID_AGENTS_API;
+
+
+            if (!api) {
+
+                showToast(
+                    "D-ID is still loading."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                addMessage(
+                    "user",
+                    text
+                );
+
+
+                if (
+                    api.functions &&
+                    api.functions.speak
+                ) {
+
+                    await api.functions.speak({
+
+                        type: "text",
+
+                        input: text
+
+                    });
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+                showToast(
+                    "Unable to send the text to D-ID."
+                );
+
+            }
+
+        }
+
+
+        document
+            .getElementById("sendTextButton")
+            .addEventListener(
+                "click",
+                () => {
+
+                    const text =
+                        textInput.value.trim();
+
+
+                    if (!text) {
+                        return;
+                    }
+
+
+                    textInput.value = "";
+
+                    sendTextToDID(text);
+
+                }
+            );
+
+
+        textInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    document
+                        .getElementById(
+                            "sendTextButton"
+                        )
+                        .click();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        document
+            .querySelectorAll(".quick-action")
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const prompt =
+                                button.dataset.prompt;
+
+                            sendTextToDID(
+                                prompt
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =====================================================
+           INITIALIZATION
+        ===================================================== */
+
+        loadCurrentProfile();
+
+        loadConversation();
+
+        setupDID();
+
+    </script>
+
+</body>
+</html>
+```

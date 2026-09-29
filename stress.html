@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS | AI Stress & Fatigue Monitor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="theme.css">
+
+    <style>
+
+        /* =========================================================
+           AEGIS — AI STRESS & FATIGUE MONITOR
+        ========================================================= */
+
+        .monitor-page {
+            min-height: 100vh;
+            padding: 110px 6vw 70px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--muted);
+            text-decoration: none;
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            margin-bottom: 30px;
+            transition: color 0.2s ease;
+        }
+
+        .back-home:hover {
+            color: var(--accent);
+        }
+
+        .page-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .page-eyebrow {
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .page-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(42px, 5.8vw, 78px);
+            font-weight: 500;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+
+        .page-title span {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+        }
+
+        .page-description {
+            max-width: 450px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* TOP STATUS */
+
+        .monitor-status {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.015);
+            margin-bottom: 24px;
+        }
+
+        .monitor-status-item {
+            padding: 17px 20px;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .monitor-status-item:last-child {
+            border-right: none;
+        }
+
+        .status-label {
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        .status-value {
+            font-size: 12px;
+            color: #eee;
+        }
+
+        .live {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .live::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(183,210,160,0.6);
+        }
+
+        /* METRICS */
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.018);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 1px solid rgba(183,210,160,0.06);
+            border-radius: 50%;
+            right: -65px;
+            top: -65px;
+        }
+
+        .metric-title {
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .metric-number {
+            font-family: "Playfair Display", serif;
+            font-size: 55px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .metric-number small {
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .metric-state {
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+        }
+
+        .metric-bar {
+            height: 2px;
+            background: rgba(255,255,255,0.08);
+            margin-top: 22px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            width: 0;
+            background: var(--accent);
+            transition: width 1s ease;
+        }
+
+        /* MAIN GRID */
+
+        .monitor-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.7fr);
+            gap: 24px;
+        }
+
+        .monitor-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.018);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+        }
+
+        .card-code {
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            color: var(--muted);
+        }
+
+        /* CHART */
+
+        .chart-area {
+            padding: 25px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            color: var(--muted);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .legend-line {
+            width: 22px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .legend-line.alt {
+            background: rgba(255,255,255,0.35);
+        }
+
+        .chart {
+            height: 290px;
+            position: relative;
+            border-left: 1px solid rgba(255,255,255,0.09);
+            border-bottom: 1px solid rgba(255,255,255,0.09);
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 57px,
+                    rgba(255,255,255,0.045) 58px
+                ),
+                repeating-linear-gradient(
+                    to right,
+                    transparent 0,
+                    transparent 9.8%,
+                    rgba(255,255,255,0.035) 10%
+                );
+        }
+
+        .chart svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            font-family: "DM Mono", monospace;
+            font-size: 7px;
+            color: #626762;
+        }
+
+        /* AI ANALYSIS */
+
+        .analysis-body {
+            padding: 25px;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border: 1px solid rgba(183,210,160,0.2);
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .ai-badge::before {
+            content: "✦";
+        }
+
+        .analysis-title {
+            font-family: "Playfair Display", serif;
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .analysis-text {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .factor {
+            margin-bottom: 18px;
+        }
+
+        .factor-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 10px;
+        }
+
+        .factor-name {
+            color: #ddd;
+        }
+
+        .factor-value {
+            font-family: "DM Mono", monospace;
+            color: var(--accent);
+        }
+
+        .factor-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .factor-fill {
+            height: 100%;
+            background: var(--accent);
+        }
+
+        /* ALERTS */
+
+        .alerts {
+            margin-top: 24px;
+        }
+
+        .alert-item {
+            display: flex;
+            gap: 13px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .alert-icon {
+            width: 7px;
+            height: 7px;
+            margin-top: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .alert-text strong {
+            display: block;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .alert-text span {
+            display: block;
+            color: #676d66;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        /* FOOT NOTE */
+
+        .monitor-note {
+            margin-top: 24px;
+            padding: 18px 20px;
+            border: 1px solid rgba(255,255,255,0.07);
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            line-height: 1.7;
+            color: #626762;
+        }
+
+        .monitor-note strong {
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+
+            .monitor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .monitor-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .monitor-status-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .monitor-status-item:nth-child(-n+2) {
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .monitor-page {
+                padding: 100px 20px 50px;
+            }
+
+            .page-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .monitor-status {
+                grid-template-columns: 1fr;
+            }
+
+            .monitor-status-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+            }
+
+            .monitor-status-item:last-child {
+                border-bottom: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="noise"></div>
+    <div class="grid"></div>
+
+
+    <!-- NAVIGATION -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+
+            <span class="brand-mark">A</span>
+
+            <span>
+                <strong>AEGIS</strong>
+                <small>PERSONNEL WELFARE INTELLIGENCE</small>
+            </span>
+
+        </a>
+
+        <nav class="module-nav" aria-label="AEGIS modules">
+            <a href="index.html">HOME</a>
+            <a href="wellness.html">WELLNESS</a>
+            <a href="stress.html">STRESS</a>
+            <a href="health.html">HEALTH</a>
+            <a href="family.html">FAMILY</a>
+            <a href="mental.html">MENTAL</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            LOCAL SECURE NODE
+        </div>
+
+    </header>
+
+
+    <main class="monitor-page">
+
+        <a href="index.html" class="back-home">
+            ← RETURN TO SYSTEM
+        </a>
+
+
+        <!-- INTRO -->
+
+        <section class="page-top">
+
+            <div>
+
+                <div class="page-eyebrow">
+                    MODULE 003 / PREDICTIVE MONITORING
+                </div>
+
+                <h1 class="page-title">
+                    STRESS &<br>
+                    <span>FATIGUE.</span>
+                </h1>
+
+            </div>
+
+            <p class="page-description">
+                An AI-assisted monitoring interface designed to identify
+                changes in stress, fatigue and recovery patterns before
+                they become persistent welfare concerns.
+            </p>
+
+        </section>
+
+
+        <!-- SYSTEM STATUS -->
+
+        <section class="monitor-status">
+
+            <div class="monitor-status-item">
+
+                <div class="status-label">
+                    AI MONITOR
+                </div>
+
+                <div class="status-value live">
+                    ACTIVE
+                </div>
+
+            </div>
+
+            <div class="monitor-status-item">
+
+                <div class="status-label">
+                    ANALYSIS MODE
+                </div>
+
+                <div class="status-value">
+                    LOCAL MODEL
+                </div>
+
+            </div>
+
+            <div class="monitor-status-item">
+
+                <div class="status-label">
+                    LAST UPDATE
+                </div>
+
+                <div class="status-value" id="updateTime">
+                    JUST NOW
+                </div>
+
+            </div>
+
+            <div class="monitor-status-item">
+
+                <div class="status-label">
+                    DATA LINK
+                </div>
+
+                <div class="status-value">
+                    ISOLATED
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- METRICS -->
+
+        <section class="metrics">
+
+            <div class="metric-card">
+
+                <div class="metric-title">
+                    STRESS INDEX
+                </div>
+
+                <div class="metric-number">
+                    <span id="stressNumber">38</span>
+                    <small>/ 100</small>
+                </div>
+
+                <div class="metric-state">
+                    WITHIN OBSERVED RANGE
+                </div>
+
+                <div class="metric-bar">
+                    <div
+                        class="metric-fill"
+                        id="stressFill"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-title">
+                    FATIGUE INDEX
+                </div>
+
+                <div class="metric-number">
+                    <span id="fatigueNumber">29</span>
+                    <small>/ 100</small>
+                </div>
+
+                <div class="metric-state">
+                    LOW — MONITOR
+                </div>
+
+                <div class="metric-bar">
+                    <div
+                        class="metric-fill"
+                        id="fatigueFill"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-title">
+                    RECOVERY LEVEL
+                </div>
+
+                <div class="metric-number">
+                    <span id="recoveryNumber">74</span>
+                    <small>%</small>
+                </div>
+
+                <div class="metric-state">
+                    GOOD RECOVERY
+                </div>
+
+                <div class="metric-bar">
+                    <div
+                        class="metric-fill"
+                        id="recoveryFill"
+                    ></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAIN -->
+
+        <section class="monitor-grid">
+
+
+            <!-- TREND -->
+
+            <div class="monitor-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        PERSONNEL STRESS / FATIGUE TREND
+                    </div>
+
+                    <div class="card-code">
+                        24H WINDOW
+                    </div>
+
+                </div>
+
+
+                <div class="chart-area">
+
+                    <div class="chart-legend">
+
+                        <div class="legend-item">
+                            <span class="legend-line"></span>
+                            STRESS
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-line alt"></span>
+                            FATIGUE
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <svg
+                            viewBox="0 0 1000 300"
+                            preserveAspectRatio="none"
+                        >
+
+                            <!-- Stress -->
+
+                            <polyline
+                                points="
+                                0,205
+                                70,190
+                                140,200
+                                210,175
+                                280,165
+                                350,178
+                                420,150
+                                490,158
+                                560,130
+                                630,145
+                                700,120
+                                770,140
+                                840,112
+                                910,125
+                                1000,105
+                                "
+                                fill="none"
+                                stroke="rgba(183,210,160,0.95)"
+                                stroke-width="2"
+                            />
+
+                            <!-- Fatigue -->
+
+                            <polyline
+                                points="
+                                0,240
+                                70,225
+                                140,235
+                                210,215
+                                280,220
+                                350,205
+                                420,215
+                                490,190
+                                560,205
+                                630,180
+                                700,192
+                                770,170
+                                840,185
+                                910,165
+                                1000,175
+                                "
+                                fill="none"
+                                stroke="rgba(255,255,255,0.34)"
+                                stroke-width="1.5"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div class="chart-labels">
+
+                        <span>00:00</span>
+                        <span>04:00</span>
+                        <span>08:00</span>
+                        <span>12:00</span>
+                        <span>16:00</span>
+                        <span>20:00</span>
+                        <span>NOW</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI ANALYSIS -->
+
+            <aside class="monitor-card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        AI ANALYSIS
+                    </div>
+
+                    <div class="card-code">
+                        WF-AI
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-body">
+
+                    <div class="ai-badge">
+                        PATTERN ENGINE ACTIVE
+                    </div>
+
+
+                    <div class="analysis-title">
+                        Stable pattern detected.
+                    </div>
+
+
+                    <p class="analysis-text">
+                        Current indicators show moderate stress with
+                        comparatively low fatigue. Recovery signals
+                        remain within the observed baseline for this
+                        demonstration.
+                    </p>
+
+
+                    <!-- FACTOR 1 -->
+
+                    <div class="factor">
+
+                        <div class="factor-top">
+
+                            <span class="factor-name">
+                                Sleep contribution
+                            </span>
+
+                            <span class="factor-value">
+                                72%
+                            </span>
+
+                        </div>
+
+                        <div class="factor-bar">
+                            <div
+                                class="factor-fill"
+                                style="width:72%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- FACTOR 2 -->
+
+                    <div class="factor">
+
+                        <div class="factor-top">
+
+                            <span class="factor-name">
+                                Duty load
+                            </span>
+
+                            <span class="factor-value">
+                                46%
+                            </span>
+
+                        </div>
+
+                        <div class="factor-bar">
+                            <div
+                                class="factor-fill"
+                                style="width:46%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- FACTOR 3 -->
+
+                    <div class="factor">
+
+                        <div class="factor-top">
+
+                            <span class="factor-name">
+                                Recovery quality
+                            </span>
+
+                            <span class="factor-value">
+                                81%
+                            </span>
+
+                        </div>
+
+                        <div class="factor-bar">
+                            <div
+                                class="factor-fill"
+                                style="width:81%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ALERTS -->
+
+                    <div class="alerts">
+
+                        <div class="alert-item">
+
+                            <span class="alert-icon"></span>
+
+                            <div class="alert-text">
+
+                                <strong>
+                                    NO HIGH-RISK PATTERN
+                                </strong>
+
+                                <span>
+                                    No simulated threshold crossing
+                                    detected in the current window.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert-item">
+
+                            <span class="alert-icon"></span>
+
+                            <div class="alert-text">
+
+                                <strong>
+                                    RECOVERY SIGNAL STABLE
+                                </strong>
+
+                                <span>
+                                    Recovery indicator remains above
+                                    the demonstration baseline.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- DISCLAIMER -->
+
+        <div class="monitor-note">
+
+            <strong>PROTOTYPE NOTICE:</strong>
+            The indicators and AI analysis shown on this page are
+            simulated demonstration data for the AEGIS prototype.
+            They do not constitute medical diagnosis, psychological
+            diagnosis, or operational fitness assessment.
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /*
+        ============================================================
+        AEGIS — STRESS MONITOR DEMO
+        ============================================================
+
+        These values are intentionally simulated.
+
+        Later, this section can be replaced with:
+        - actual ML model output
+        - locally stored wellness history
+        - approved wearable health signals
+        - real fatigue prediction logic
+        ============================================================
+        */
+
+
+        const stressScore = 38;
+        const fatigueScore = 29;
+        const recoveryScore = 74;
+
+
+        document.getElementById("stressFill").style.width =
+            stressScore + "%";
+
+        document.getElementById("fatigueFill").style.width =
+            fatigueScore + "%";
+
+        document.getElementById("recoveryFill").style.width =
+            recoveryScore + "%";
+
+
+        /*
+            Display current local time.
+        */
+
+        function updateClock() {
+
+            const now = new Date();
+
+            const hours = String(
+                now.getHours()
+            ).padStart(2, "0");
+
+            const minutes = String(
+                now.getMinutes()
+            ).padStart(2, "0");
+
+            document.getElementById("updateTime")
+                .textContent = `${hours}:${minutes} LOCAL`;
+
+        }
+
+
+        updateClock();
+
+    </script>
+
+    <script src="auth-guard.js"></script>
+
+</body>
+</html>

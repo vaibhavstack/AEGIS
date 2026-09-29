@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS — Health Screening</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #F5F7F2;
+            --panel: #FFFFFF;
+            --panel-2: #F8FAF7;
+            --border: rgba(183, 210, 160, 0.16);
+            --accent: #b7d2a0;
+            --accent-soft: rgba(183, 210, 160, 0.10);
+            --text: #e9eee5;
+            --muted: #8e9889;
+            --danger: #d88989;
+            --warning: #d7bd79;
+            --good: #9fca91;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 80% 15%, rgba(183, 210, 160, 0.07), transparent 28%),
+                radial-gradient(circle at 15% 80%, rgba(183, 210, 160, 0.035), transparent 25%),
+                var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.25;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%);
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            width: 100%;
+            height: 82px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+            background: rgba(8, 10, 8, 0.82);
+            backdrop-filter: blur(14px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+            display: grid;
+            place-items: center;
+        }
+
+        .brand-mark::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-family: "DM Mono", monospace;
+            font-size: 15px;
+            letter-spacing: 0.18em;
+        }
+
+        .brand-sub {
+            color: var(--muted);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            margin-top: 3px;
+        }
+
+        .nav-status {
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 0.12em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(183, 210, 160, 0.8);
+        }
+
+        /* MAIN */
+
+        .page {
+            width: min(1400px, 88%);
+            margin: 0 auto;
+            padding: 90px 0 100px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            margin-bottom: 22px;
+        }
+
+        .hero {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(58px, 8vw, 112px);
+            font-weight: 500;
+            line-height: 0.88;
+            letter-spacing: -0.045em;
+            margin-bottom: 34px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* SYSTEM BAR */
+
+        .system-bar {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .system-item {
+            padding: 19px 20px;
+            border-right: 1px solid var(--border);
+        }
+
+        .system-item:last-child {
+            border-right: none;
+        }
+
+        .system-label {
+            color: var(--muted);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .system-value {
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            color: var(--accent);
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-top: 80px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* SCREENING GRID */
+
+        .screening-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .health-card {
+            min-height: 220px;
+            padding: 27px;
+            border: 1px solid var(--border);
+            background:
+                linear-gradient(145deg, rgba(183,210,160,0.035), transparent 60%),
+                var(--panel);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        .health-card:hover {
+            border-color: rgba(183,210,160,0.38);
+            transform: translateY(-3px);
+        }
+
+        .health-card::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -55px;
+            bottom: -55px;
+            border: 1px solid rgba(183,210,160,0.09);
+            border-radius: 50%;
+        }
+
+        .health-icon {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            margin-bottom: 24px;
+        }
+
+        .health-card h3 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .health-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .health-value {
+            margin-top: 25px;
+            font-family: "DM Mono", monospace;
+            font-size: 25px;
+            color: var(--accent);
+        }
+
+        .health-unit {
+            color: var(--muted);
+            font-size: 10px;
+            margin-left: 5px;
+        }
+
+        .health-status {
+            margin-top: 8px;
+            color: var(--good);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+        }
+
+        /* EYE SCREENING */
+
+        .eye-panel {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 14px;
+        }
+
+        .eye-test,
+        .eye-result {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            padding: 35px;
+        }
+
+        .eye-test h3,
+        .eye-result h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .eye-test p,
+        .eye-result p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .vision-display {
+            margin: 35px 0;
+            min-height: 170px;
+            border: 1px solid var(--border);
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle, rgba(183,210,160,0.05), transparent 50%);
+        }
+
+        .vision-display::before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: rgba(183,210,160,0.08);
+        }
+
+        .vision-display::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(183,210,160,0.08);
+        }
+
+        .vision-letter {
+            font-family: "DM Mono", monospace;
+            font-size: 76px;
+            color: var(--accent);
+            position: relative;
+            z-index: 2;
+        }
+
+        .vision-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .vision-btn {
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            padding: 11px 16px;
+            cursor: pointer;
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            transition: 0.2s ease;
+        }
+
+        .vision-btn:hover,
+        .vision-btn.active {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .vision-score {
+            margin-top: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .score-number {
+            font-family: "Playfair Display", serif;
+            font-size: 65px;
+            color: var(--accent);
+        }
+
+        .score-label {
+            color: var(--muted);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+        }
+
+        .result-list {
+            margin-top: 25px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(183,210,160,0.08);
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+        }
+
+        .result-row span:first-child {
+            color: var(--muted);
+        }
+
+        .result-row span:last-child {
+            color: var(--accent);
+        }
+
+        /* WEARABLE */
+
+        .wearable {
+            margin-top: 14px;
+            padding: 38px;
+            border: 1px solid var(--border);
+            background:
+                linear-gradient(120deg, rgba(183,210,160,0.055), transparent 55%),
+                var(--panel);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .wearable-label {
+            color: var(--accent);
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 0.13em;
+            margin-bottom: 14px;
+        }
+
+        .wearable h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .wearable p {
+            max-width: 680px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 12px;
+        }
+
+        .connect-btn {
+            padding: 16px 25px;
+            border: 1px solid var(--accent);
+            background: var(--accent);
+            color: #0b0d0b;
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .connect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(183,210,160,0.13);
+        }
+
+        .wearable-status {
+            display: none;
+            margin-top: 18px;
+            color: var(--accent);
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+        }
+
+        /* SECURITY */
+
+        .security-panel {
+            margin-top: 14px;
+            padding: 27px 30px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(183,210,160,0.025);
+        }
+
+        .security-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .security-icon {
+            width: 35px;
+            height: 35px;
+            border: 1px solid var(--accent);
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+        }
+
+        .security-text strong {
+            display: block;
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .security-text span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .security-tag {
+            font-family: "DM Mono", monospace;
+            color: var(--accent);
+            font-size: 9px;
+            letter-spacing: 0.1em;
+        }
+
+        /* FOOTER */
+
+        footer {
+            width: min(1400px, 88%);
+            margin: 0 auto;
+            padding: 35px 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+            .screening-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .eye-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .system-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .system-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .system-item:nth-child(-n+2) {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-status {
+                display: none;
+            }
+
+            .page {
+                width: 90%;
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+            }
+
+            .screening-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .system-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .system-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .system-item:last-child {
+                border-bottom: none;
+            }
+
+            .wearable {
+                grid-template-columns: 1fr;
+            }
+
+            .security-panel {
+                align-items: flex-start;
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-mark"></div>
+
+            <div>
+                <div class="brand-name">AEGIS</div>
+                <div class="brand-sub">PERSONNEL WELFARE INTELLIGENCE</div>
+            </div>
+        </div>
+
+        <nav class="module-nav" aria-label="AEGIS modules">
+            <a href="index.html">HOME</a>
+            <a href="wellness.html">WELLNESS</a>
+            <a href="stress.html">STRESS</a>
+            <a href="health.html">HEALTH</a>
+            <a href="family.html">FAMILY</a>
+            <a href="mental.html">MENTAL</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            LOCAL SECURE NODE
+        </div>
+    </nav>
+
+
+    <main class="page">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="eyebrow">
+                MODULE 004 / HEALTH INTELLIGENCE
+            </div>
+
+            <h1>
+                HEALTH<br>
+                <span>SCREENING.</span>
+            </h1>
+
+            <p class="hero-description">
+                A dedicated health-monitoring layer for personnel welfare.
+                Screen key health indicators locally and optionally receive
+                health data from a compatible wearable device.
+            </p>
+
+        </section>
+
+
+        <!-- SYSTEM STATUS -->
+        <div class="system-bar">
+
+            <div class="system-item">
+                <div class="system-label">SCREENING STATUS</div>
+                <div class="system-value">READY</div>
+            </div>
+
+            <div class="system-item">
+                <div class="system-label">PROCESSING MODE</div>
+                <div class="system-value">LOCAL / OFFLINE</div>
+            </div>
+
+            <div class="system-item">
+                <div class="system-label">WEARABLE LINK</div>
+                <div class="system-value">HEALTH ONLY</div>
+            </div>
+
+            <div class="system-item">
+                <div class="system-label">EXTERNAL CONNECTION</div>
+                <div class="system-value">DISABLED</div>
+            </div>
+
+        </div>
+
+
+        <!-- HEALTH INDICATORS -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    01 / HEALTH INDICATORS
+                </div>
+
+                <div class="section-description">
+                    Local health signal overview
+                </div>
+
+            </div>
+
+
+            <div class="screening-grid">
+
+                <div class="health-card">
+
+                    <div class="health-icon">HR</div>
+
+                    <h3>Heart Rate</h3>
+
+                    <p>
+                        Current resting heart-rate signal captured
+                        from an optional health wearable.
+                    </p>
+
+                    <div class="health-value">
+                        72
+                        <span class="health-unit">BPM</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● WITHIN REFERENCE RANGE
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-icon">O₂</div>
+
+                    <h3>Blood Oxygen</h3>
+
+                    <p>
+                        Peripheral oxygen saturation reading
+                        from the health monitoring layer.
+                    </p>
+
+                    <div class="health-value">
+                        98
+                        <span class="health-unit">%</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● NORMAL SIGNAL
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-icon">RR</div>
+
+                    <h3>Respiration</h3>
+
+                    <p>
+                        Respiratory-rate indicator available when
+                        supported by the connected health device.
+                    </p>
+
+                    <div class="health-value">
+                        15
+                        <span class="health-unit">/ MIN</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● STABLE
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-icon">TMP</div>
+
+                    <h3>Temperature</h3>
+
+                    <p>
+                        Body-temperature signal for identifying
+                        unusual changes requiring attention.
+                    </p>
+
+                    <div class="health-value">
+                        36.7
+                        <span class="health-unit">°C</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● STABLE
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-icon">SLP</div>
+
+                    <h3>Sleep Recovery</h3>
+
+                    <p>
+                        Sleep-related recovery information derived
+                        from locally available health data.
+                    </p>
+
+                    <div class="health-value">
+                        82
+                        <span class="health-unit">%</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● GOOD RECOVERY
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-icon">ACT</div>
+
+                    <h3>Activity Load</h3>
+
+                    <p>
+                        Physical activity load used to provide
+                        additional context to wellness monitoring.
+                    </p>
+
+                    <div class="health-value">
+                        64
+                        <span class="health-unit">%</span>
+                    </div>
+
+                    <div class="health-status">
+                        ● MODERATE LOAD
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EYE SCREENING -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    02 / VISION SCREENING
+                </div>
+
+                <div class="section-description">
+                    Basic visual acuity demonstration
+                </div>
+
+            </div>
+
+
+            <div class="eye-panel">
+
+                <div class="eye-test">
+
+                    <h3>Visual Acuity Check</h3>
+
+                    <p>
+                        A simple visual screening interface for the prototype.
+                        Select the direction of the opening in the symbol shown below.
+                    </p>
+
+                    <div class="vision-display">
+                        <div class="vision-letter" id="visionLetter">
+                            C
+                        </div>
+                    </div>
+
+                    <div class="vision-controls">
+
+                        <button class="vision-btn" onclick="visionAnswer('UP')">
+                            UP
+                        </button>
+
+                        <button class="vision-btn" onclick="visionAnswer('DOWN')">
+                            DOWN
+                        </button>
+
+                        <button class="vision-btn" onclick="visionAnswer('LEFT')">
+                            LEFT
+                        </button>
+
+                        <button class="vision-btn" onclick="visionAnswer('RIGHT')">
+                            RIGHT
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="eye-result">
+
+                    <h3>Screening Result</h3>
+
+                    <p>
+                        This demonstration records the interaction locally
+                        and updates the screening summary.
+                    </p>
+
+                    <div class="vision-score">
+
+                        <div class="score-number" id="visionScore">
+                            --
+                        </div>
+
+                        <div class="score-label">
+                            CURRENT VISION SCORE
+                        </div>
+
+                    </div>
+
+                    <div class="result-list">
+
+                        <div class="result-row">
+                            <span>RESPONSES</span>
+                            <span id="visionResponses">0</span>
+                        </div>
+
+                        <div class="result-row">
+                            <span>CORRECT</span>
+                            <span id="visionCorrect">0</span>
+                        </div>
+
+                        <div class="result-row">
+                            <span>STATUS</span>
+                            <span id="visionStatus">NOT STARTED</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WEARABLE -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div class="section-title">
+                    03 / HEALTH DEVICE LINK
+                </div>
+
+                <div class="section-description">
+                    Optional wearable integration
+                </div>
+
+            </div>
+
+
+            <div class="wearable">
+
+                <div>
+
+                    <div class="wearable-label">
+                        HEALTH-ONLY CONNECTION
+                    </div>
+
+                    <h3>
+                        CONNECT A WEARABLE.
+                    </h3>
+
+                    <p>
+                        AEGIS can be designed to receive selected health
+                        measurements from a compatible smartwatch or wearable.
+                        The connection is limited to health-related information
+                        such as heart rate, oxygen saturation, sleep and activity.
+                        No general device access is required by this module.
+                    </p>
+
+                    <div class="wearable-status" id="wearableStatus">
+                        ● DEMO DEVICE CONNECTED — HEALTH CHANNEL ACTIVE
+                    </div>
+
+                </div>
+
+                <button class="connect-btn" onclick="connectWearable()">
+                    CONNECT DEVICE
+                </button>
+
+            </div>
+
+
+            <!-- SECURITY -->
+            <div class="security-panel">
+
+                <div class="security-left">
+
+                    <div class="security-icon">
+                        SEC
+                    </div>
+
+                    <div class="security-text">
+
+                        <strong>
+                            LOCAL HEALTH DATA PROTECTION
+                        </strong>
+
+                        <span>
+                            Prototype data remains on this device.
+                            No external health-data transmission is enabled.
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="security-tag">
+                    HEALTH DATA ONLY / OFFLINE FIRST
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div>
+            AEGIS / PERSONNEL WELFARE INTELLIGENCE
+        </div>
+
+        <div>
+            MODULE 004 / HEALTH SCREENING
+        </div>
+
+        <div>
+            LOCAL PROTOTYPE
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        /* ==========================================
+           VISION SCREENING
+        ========================================== */
+
+        const visionLetters = [
+            { letter: "C", answer: "RIGHT" },
+            { letter: "◐", answer: "LEFT" },
+            { letter: "◓", answer: "RIGHT" },
+            { letter: "◒", answer: "UP" },
+            { letter: "◓", answer: "DOWN" }
+        ];
+
+        let currentVisionIndex = 0;
+        let visionResponses = 0;
+        let visionCorrect = 0;
+
+
+        function visionAnswer(answer) {
+
+            const current = visionLetters[currentVisionIndex];
+
+            visionResponses++;
+
+            if (answer === current.answer) {
+                visionCorrect++;
+            }
+
+            updateVisionScore();
+
+            currentVisionIndex++;
+
+            if (currentVisionIndex >= visionLetters.length) {
+                currentVisionIndex = 0;
+            }
+
+            document.getElementById("visionLetter").textContent =
+                visionLetters[currentVisionIndex].letter;
+        }
+
+
+        function updateVisionScore() {
+
+            document.getElementById("visionResponses").textContent =
+                visionResponses;
+
+            document.getElementById("visionCorrect").textContent =
+                visionCorrect;
+
+            if (visionResponses === 0) {
+
+                document.getElementById("visionScore").textContent = "--";
+
+                document.getElementById("visionStatus").textContent =
+                    "NOT STARTED";
+
+                return;
+            }
+
+            const score = Math.round(
+                (visionCorrect / visionResponses) * 100
+            );
+
+            document.getElementById("visionScore").textContent =
+                score;
+
+            let status = "";
+
+            if (score >= 80) {
+                status = "STABLE";
+            } else if (score >= 60) {
+                status = "MONITOR";
+            } else {
+                status = "SCREENING REQUIRED";
+            }
+
+            document.getElementById("visionStatus").textContent =
+                status;
+        }
+
+
+        /* ==========================================
+           WEARABLE DEMO
+        ========================================== */
+
+        function connectWearable() {
+
+            const status =
+                document.getElementById("wearableStatus");
+
+            status.style.display = "block";
+
+            status.textContent =
+                "● DEMO DEVICE CONNECTED — HEALTH CHANNEL ACTIVE";
+
+            localStorage.setItem(
+                "aegisWearableConnected",
+                "true"
+            );
+        }
+
+
+        /* ==========================================
+           LOAD LOCAL DEVICE STATUS
+        ========================================== */
+
+        window.addEventListener("DOMContentLoaded", () => {
+
+            const connected =
+                localStorage.getItem("aegisWearableConnected");
+
+            if (connected === "true") {
+
+                document.getElementById(
+                    "wearableStatus"
+                ).style.display = "block";
+
+            }
+
+        });
+
+    </script>
+
+    <script src="auth-guard.js"></script>
+
+</body>
+</html>

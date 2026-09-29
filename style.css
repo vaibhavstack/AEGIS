@@ -1,0 +1,1532 @@
+/* =========================================================
+   AEGIS
+   PERSONNEL WELFARE INTELLIGENCE
+    CALM SAGE + MIST WELLNESS THEME
+   ========================================================= */
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+    --bg: #F5F7F2;
+    --bg-soft: #EDF2EC;
+    --white: #ffffff;
+
+    --gold: #78927A;
+    --gold-dark: #4F6855;
+    --gold-light: #DCE7DC;
+    --gold-pale: #EAF0E8;
+
+    --text: #28332C;
+    --text-soft: #59665E;
+    --text-muted: #87928B;
+
+    --border: #D8E0D8;
+    --border-gold: rgba(120, 146, 122, 0.35);
+
+    --green: #6F9075;
+
+    --shadow-small:
+        0 6px 20px rgba(70, 58, 40, 0.06);
+
+    --shadow:
+        0 18px 50px rgba(70, 58, 40, 0.09);
+
+    --shadow-large:
+        0 30px 80px rgba(70, 58, 40, 0.13);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(232, 216, 181, 0.38),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(198, 161, 91, 0.10),
+            transparent 28%
+        ),
+        var(--bg);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+::selection {
+    background: var(--gold-light);
+    color: var(--text);
+}
+
+
+/* =========================================================
+   BACKGROUND EFFECTS
+   ========================================================= */
+
+.noise {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -3;
+
+    pointer-events: none;
+
+    opacity: 0.18;
+
+    background-image:
+        radial-gradient(
+            rgba(80, 65, 40, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 5px 5px;
+}
+
+.grid {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -2;
+
+    pointer-events: none;
+
+    opacity: 0.32;
+
+    background-image:
+        linear-gradient(
+            rgba(198, 161, 91, 0.055) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(198, 161, 91, 0.055) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 80%
+        );
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 80%
+        );
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    width: 100%;
+
+    padding:
+        25px
+        clamp(25px, 5vw, 80px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid
+        rgba(198, 161, 91, 0.20);
+
+    background:
+        rgba(255, 255, 255, 0.72);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    position: relative;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.brand-mark {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        var(--gold);
+
+    color: var(--gold-dark);
+
+    background:
+        radial-gradient(
+            circle,
+            #fff,
+            var(--gold-pale)
+        );
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    box-shadow:
+        0 0 0 6px
+        rgba(198, 161, 91, 0.06);
+}
+
+.brand-name {
+    color: var(--text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.22em;
+}
+
+.brand-subtitle {
+    margin-top: 3px;
+
+    color: var(--text-muted);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* =========================================================
+   SYSTEM STATUS
+   ========================================================= */
+
+.system-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--text-muted);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 0.14em;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 0 5px
+        rgba(102, 124, 99, 0.10);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    position: relative;
+
+    min-height: 720px;
+
+    padding:
+        90px
+        clamp(25px, 7vw, 110px)
+        110px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(720px, 100%);
+}
+
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.eyebrow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--gold-dark);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+
+    width: 32px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--gold),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   HERO TITLE
+   ========================================================= */
+
+.hero h1 {
+    margin-top: 22px;
+
+    color: var(--text);
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(4.2rem, 9vw, 8.8rem);
+
+    font-weight: 500;
+
+    line-height: 0.88;
+
+    letter-spacing: -0.045em;
+}
+
+.hero h1 span {
+    display: block;
+
+    color: var(--gold-dark);
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+   ========================================================= */
+
+.hero-description {
+    max-width: 590px;
+
+    margin-top: 30px;
+
+    color: var(--text-soft);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+    margin-top: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    min-height: 48px;
+
+    padding:
+        0 23px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.primary-btn {
+    color: #fff;
+
+    border:
+        1px solid
+        var(--gold-dark);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-dark),
+            var(--gold)
+        );
+
+    box-shadow:
+        0 12px 25px
+        rgba(159, 122, 61, 0.18);
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 17px 35px
+        rgba(159, 122, 61, 0.24);
+}
+
+.primary-btn span {
+    font-size: 15px;
+}
+
+.secondary-btn {
+    color: var(--text);
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255, 255, 255, 0.78);
+}
+
+.secondary-btn:hover {
+    transform: translateY(-2px);
+
+    color: var(--gold-dark);
+
+    border-color: var(--gold);
+
+    background: var(--gold-pale);
+}
+
+
+/* =========================================================
+   SECURITY LINE
+   ========================================================= */
+
+.security-line {
+    margin-top: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    color: var(--text-muted);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+.security-line span {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   HERO RADAR
+   ========================================================= */
+
+.hero-visual {
+    position: absolute;
+
+    right:
+        clamp(-140px, -5vw, -50px);
+
+    top: 50%;
+
+    width:
+        clamp(420px, 47vw, 650px);
+
+    height:
+        clamp(420px, 47vw, 650px);
+
+    transform: translateY(-50%);
+
+    opacity: 0.9;
+
+    pointer-events: none;
+}
+
+.radar {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(232, 216, 181, 0.16),
+            transparent 60%
+        );
+}
+
+.radar-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border:
+        1px solid
+        rgba(198, 161, 91, 0.22);
+
+    border-radius: 50%;
+}
+
+.ring-1 {
+    width: 25%;
+    height: 25%;
+}
+
+.ring-2 {
+    width: 48%;
+    height: 48%;
+}
+
+.ring-3 {
+    width: 72%;
+    height: 72%;
+}
+
+.ring-4 {
+    width: 94%;
+    height: 94%;
+}
+
+
+/* =========================================================
+   RADAR CROSS
+   ========================================================= */
+
+.radar-cross {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        rgba(198, 161, 91, 0.15);
+}
+
+.radar-cross.horizontal {
+    width: 94%;
+    height: 1px;
+}
+
+.radar-cross.vertical {
+    width: 1px;
+    height: 94%;
+}
+
+
+/* =========================================================
+   RADAR SWEEP
+   ========================================================= */
+
+.radar-sweep {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 47%;
+    height: 47%;
+
+    transform-origin: 0% 0%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            rgba(198, 161, 91, 0.16) 18deg,
+            transparent 32deg
+        );
+
+    animation:
+        radarRotate 8s linear infinite;
+}
+
+@keyframes radarRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   RADAR CENTER
+   ========================================================= */
+
+.radar-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 74px;
+    height: 74px;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.95),
+            rgba(244, 236, 217, 0.85)
+        );
+
+    border:
+        1px solid
+        rgba(198, 161, 91, 0.40);
+
+    box-shadow:
+        0 0 45px
+        rgba(198, 161, 91, 0.18);
+}
+
+.center-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--gold-dark);
+
+    box-shadow:
+        0 0 0 7px
+        rgba(198, 161, 91, 0.10);
+}
+
+
+/* =========================================================
+   RADAR POINTS
+   ========================================================= */
+
+.radar-point {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--gold-dark);
+
+    box-shadow:
+        0 0 0 6px
+        rgba(198, 161, 91, 0.10);
+}
+
+.point-1 {
+    left: 26%;
+    top: 31%;
+}
+
+.point-2 {
+    right: 21%;
+    top: 42%;
+}
+
+.point-3 {
+    left: 35%;
+    bottom: 21%;
+}
+
+
+/* =========================================================
+   VISUAL LABELS
+   ========================================================= */
+
+.visual-label {
+    position: absolute;
+
+    color: var(--text-muted);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+.label-top {
+    top: 19%;
+    left: 14%;
+}
+
+.label-bottom {
+    right: 14%;
+    bottom: 19%;
+}
+
+
+/* =========================================================
+   MODULE SECTION
+   ========================================================= */
+
+.modules-section {
+    position: relative;
+
+    padding:
+        100px
+        clamp(25px, 7vw, 110px)
+        120px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.50),
+            rgba(244, 240, 232, 0.70)
+        );
+}
+
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.section-heading {
+    max-width: 700px;
+
+    margin-bottom: 45px;
+}
+
+.section-heading h2 {
+    margin-top: 16px;
+
+    color: var(--text);
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(2.7rem, 5vw, 5rem);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+}
+
+.section-heading h2 span {
+    display: block;
+
+    color: var(--gold-dark);
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   MODULE GRID
+   ========================================================= */
+
+.modules-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   MODULE CARD
+   ========================================================= */
+
+.module-card {
+    position: relative;
+
+    min-height: 260px;
+
+    padding: 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fbf9f5
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 25px;
+
+    box-shadow:
+        var(--shadow-small);
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.module-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        var(--border-gold);
+
+    box-shadow: var(--shadow);
+}
+
+.module-card:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   MODULE NUMBER
+   ========================================================= */
+
+.module-number {
+    color: var(--gold-dark);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 0.15em;
+}
+
+
+/* =========================================================
+   MODULE ICON
+   ========================================================= */
+
+.module-icon {
+    width: 45px;
+    height: 45px;
+
+    margin-top: 25px;
+    margin-bottom: 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color: var(--gold-dark);
+
+    background:
+        var(--gold-pale);
+
+    border:
+        1px solid
+        rgba(198, 161, 91, 0.23);
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   MODULE TITLE
+   ========================================================= */
+
+.module-card h3 {
+    color: var(--text);
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    letter-spacing: -0.01em;
+}
+
+.module-card p {
+    max-width: 280px;
+
+    margin-top: 9px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   MODULE ARROW
+   ========================================================= */
+
+.module-arrow {
+    margin-top: auto;
+
+    align-self: flex-end;
+
+    color: var(--gold-dark);
+
+    font-size: 20px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.module-card:hover .module-arrow {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    padding:
+        30px
+        clamp(25px, 7vw, 110px);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        auto;
+
+    align-items: center;
+
+    gap: 25px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255, 255, 255, 0.75);
+
+    color: var(--text-muted);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+footer div:first-child {
+    color: var(--text);
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        rgba(42, 37, 29, 0.38);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+    position: relative;
+
+    width: min(680px, 100%);
+
+    padding: 45px;
+
+    border:
+        1px solid
+        rgba(198, 161, 91, 0.35);
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #faf6ed
+        );
+
+    box-shadow:
+        var(--shadow-large);
+
+    animation:
+        modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.close-btn {
+    position: absolute;
+
+    top: 17px;
+    right: 18px;
+
+    width: 37px;
+    height: 37px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        var(--border);
+
+    background: #fff;
+
+    color: var(--text-soft);
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--gold-dark);
+
+    border-color: var(--gold);
+
+    background: var(--gold-pale);
+}
+
+
+/* =========================================================
+   MODAL HEADING
+   ========================================================= */
+
+.modal h2 {
+    margin-top: 18px;
+
+    color: var(--text);
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(2.3rem, 5vw, 4rem);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+}
+
+.modal h2 span {
+    display: block;
+
+    color: var(--gold-dark);
+
+    font-style: italic;
+}
+
+.modal > p {
+    margin-top: 20px;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   BRIEF GRID
+   ========================================================= */
+
+.brief-grid {
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.brief-grid > div {
+    padding: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255, 255, 255, 0.75);
+}
+
+.brief-grid strong {
+    color: var(--gold-dark);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 10px;
+}
+
+.brief-grid span {
+    color: var(--text-soft);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.10em;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero-visual {
+        right: -190px;
+
+        opacity: 0.42;
+    }
+
+    .modules-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding:
+            18px 18px;
+    }
+
+    .brand-name {
+        font-size: 13px;
+    }
+
+    .brand-subtitle {
+        font-size: 7px;
+    }
+
+    .system-status {
+        display: none;
+    }
+
+    .hero {
+        min-height: 670px;
+
+        padding:
+            70px 20px
+            80px;
+    }
+
+    .hero h1 {
+        font-size:
+            clamp(3.7rem, 17vw, 5.5rem);
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        align-items: stretch;
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+
+    .security-line {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+    }
+
+    .security-line span {
+        display: none;
+    }
+
+    .hero-visual {
+        width: 430px;
+        height: 430px;
+
+        right: -205px;
+
+        top: 54%;
+
+        opacity: 0.22;
+    }
+
+    .modules-section {
+        padding:
+            75px 20px
+            85px;
+    }
+
+    .section-heading h2 {
+        font-size:
+            clamp(2.5rem, 13vw, 4rem);
+    }
+
+    .modules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .module-card {
+        min-height: 235px;
+    }
+
+    footer {
+        padding:
+            30px 20px;
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .modal {
+        padding:
+            35px 23px;
+    }
+
+    .brief-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+    }
+
+    .brand-name {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding-top: 55px;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .module-card {
+        padding: 23px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible {
+    outline:
+        2px solid
+        var(--gold);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}
